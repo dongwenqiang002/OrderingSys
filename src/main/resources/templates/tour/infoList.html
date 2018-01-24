@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+<div th:include="/page/head :: head"></div>
+<div class="panel-body">
+    <div th:include="/page/head :: leftNav"></div>
+
+    <div class="panel-body" style="height: 70%">
+        <div class="panel-head">
+            <center><h1>旅游信息</h1></center>
+        </div>
+        <table class="table table-bordered" style="width: 70%;margin-left: 20%">
+            <!--/*@thymesVar id="lists" type="pers.dwq.network.app.pojo.TourInfo"*/-->
+            <!--<a th:if="${i.index} %4 == 0" >-->
+            <a>
+            <tr th:each="list,i : ${lists}">
+                <!--<tr th:if="${i.index} %4 == 0"></tr>-->
+                <td th:each="info,i : ${list}">
+                    <div th:include="page/tour::info(${info})"></div>
+                </td>
+            </tr>
+            </a>
+
+
+            <!-- <tr>
+                 <td><div th:include="page/tour::info"></div></td>
+                 <td><div th:include="page/tour::info"></div></td>
+             </tr>　　-->
+        </table>
+
+    </div>
+    <div class="panel-footer" style="text-align:center;">
+        <ul class="pagination ">
+            <li>
+                <a href="#">Prev</a>
+            </li>
+            <li>
+                <a href="#">1</a>
+            </li>
+            <li>
+                <a href="#">2</a>
+            </li>
+            <li>
+                <a href="#">3</a>
+            </li>
+            <li>
+                <a href="#">4</a>
+            </li>
+            <li>
+                <a href="#">5</a>
+            </li>
+            <li>
+                <a href="#">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

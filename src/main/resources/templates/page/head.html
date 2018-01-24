@@ -1,0 +1,121 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="login">
+    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width: 410px; margin-top: 15%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">请登录</h4>
+                </div>
+                <div class="modal-body"><!--
+                    用户名:name&#45;&#45;密码:password&#45;&#45;-->
+                    <form class="bs-example bs-example-form" role="form" th:action="@{/user/login}" method="post">
+                        <div class="col-lg-11 text-center text-info">
+                            <h2>请登录</h2>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon "> <span class="glyphicon glyphicon-user"></span></span>
+                            <input name="name" type="text" class="form-control" placeholder="用户名"/>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon "><span class="glyphicon glyphicon-lock"></span></span>
+                            <input name="password" type="password" class="form-control" placeholder="密码"/>
+                        </div>
+                        <div>
+                            <div class="checkbox ">
+                                <label><input type="checkbox"/>记住密码</label>
+                                <button type="button" class="btn btn-default navbar-right" style="margin-right: 10%"
+                                        data-dismiss="modal"><a th:href="@{/register.html}">注册</a></button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div id="error_user" class="alert alert-dismissable alert-danger" style="display:none">
+                            <strong>账号获密码错误</strong> 请检查你的输入 <a href="#" class="alert-link"></a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button id="toLogin" type="button" class="btn btn-primary">登录</button>
+                            <script>$("#toLogin").click(function () {//button的click事件
+                                $.post('/user/login', $("form").serialize(), function (data) {
+                                    console.log(data);
+                                    if (data == "true") {
+                                        window.location.href = "/";
+                                    } else {
+                                        $('#error_user').show();
+                                    }
+                                });
+                            });</script>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                     <button type="submit" class="btn btn-primary">登录</button>
+                 </div>-->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--网站底部-->
+    <div id="footer" class="container">
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="navbar-inner navbar-content-center">
+                <p class="text-muted credit" style="padding: 10px;">
+
+                </p>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div th:fragment="head">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+
+            <div class="navbar-header">
+                <a id="time1" href="#" class="navbar-brand " style="color: #0f0f0f;"></a>
+                <script>
+                    function mytime() {
+                        var a = new Date();
+                        var b = a.toLocaleTimeString();
+                        var c = a.toLocaleDateString();
+                        document.getElementById("time1").innerHTML = c + "&nbsp;" + b;
+                    }
+
+                    mytime();
+                    setInterval(function () {
+                        mytime()
+                    }, 1000);
+                </script>
+            </div>
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="/"><span class="glyphicon glyphicon-user"></span> 首页</a></li>
+            </ul>
+            <div th:include="page/user_info :: user_info(${session.user})"></div>
+        </div>
+    </nav>
+    <div th:if="${session.user} == null">
+        <div th:include="page/head::login"></div>
+    </div>
+
+</div>
+
+<div th:fragment="leftNav">
+    <div id="left_nav_box" class="panel-body " style="margin: 3% 0  0 3%;float: left">
+        <ul class="nav nav-pills nav-stacked" style="width: 150px;">
+            <li class="active"><a href="#">首页</a></li>
+            <li><a href="/tour/infoList" class="disabled">旅行信息</a></li>
+            <li><a href="/tour/addInfo" class="disabled">发布旅游信息</a></li>
+            <li><a href="#" class="disabled">航班信息</a></li>
+            <li><a href="#" class="disabled">景点</a></li>
+        </ul>
+        <script>$('#left_nav_box>ul>li').mousemove(function ( ) {
+            console.log(this);
+            $('#left_nav_box>ul>li').removeClass();
+            $(this).addClass("active");
+        });
+        </script>
+    </div>
+</div>
+</html>

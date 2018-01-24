@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+<div th:include="/page/head :: head"></div>
+
+<div class="container">
+    <div class="panel-body"></div>
+    <div class="col-md-6 col-md-offset-3">
+       <h1>发布旅游信息</h1>
+        <form  enctype="multipart/form-data" method="post" action="/tour/tourInfoAdd">
+            <table class="table" style="font-size: 22px">
+                <tr>
+                    <td>供应商:</td><td><input name="sup"/></td>
+                </tr>
+                <tr>
+                    <td>摘要:</td><td><input name="title" /></td>
+                </tr>
+                <tr>
+                    <td>内容:</td><td><textarea name="text" cols="20" rows="10" style="width: 300px;height: 100px" ></textarea></td>
+                </tr>
+                <tr>
+                    <td>图片:</td><td><input name="pic" type="file"/></td>
+                </tr>
+                <tr>
+                    <td>价格:</td><td><input name="price" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="align-content: center"> <button type="submit" style="width: 50%  ">提交</button></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

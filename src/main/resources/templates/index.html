@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+<div th:include="page/head :: head"></div>
+
+<div id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+    </ol>
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img th:src="@{/img/r.png}" width="100%"/>
+        </div>
+        <div class="item">
+            <img th:src="@{/img/s.png}" width="100%"/>
+        </div>
+        <div class="item">
+            <img th:src="@{/img/t.png}" width="100%"/>
+        </div>
+        <div class="item">
+            <img th:src="@{/img/u.png}" width="100%"/>
+        </div>
+        <div class="item">
+            <img th:src="@{/img/v.png}" width="100%"/>
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="carousel-control left" href="#myCarousel"
+       data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel"
+       data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<!--左边导航-->
+<div th:include="/page/head :: leftNav"></div>
+
+</body>
+
+
+</html>
