@@ -8,66 +8,56 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<div id="wrap">
-    <!--顶栏-->
-    <nav class="navbar navbar-default navbar-fixed">
-        <!--<h1>网络订餐系统</h1>-->
-        <a class="right" href="#">登录</a>
-    </nav>
-    <!--底部-->
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="navbar-inner navbar-content-center" style="text-align:center;">
-            <p class="text-muted credit" style="padding: 10px;">
-            </p>
-            <h3>网站作者：董文强</h3>
-            <p>2018-01-16</p>
-        </div>
-    </nav>
+<!--顶栏-->
+<nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0">
+    <h1 class="radio-inline " href="#">登录</h1>
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="#">首页</a></li>
+        <li><a href="#">信息</a></li>
+        <li><a href="#">订单</a></li>
+    </ul>
+</nav>
+<div class=" container-fluid">
 
-    <div class=" container">
-
-        <div id="myCarousel" class="carousel slide">
-            <!-- 轮播（Carousel）指标 -->
+    <div class="row">
+        <div class="carousel slide" id="carousel-131307">
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li class="active" data-slide-to="0" data-target="#carousel-131307">&nbsp;</li>
+                <li data-slide-to="1" data-target="#carousel-131307">&nbsp;</li>
+                <li data-slide-to="2" data-target="#carousel-131307">&nbsp;</li>
             </ol>
-            <!-- 轮播（Carousel）项目 -->
             <div class="carousel-inner">
-                <div class="item active">
-                    <img src="img/r.png" width="100%">
+                <div class="item active"><img alt="" src="img/r.png"/>
                 </div>
-                <div class="item">
-                    <img src="img/s.png" width="100%">
+                <div class="item"><img alt="" src="img/v.png"/>
                 </div>
-                <div class="item">
-                    <img src="img/t.png" width="100%">
-                </div>
-                <div class="item">
-                    <img src="img/u.png" width="100%">
-                </div>
-                <div class="item">
-                    <img src="img/v.png" width="100%">
+                <div class="item"><img alt="" src="img/s.png"/>
                 </div>
             </div>
-            <!-- 轮播（Carousel）导航 -->
-            <a class="carousel-control left" href="#myCarousel"
-               data-slide="prev">&lsaquo;
-            </a>
-            <a class="carousel-control right" href="#myCarousel"
-               data-slide="next">&rsaquo;
-            </a>
-        </div>
-
+            <a class="left carousel-control" data-slide="prev" href="#carousel-131307">&lsaquo;</a>
+            <a class="right carousel-control" data-slide="next" href="#carousel-131307">&rsaquo;</a></div>
 
     </div>
-    <div id="push"></div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <h2>aaaa</h2>
+
+        </div>
+        <div class="col-md-3">
+            <h2>Sidebar</h2>
+            <ul class="nav nav-tabs nav-stacked">
+                <li><a href='#'>Another Link 1</a></li>
+                <li><a href='#'>Another Link 2</a></li>
+                <li><a href='#'>Another Link 3</a></li>
+            </ul>
+        </div>
+    </div>
+
+
 </div>
-
-
-
+<footer>
+    <div class="text-center py-2 lead">Copyright © 2018 - Joel Miguel Valente </div>
+</footer>
 </body>
 </html>

@@ -100,7 +100,7 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
 
     /**
      * c3p0数据库初始化
-     * */
+     */
     @PostConstruct
     public void init() {
         super.setJdbcUrl(dbUrl);
