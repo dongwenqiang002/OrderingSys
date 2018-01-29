@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<!--配置struts-->
+<servlet>
+	<servlet-name>struts</servlet-name>
+	<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+	<init-param>
+		<param-name>config</param-name>
+		<param-value>/WEB-INF/struts-config.xml</param-value>
+	</init-param>
+	<load-on-startup>0</load-on-startup>
+	<!-- 验证码 -->
+</servlet>
+  <servlet>
+    <servlet-name>ValidateCodeServlet</servlet-name>
+    <servlet-class>com.wireless.servlet.ValidateCodeServlet</servlet-class>
+     <init-param> 
+	<param-name>width</param-name> 
+	<param-value>200</param-value> 
+	</init-param> 
+	<init-param> 
+	<param-name>height</param-name> 
+	<param-value>80</param-value> 
+	</init-param> 
+	<init-param> 
+	<param-name>codeCount</param-name> 
+	<param-value>5</param-value> 
+	</init-param> 
+  </servlet>
+  <servlet>
+    <servlet-name>TableServlet</servlet-name>
+    <servlet-class>com.wireless.servlet.TableServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>OrderServlet</servlet-name>
+    <servlet-class>com.wireless.servlet.OrderServlet</servlet-class>
+  </servlet>
+
+
+
+<servlet-mapping>
+	<servlet-name>struts</servlet-name>
+	<url-pattern>*.do</url-pattern>
+</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ValidateCodeServlet</servlet-name>
+    <url-pattern>/ValidateCodeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TableServlet</servlet-name>
+    <url-pattern>/TableServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OrderServlet</servlet-name>
+    <url-pattern>/OrderServlet</url-pattern>
+  </servlet-mapping>
+ 
+<!-- 指定spring的配置文件，默认从web根目录寻找配置文件，我们可以通过spring提供的classpath:前缀指定从类路径下寻找 -->
+<context-param>
+   <param-name>contextConfigLocation</param-name>
+   <param-value>classpath:applicationContext.xml</param-value>
+</context-param>
+<!-- 对Spring容器进行实例化 -->
+<listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+
+<!-- 使用 spring框架自己提供的过滤器解决乱码 -->
+<filter>
+	<filter-name>encoding</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>encoding</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+<!-- 配置opensessioninview解决懒加载,本质一个过滤器. -->
+<filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+</filter>
+<filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

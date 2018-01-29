@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  <data-sources />
+  <form-beans >
+    <form-bean name="userForm" type="com.wireless.web.forms.UserForm" />
+    <form-bean name="tableForm" type="com.wireless.web.forms.TableForm" />
+    <form-bean name="menuForm" type="com.wireless.web.forms.MenuForm" />
+    <form-bean name="orderForm" type="com.wireless.web.forms.OrderForm" />
+    <form-bean name="orderDetailForm" type="com.wireless.web.forms.OrderDetailForm" />
+    
+	
+  </form-beans>
+
+  <global-exceptions />
+  <global-forwards />
+  <action-mappings >
+    <action
+      attribute="userForm"
+      input="/WEB-INF/views/login.jsp"
+      name="userForm"
+      parameter="flag"
+      path="/login"
+      scope="request"
+      type="com.wireless.web.action.LoginAction">
+      <set-property property="cancellable" value="false" />
+      <forward name="loginOK" path="/WEB-INF/views/index.jsp" />
+      <forward name="loginErr" path="/WEB-INF/views/login.jsp" />
+      <forward name="logout" path="/WEB-INF/views/login.jsp" />
+    </action>
+    <action
+      attribute="userForm"
+      input="/WEB-INF/views/index.jsp"
+      name="userForm"
+      parameter="flag"
+      path="/home"
+      scope="request"
+      type="com.wireless.web.action.HomeAction">
+      <set-property property="cancellable" value="true" />
+      <forward name="grzx" path="/WEB-INF/views/grzx.jsp" />
+      <forward name="loginOut" path="/WEB-INF/views/login.jsp" />
+      <forward name="home" path="/WEB-INF/views/index.jsp" />
+      
+    </action>
+    <action
+     attribute="tableForm"
+      input="/WEB-INF/views/index.jsp"
+      parameter="flag"
+      path="/table"
+      scope="request"
+      name="tableForm"
+      type="com.wireless.web.action.TableAction">
+      <set-property property="cancellable" value="false" />
+      <forward name="table" path="/WEB-INF/views/table/table.jsp" />
+      <forward name="tableEdit" path="/WEB-INF/views/table/tableEdit.jsp" />
+    </action>
+    <action
+      input="/WEB-INF/views/index.jsp"
+      parameter="flag"
+      path="/menu"
+      scope="request"
+      name="menuForm"
+      type="com.wireless.web.action.MenuAction">
+      <set-property property="cancellable" value="false" />
+      <forward name="menu" path="/WEB-INF/views/menu/menu.jsp" />
+      <forward name="menuAdd" path="/WEB-INF/views/menu/menuAdd.jsp" />
+      <forward name="menuEdit" path="/WEB-INF/views/menu/menuEdit.jsp" />
+       <forward name="menuPre" path="/WEB-INF/views/menu/menuPre.jsp" />
+    </action>
+    <action
+      attribute="orderForm"
+      name="orderForm"
+      parameter="flag"
+      path="/order"
+      scope="request"
+      type="com.wireless.web.action.OrderAction">
+      <set-property property="cancellable" value="true" />
+      <forward name="orderEdit" path="/WEB-INF/views/order/orderEdit.jsp" />
+      <forward name="orderPre" path="/WEB-INF/views/order/orderPre.jsp" />
+      <forward name="order" path="/WEB-INF/views/order/order.jsp" />
+      <forward name="orderAdd" path="/WEB-INF/views/order/orderAdd.jsp" />
+    </action>
+    
+
+  </action-mappings>
+	<!-- 配置请求处理器,就是把action的创建交给spring容器处理 -->
+  <controller>
+ <set-property property="processorClass" value="org.springframework.web.struts.DelegatingRequestProcessor"/>
+</controller> 
+  <message-resources parameter="com.wireless.struts.ApplicationResources" />
+</struts-config>
+
