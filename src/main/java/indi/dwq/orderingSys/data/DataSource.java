@@ -2,10 +2,12 @@ package indi.dwq.orderingSys.data;
 
 
 import com.mchange.v2.c3p0.AbstractComboPooledDataSource;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import javax.naming.Referenceable;
 import java.beans.PropertyVetoException;
@@ -14,15 +16,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.SQLException;
 
+@Configuration
+@MapperScan("indi.dwq.orderingSys.data.dao")
 @Component
 public class DataSource extends AbstractComboPooledDataSource implements Serializable, Referenceable {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
     private static final long serialVersionUID = 1L;
-
+    @Value("${data.url}")
     private String dbUrl = "jdbc:mysql://localhost:3306/network?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     private String username = "root";
     private String password = "root";
@@ -46,10 +49,10 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
     //#配置PreparedStatement缓存
     //#连接池为数据源缓存的PreparedStatement的总数。由于PreparedStatement属于单个Connection,所以这个数量应该根据应用中平均连接数乘以每个连接的平均PreparedStatement
     //#来计算。同时maxStatementsPerConnection的配置无效。default : 0（不建议使用）
-    private int maxStatements = 500;
+    private int maxStatements = 200;
     //#连接池为数据源单个Connection缓存的PreparedStatement数，这个配置比maxStatements更有意义，因为它缓存的服务对象是单个数据连接，
     // #如果设置的好，肯定是可以提高性能的。为0的时候不缓存。default : 0（看情况而论）
-    private int maxStatementsPerConnection = 30;
+    private int maxStatementsPerConnection = 0;
     /* #重连相关配置
     #acquireRetryAttempts：连接池在获得新连接失败时重试的次数，如果小于等于0则无限重试直至连接获得成功。default : 30（建议使用）*/
     private int acquireRetryAttempts = 5;
@@ -68,8 +71,16 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
     private int numHelperThreads = 10;
 
     @Override
-    public Connection getConnection() throws SQLException {
-        return super.getConnection();
+    public Connection getConnection() {
+        try {
+            return super.getConnection();
+        }catch (Exception e){
+            LOGGER.error("数据库connection对象失败: {}",e.getMessage());
+            LOGGER.error("url: {}",getJdbcUrl());
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public DataSource() {
@@ -102,14 +113,14 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
      * c3p0数据库初始化
      */
     @PostConstruct
-    public void init() {
+    public void initData() {
         super.setJdbcUrl(dbUrl);
         try {
             this.setDriverClass(this.driverClassName);
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        super.setDataSourceName("dataSource");
+        super.setDataSourceName("DataSource");
         super.setPassword(this.password);
         super.setUser(this.username);
         super.setInitialPoolSize(this.initialPoolSize);
@@ -117,7 +128,7 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
         super.setMaxPoolSize(this.maxPoolSize);
         super.setAcquireIncrement(this.acquireIncrement);
         super.setMaxIdleTime(this.maxIdleTime);
-        super.setIdleConnectionTestPeriod(this.idleConnectionTestPeriod);
+       super.setIdleConnectionTestPeriod(this.idleConnectionTestPeriod);
         super.setMaxStatements(this.maxStatements);
         super.setMaxStatementsPerConnection(this.maxStatementsPerConnection);
         super.setAcquireRetryAttempts(this.acquireRetryAttempts);
@@ -126,6 +137,11 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
         super.setCheckoutTimeout(this.checkoutTimeout);
         super.setAutoCommitOnClose(this.autoCommitOnClose);
         super.setNumHelperThreads(this.numHelperThreads);
+        try{
+            getConnection(this.username,this.password);
+        }catch (Exception e){
+            LOGGER.info("初始化数据库连接池");
+        }
     }
 
 

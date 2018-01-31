@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.dwq.orderingSys.data.dao.TableMapper">
+  <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.Table">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="Ord_id" jdbcType="INTEGER" property="ordId" />
+    <result column="num" jdbcType="VARCHAR" property="num" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, Ord_id, num, flag, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tabletbl
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tabletbl
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.Table">
+    insert into tabletbl (id, Ord_id, num, 
+      flag, description)
+    values (#{id,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, #{num,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.Table">
+    insert into tabletbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ordId != null">
+        Ord_id,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordId != null">
+        #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.Table">
+    update tabletbl
+    <set>
+      <if test="ordId != null">
+        Ord_id = #{ordId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="indi.dwq.orderingSys.data.pojo.Table">
+    update tabletbl
+    set Ord_id = #{ordId,jdbcType=INTEGER},
+      num = #{num,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
