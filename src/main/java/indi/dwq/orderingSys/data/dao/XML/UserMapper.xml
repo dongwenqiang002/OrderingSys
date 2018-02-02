@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.dwq.orderingSys.data.dao.UserMapper">
+
   <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -10,19 +11,23 @@
     <result column="permission" jdbcType="INTEGER" property="permission" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, username, password, name, gender, permission, remark
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from usertbl
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from usertbl
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.User">
     insert into usertbl (id, username, password, 
       name, gender, permission, 
@@ -31,6 +36,7 @@
       #{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.User">
     insert into usertbl
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -80,6 +86,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.User">
     update usertbl
     <set>
@@ -104,6 +111,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="indi.dwq.orderingSys.data.pojo.User">
     update usertbl
     set username = #{username,jdbcType=VARCHAR},
@@ -114,4 +122,5 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

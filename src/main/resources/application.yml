@@ -16,9 +16,12 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  datasource:
+    driver-class-name:
 
 
 data:
   url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8 #?useUnicode=true&characterEncoding=utf-8&useSSL=false
   username: root
   password: root
+  driverClassName: com.mysql.jdbc.Driver
