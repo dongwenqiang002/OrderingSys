@@ -3,8 +3,10 @@ package indi.dwq.orderingSys.data;
 
 import com.mchange.v2.c3p0.AbstractComboPooledDataSource;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -25,13 +27,15 @@ import java.sql.SQLException;
  */
 @Configuration
 @MapperScan("indi.dwq.orderingSys.data.dao")
-@Component
+@Component("DataSource")
 public class DataSource extends AbstractComboPooledDataSource implements Serializable, Referenceable {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
     private static final long serialVersionUID = 1L;
 
+    @Value("${data.mapper-path}")
+    private String[] mapperPath = {"classpath*:/XML/*.xml"};
     @Value("${data.url}")
     private String dbUrl = "jdbc:mysql://localhost:3306/network?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     @Value("${data.username}")
@@ -131,11 +135,17 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
         }
     }
 
+    @Autowired
+    MybatisProperties mybatisProperties;
+
     /**
      * c3p0数据库初始化
      */
     @PostConstruct
     public void initDataSources() throws SQLException {
+        //String[] path = new String[1];
+      //  path[0] ="classpath*:/XML/*.xml";
+        mybatisProperties.setMapperLocations(mapperPath);
         super.setJdbcUrl(dbUrl);
         try {
             this.setDriverClass(this.driverClassName);
@@ -168,8 +178,16 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
             getConnection(this.username, this.password);
         } catch (Exception e) {
             LOGGER.error("数据库ERROR");
+            LOGGER.error(e.getMessage());
+            LOGGER.error("url: {}",dbUrl);
+            LOGGER.error("password: {}",password);
+            LOGGER.error("name : {}",username);
             throw e;
         }
+
+//        PathResource[] pathResource = new PathResource[1];
+//        pathResource[0] = new PathResource("classpath:indi/dwq/orderingSys/data/dao/XML/.*xml");
+//        sqlSessionFactoryBean.setMapperLocations(pathResource);
     }
 
 

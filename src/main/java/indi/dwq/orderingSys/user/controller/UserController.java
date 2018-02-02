@@ -40,4 +40,11 @@ public class UserController {
         session.invalidate();
         return "redirect://";
     }
+
+    @PostMapping
+    public String register(User user){
+
+        return "index";
+    }
+
 }

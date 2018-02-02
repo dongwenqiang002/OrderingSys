@@ -1,11 +1,14 @@
+
 server:
-  port: 8080 #配置服务器端口，默认为8080
+  port: 8081 #配置服务器端口，默认为8080
   session:
     timeout: 1000000 #用户回话session过期时间，以秒为单位
   tomcat:
     uri-encoding: UTF-8
 
 spring:
+  application:
+    name: eureka-ording
   thymeleaf:
       mode: HTML5
       encoding: UTF-8
@@ -25,3 +28,10 @@ data:
   username: root
   password: root
   driverClassName: com.mysql.jdbc.Driver
+  mapper-path: classpath*:/XML/*.xml
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://horcrux:hor66@127.0.0.1:8651/eureka/
+#mybatis.mapper-locations: classpath:/indi/dwq/orderingSys/data/dao/XML/*.xml
