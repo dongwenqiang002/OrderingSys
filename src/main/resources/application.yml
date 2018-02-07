@@ -22,16 +22,14 @@ spring:
   datasource:
     driver-class-name:
 
-
 data:
-  url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8 #?useUnicode=true&characterEncoding=utf-8&useSSL=false
+  db-url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8
   username: root
   password: root
-  driverClassName: com.mysql.jdbc.Driver
+  driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://horcrux:hor66@127.0.0.1:8651/eureka/
-#mybatis.mapper-locations: classpath:/indi/dwq/orderingSys/data/dao/XML/*.xml

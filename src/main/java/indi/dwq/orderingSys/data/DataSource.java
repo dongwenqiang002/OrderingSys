@@ -7,7 +7,8 @@ import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -28,21 +29,23 @@ import java.sql.SQLException;
 @Configuration
 @MapperScan("indi.dwq.orderingSys.data.dao")
 @Component("DataSource")
+@EnableConfigurationProperties(DataSource.class)
+@ConfigurationProperties(prefix = "data")
 public class DataSource extends AbstractComboPooledDataSource implements Serializable, Referenceable {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
     private static final long serialVersionUID = 1L;
 
-    @Value("${data.mapper-path}")
+   // @Value("${data.mapper-path}")
     private String[] mapperPath = {"classpath*:/XML/*.xml"};
-    @Value("${data.url}")
+   // @Value("${data.url}")
     private String dbUrl = "jdbc:mysql://localhost:3306/network?useUnicode=true&characterEncoding=utf-8&useSSL=false";
-    @Value("${data.username}")
+    //@Value("${data.username}")
     private String username = "root";
-    @Value("${data.password}")
+   // @Value("${data.password}")
     private String password = "root";
-    @Value("${data.driverClassName}")
+  //  @Value("${data.driverClassName}")
     private String driverClassName = "com.mysql.jdbc.Driver";
 
 
@@ -111,6 +114,7 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
 
     public DataSource() {
         super();
+
     }
 
     public DataSource(boolean autoregister) {
@@ -169,6 +173,8 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
         super.setCheckoutTimeout(this.checkoutTimeout);
         super.setAutoCommitOnClose(this.autoCommitOnClose);
         super.setNumHelperThreads(this.numHelperThreads);
+
+
         try {
             getConnection(this.username, this.password);
         } catch (Exception e) {
@@ -190,5 +196,193 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
 //        sqlSessionFactoryBean.setMapperLocations(pathResource);
     }
 
+    public String[] getMapperPath() {
+        return mapperPath;
+    }
 
+    public void setMapperPath(String[] mapperPath) {
+        this.mapperPath = mapperPath;
+    }
+
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
+    public void setDbUrl(String dbUrl) {
+        this.dbUrl = dbUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    @Override
+    public int getInitialPoolSize() {
+        return initialPoolSize;
+    }
+
+    @Override
+    public void setInitialPoolSize(int initialPoolSize) {
+        this.initialPoolSize = initialPoolSize;
+    }
+
+    @Override
+    public int getMinPoolSize() {
+        return minPoolSize;
+    }
+
+    @Override
+    public void setMinPoolSize(int minPoolSize) {
+        this.minPoolSize = minPoolSize;
+    }
+
+    @Override
+    public int getMaxPoolSize() {
+        return maxPoolSize;
+    }
+
+    @Override
+    public void setMaxPoolSize(int maxPoolSize) {
+        this.maxPoolSize = maxPoolSize;
+    }
+
+    @Override
+    public int getAcquireIncrement() {
+        return acquireIncrement;
+    }
+
+    @Override
+    public void setAcquireIncrement(int acquireIncrement) {
+        this.acquireIncrement = acquireIncrement;
+    }
+
+    @Override
+    public int getMaxIdleTime() {
+        return maxIdleTime;
+    }
+
+    @Override
+    public void setMaxIdleTime(int maxIdleTime) {
+        this.maxIdleTime = maxIdleTime;
+    }
+
+    @Override
+    public int getIdleConnectionTestPeriod() {
+        return idleConnectionTestPeriod;
+    }
+
+    @Override
+    public void setIdleConnectionTestPeriod(int idleConnectionTestPeriod) {
+        this.idleConnectionTestPeriod = idleConnectionTestPeriod;
+    }
+
+    @Override
+    public int getMaxStatements() {
+        return maxStatements;
+    }
+
+    @Override
+    public void setMaxStatements(int maxStatements) {
+        this.maxStatements = maxStatements;
+    }
+
+    @Override
+    public int getMaxStatementsPerConnection() {
+        return maxStatementsPerConnection;
+    }
+
+    @Override
+    public void setMaxStatementsPerConnection(int maxStatementsPerConnection) {
+        this.maxStatementsPerConnection = maxStatementsPerConnection;
+    }
+
+    @Override
+    public int getAcquireRetryAttempts() {
+        return acquireRetryAttempts;
+    }
+
+    @Override
+    public void setAcquireRetryAttempts(int acquireRetryAttempts) {
+        this.acquireRetryAttempts = acquireRetryAttempts;
+    }
+
+    @Override
+    public int getAcquireRetryDelay() {
+        return acquireRetryDelay;
+    }
+
+    @Override
+    public void setAcquireRetryDelay(int acquireRetryDelay) {
+        this.acquireRetryDelay = acquireRetryDelay;
+    }
+
+    @Override
+    public boolean isBreakAfterAcquireFailure() {
+        return breakAfterAcquireFailure;
+    }
+
+    @Override
+    public void setBreakAfterAcquireFailure(boolean breakAfterAcquireFailure) {
+        this.breakAfterAcquireFailure = breakAfterAcquireFailure;
+    }
+
+    @Override
+    public int getCheckoutTimeout() {
+        return checkoutTimeout;
+    }
+
+    @Override
+    public void setCheckoutTimeout(int checkoutTimeout) {
+        this.checkoutTimeout = checkoutTimeout;
+    }
+
+    @Override
+    public boolean isAutoCommitOnClose() {
+        return autoCommitOnClose;
+    }
+
+    @Override
+    public void setAutoCommitOnClose(boolean autoCommitOnClose) {
+        this.autoCommitOnClose = autoCommitOnClose;
+    }
+
+    @Override
+    public int getNumHelperThreads() {
+        return numHelperThreads;
+    }
+
+    @Override
+    public void setNumHelperThreads(int numHelperThreads) {
+        this.numHelperThreads = numHelperThreads;
+    }
+
+    public MybatisProperties getMybatisProperties() {
+        return mybatisProperties;
+    }
+
+    public void setMybatisProperties(MybatisProperties mybatisProperties) {
+        this.mybatisProperties = mybatisProperties;
+    }
 }
