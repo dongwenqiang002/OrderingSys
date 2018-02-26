@@ -19,17 +19,15 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-  datasource:
-    driver-class-name:
 
-data:
+mydata:
   db-url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8
   username: root
   password: root
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://horcrux:hor66@127.0.0.1:8651/eureka/
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://horcrux:hor66@127.0.0.1:8651/eureka/

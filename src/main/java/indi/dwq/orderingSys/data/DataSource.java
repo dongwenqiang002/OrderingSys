@@ -7,8 +7,6 @@ import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -29,24 +27,108 @@ import java.sql.SQLException;
 @Configuration
 @MapperScan("indi.dwq.orderingSys.data.dao")
 @Component("DataSource")
-@EnableConfigurationProperties(DataSource.class)
-@ConfigurationProperties(prefix = "data")
-public class DataSource extends AbstractComboPooledDataSource implements Serializable, Referenceable {
+public class DataSource extends AbstractComboPooledDataSource implements Serializable, Referenceable, javax.sql.DataSource {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
 
     private static final long serialVersionUID = 1L;
 
-   // @Value("${data.mapper-path}")
-    private String[] mapperPath = {"classpath*:/XML/*.xml"};
-   // @Value("${data.url}")
-    private String dbUrl = "jdbc:mysql://localhost:3306/network?useUnicode=true&characterEncoding=utf-8&useSSL=false";
-    //@Value("${data.username}")
-    private String username = "root";
-   // @Value("${data.password}")
-    private String password = "root";
-  //  @Value("${data.driverClassName}")
-    private String driverClassName = "com.mysql.jdbc.Driver";
+
+    @Override
+    public Connection getConnection() {
+        try {
+            return super.getConnection();
+        } catch (Exception e) {
+            LOGGER.error("数据库connection对象失败: {}", e.getMessage());
+            LOGGER.error("url: {}", getJdbcUrl());
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public DataSource() {
+        super();
+    }
+
+    public DataSource(boolean autoregister) {
+        super(autoregister);
+    }
+
+    public DataSource(String configName) {
+        super(configName);
+    }
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.writeShort(2);
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        short version = ois.readShort();
+        switch (version) {
+            case 2:
+                return;
+            default:
+                throw new IOException("Unsupported Serialized Version: " + version);
+        }
+    }
+
+    @Autowired
+    MybatisProperties mybatisProperties;
+    @Autowired
+    DataProperties dataProperties;
+
+    /**
+     * c3p0数据库初始化
+     */
+    @PostConstruct
+    public void initDataSources() throws SQLException {
+
+        DataProperties thii = dataProperties;
+        mybatisProperties.setMapperLocations(thii.getMapperPath());
+        super.setJdbcUrl(thii.getDbUrl());
+        try {
+            this.setDriverClass(thii.getDriverClassName());
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        super.setDataSourceName("DataSource");
+        super.setPassword(thii.getPassword());
+        super.setUser(thii.getUsername());
+        super.setInitialPoolSize(this.initialPoolSize);
+        super.setMinPoolSize(this.minPoolSize);
+        super.setMaxPoolSize(this.maxPoolSize);
+        super.setAcquireIncrement(this.acquireIncrement);
+        super.setMaxIdleTime(this.maxIdleTime);
+        super.setIdleConnectionTestPeriod(this.idleConnectionTestPeriod);
+        super.setMaxStatements(this.maxStatements);
+        super.setMaxStatementsPerConnection(this.maxStatementsPerConnection);
+        super.setAcquireRetryAttempts(this.acquireRetryAttempts);
+        super.setAcquireRetryDelay(this.acquireRetryDelay);
+        super.setCheckoutTimeout(this.checkoutTimeout);
+        super.setAutoCommitOnClose(this.autoCommitOnClose);
+        super.setNumHelperThreads(this.numHelperThreads);
+
+
+        try {
+            getConnection(thii.getUsername(), thii.getPassword());
+            LOGGER.info("初始化数据库连接池");
+        } catch (Exception e) {
+            LOGGER.info("初始化OK");
+        }
+        try {
+            getConnection(thii.getUsername(), thii.getPassword());
+        } catch (Exception e) {
+            LOGGER.error("数据库ERROR");
+            LOGGER.error(e.getMessage());
+            LOGGER.error("url: {}", thii.getDbUrl());
+            LOGGER.error("password: {}", thii.getPassword());
+            LOGGER.error("name : {}", thii.getUsername());
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
 
 
     //#initialPoolSize：连接池初始化时创建的连接数,default : 3，取值应在minPoolSize与maxPoolSize之间
@@ -56,7 +138,7 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
     private int minPoolSize = 10;
 
     //maxPoolSize：连接池中拥有的最大连接数，如果获得新连接时会使连接总数超过这个值则不会再获取新连接，而是等待其他连接释放，所以这个值有可能会设计地很大,default : 15
-    private int maxPoolSize = 50;
+    private int maxPoolSize = 200;
 
     //#acquireIncrement：连接池在无空闲连接可用时一次性创建的新数据库连接数,default : 3
     private int acquireIncrement = 5;
@@ -84,13 +166,11 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
     //#acquireRetryDelay:两次连接中间隔时间，单位毫秒，连接池在获得新连接时的间隔时间。default :1000单位ms（建议使用）
     private int acquireRetryDelay = 1000;
 
-    // #breakAfterAcquireFailure：如果为true，则当连接获取失败时自动关闭数据源，除非重新启动应用程序。所以一般不用。default :false（不建议使用）
-    private boolean breakAfterAcquireFailure = false;
 
     //#checkoutTimeout：配置当连接池所有连接用完时应用程序getConnection的等待时间。为0则无限等待直至有其他连接释放或者创建新的连接，
     //#不为0则当时间到的时候如果仍没有获得连接，则会抛出SQLException。
     //其实就是acquireRetryAttempts*acquireRetryDelay。default :0（与上面两个，有重复，选择其中两个都行）
-    private int checkoutTimeout = 100;
+    private int checkoutTimeout = 0;
 
     //#autoCommitOnClose：连接池在回收数据库连接时是否自动提交事务。如果为false，则会回滚未提交的事务，如果为true，则会自动提交事务。default :false（不建议使用）
     private boolean autoCommitOnClose = false;
@@ -99,290 +179,5 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
     //扩展这些操作可以有效的提升性能 通过多线程实现多个操作同时被执行。Default:3
     private int numHelperThreads = 10;
 
-    @Override
-    public Connection getConnection() {
-        try {
-            return super.getConnection();
-        } catch (Exception e) {
-            LOGGER.error("数据库connection对象失败: {}", e.getMessage());
-            LOGGER.error("url: {}", getJdbcUrl());
-            e.printStackTrace();
-            return null;
-        }
 
-    }
-
-    public DataSource() {
-        super();
-
-    }
-
-    public DataSource(boolean autoregister) {
-        super(autoregister);
-    }
-
-    public DataSource(String configName) {
-        super(configName);
-    }
-
-    private void writeObject(ObjectOutputStream oos) throws IOException {
-        oos.writeShort(2);
-    }
-
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        short version = ois.readShort();
-        switch (version) {
-            case 2:
-                return;
-            default:
-                throw new IOException("Unsupported Serialized Version: " + version);
-        }
-    }
-
-    @Autowired
-    MybatisProperties mybatisProperties;
-
-    /**
-     * c3p0数据库初始化
-     */
-    @PostConstruct
-    public void initDataSources() throws SQLException {
-        //String[] path = new String[1];
-      //  path[0] ="classpath*:/XML/*.xml";
-        mybatisProperties.setMapperLocations(mapperPath);
-        super.setJdbcUrl(dbUrl);
-        try {
-            this.setDriverClass(this.driverClassName);
-        } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }
-        super.setDataSourceName("DataSource");
-        super.setPassword(this.password);
-        super.setUser(this.username);
-        super.setInitialPoolSize(this.initialPoolSize);
-        super.setMinPoolSize(this.minPoolSize);
-        super.setMaxPoolSize(this.maxPoolSize);
-        super.setAcquireIncrement(this.acquireIncrement);
-        super.setMaxIdleTime(this.maxIdleTime);
-        super.setIdleConnectionTestPeriod(this.idleConnectionTestPeriod);
-        super.setMaxStatements(this.maxStatements);
-        super.setMaxStatementsPerConnection(this.maxStatementsPerConnection);
-        super.setAcquireRetryAttempts(this.acquireRetryAttempts);
-        super.setAcquireRetryDelay(this.acquireRetryDelay);
-        super.setBreakAfterAcquireFailure(this.breakAfterAcquireFailure);
-        super.setCheckoutTimeout(this.checkoutTimeout);
-        super.setAutoCommitOnClose(this.autoCommitOnClose);
-        super.setNumHelperThreads(this.numHelperThreads);
-
-
-        try {
-            getConnection(this.username, this.password);
-        } catch (Exception e) {
-            LOGGER.info("初始化数据库连接池");
-        }
-        try {
-            getConnection(this.username, this.password);
-        } catch (Exception e) {
-            LOGGER.error("数据库ERROR");
-            LOGGER.error(e.getMessage());
-            LOGGER.error("url: {}",dbUrl);
-            LOGGER.error("password: {}",password);
-            LOGGER.error("name : {}",username);
-            throw e;
-        }
-
-//        PathResource[] pathResource = new PathResource[1];
-//        pathResource[0] = new PathResource("classpath:indi/dwq/orderingSys/data/dao/XML/.*xml");
-//        sqlSessionFactoryBean.setMapperLocations(pathResource);
-    }
-
-    public String[] getMapperPath() {
-        return mapperPath;
-    }
-
-    public void setMapperPath(String[] mapperPath) {
-        this.mapperPath = mapperPath;
-    }
-
-    public String getDbUrl() {
-        return dbUrl;
-    }
-
-    public void setDbUrl(String dbUrl) {
-        this.dbUrl = dbUrl;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDriverClassName() {
-        return driverClassName;
-    }
-
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
-    @Override
-    public int getInitialPoolSize() {
-        return initialPoolSize;
-    }
-
-    @Override
-    public void setInitialPoolSize(int initialPoolSize) {
-        this.initialPoolSize = initialPoolSize;
-    }
-
-    @Override
-    public int getMinPoolSize() {
-        return minPoolSize;
-    }
-
-    @Override
-    public void setMinPoolSize(int minPoolSize) {
-        this.minPoolSize = minPoolSize;
-    }
-
-    @Override
-    public int getMaxPoolSize() {
-        return maxPoolSize;
-    }
-
-    @Override
-    public void setMaxPoolSize(int maxPoolSize) {
-        this.maxPoolSize = maxPoolSize;
-    }
-
-    @Override
-    public int getAcquireIncrement() {
-        return acquireIncrement;
-    }
-
-    @Override
-    public void setAcquireIncrement(int acquireIncrement) {
-        this.acquireIncrement = acquireIncrement;
-    }
-
-    @Override
-    public int getMaxIdleTime() {
-        return maxIdleTime;
-    }
-
-    @Override
-    public void setMaxIdleTime(int maxIdleTime) {
-        this.maxIdleTime = maxIdleTime;
-    }
-
-    @Override
-    public int getIdleConnectionTestPeriod() {
-        return idleConnectionTestPeriod;
-    }
-
-    @Override
-    public void setIdleConnectionTestPeriod(int idleConnectionTestPeriod) {
-        this.idleConnectionTestPeriod = idleConnectionTestPeriod;
-    }
-
-    @Override
-    public int getMaxStatements() {
-        return maxStatements;
-    }
-
-    @Override
-    public void setMaxStatements(int maxStatements) {
-        this.maxStatements = maxStatements;
-    }
-
-    @Override
-    public int getMaxStatementsPerConnection() {
-        return maxStatementsPerConnection;
-    }
-
-    @Override
-    public void setMaxStatementsPerConnection(int maxStatementsPerConnection) {
-        this.maxStatementsPerConnection = maxStatementsPerConnection;
-    }
-
-    @Override
-    public int getAcquireRetryAttempts() {
-        return acquireRetryAttempts;
-    }
-
-    @Override
-    public void setAcquireRetryAttempts(int acquireRetryAttempts) {
-        this.acquireRetryAttempts = acquireRetryAttempts;
-    }
-
-    @Override
-    public int getAcquireRetryDelay() {
-        return acquireRetryDelay;
-    }
-
-    @Override
-    public void setAcquireRetryDelay(int acquireRetryDelay) {
-        this.acquireRetryDelay = acquireRetryDelay;
-    }
-
-    @Override
-    public boolean isBreakAfterAcquireFailure() {
-        return breakAfterAcquireFailure;
-    }
-
-    @Override
-    public void setBreakAfterAcquireFailure(boolean breakAfterAcquireFailure) {
-        this.breakAfterAcquireFailure = breakAfterAcquireFailure;
-    }
-
-    @Override
-    public int getCheckoutTimeout() {
-        return checkoutTimeout;
-    }
-
-    @Override
-    public void setCheckoutTimeout(int checkoutTimeout) {
-        this.checkoutTimeout = checkoutTimeout;
-    }
-
-    @Override
-    public boolean isAutoCommitOnClose() {
-        return autoCommitOnClose;
-    }
-
-    @Override
-    public void setAutoCommitOnClose(boolean autoCommitOnClose) {
-        this.autoCommitOnClose = autoCommitOnClose;
-    }
-
-    @Override
-    public int getNumHelperThreads() {
-        return numHelperThreads;
-    }
-
-    @Override
-    public void setNumHelperThreads(int numHelperThreads) {
-        this.numHelperThreads = numHelperThreads;
-    }
-
-    public MybatisProperties getMybatisProperties() {
-        return mybatisProperties;
-    }
-
-    public void setMybatisProperties(MybatisProperties mybatisProperties) {
-        this.mybatisProperties = mybatisProperties;
-    }
 }
