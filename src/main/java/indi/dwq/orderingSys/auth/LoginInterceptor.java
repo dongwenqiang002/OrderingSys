@@ -57,8 +57,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         final Method method = handlerMethod.getMethod();
         final Class<?> clazz = method.getDeclaringClass();
-        if (clazz.isAnnotationPresent(Pub.class) || method.isAnnotationPresent(Pub.class)) return false;
         if (method.isAnnotationPresent(Auth.class)) return true;
+        if (clazz.isAnnotationPresent(Pub.class) || method.isAnnotationPresent(Pub.class)) return false;
         return true;
     }
 
@@ -79,7 +79,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      */
    /* @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-            throws Exception {
+                                throws Exception {
         LOGGER.info("------afterCompletion-----");
 
 
