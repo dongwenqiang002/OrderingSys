@@ -5,19 +5,15 @@ import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.Documented;
 import java.lang.reflect.Method;
 
 /**
- * 登录拦截器
+ * <h1>登录拦截器</h1>
  */
 @Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -52,29 +48,29 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * 判断是否进行登录拦截
+     * @param handler 即将要执行的函数句柄
+     * @return 映射路径是否需要登录访问
      */
     private static boolean isInter(Object handler) {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         final Method method = handlerMethod.getMethod();
         final Class<?> clazz = method.getDeclaringClass();
-        if (method.isAnnotationPresent(Auth.class)) return true;
-        if (clazz.isAnnotationPresent(Pub.class) || method.isAnnotationPresent(Pub.class)) return false;
-        return true;
+        return method.isAnnotationPresent(Auth.class) || !clazz.isAnnotationPresent(Pub.class) && !method.isAnnotationPresent(Pub.class);
     }
 
 
-    /**
+    /*
      * controller 执行之后，且页面渲染之前调用
      */
  /*   @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-        LOGGER.info("------postHandle-----");
+                LOGGER.info("------postHandle-----");
 
     }*/
 
 
-    /**
+    /*
      * 页面渲染之后调用，一般用于资源清理操作
      */
    /* @Override
