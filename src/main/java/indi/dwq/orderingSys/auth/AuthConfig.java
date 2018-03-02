@@ -13,6 +13,8 @@ public class AuthConfig extends WebMvcConfigurerAdapter {
     @Autowired
     LoginInterceptor loginInterceptor;
 
+
+    @Auth(id=true)
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration addInterceptor = registry.addInterceptor(loginInterceptor);
 

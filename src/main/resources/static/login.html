@@ -25,8 +25,47 @@
         <td rowspan="2"><input type="submit" value="登录"></td>
     </tr>
 </table>
+<div id="m">
+    <select id="1">
+        <option>省</option>
+    </select>
+    <select id="2">
+        <option>市</option>
+        <option>西安市</option>
+        <option>渭南市市</option>
+    </select>
+    <select id="3">
+        <option>区</option>
+        <option>未央区</option>
+        <option>新城区</option>
+    </select>
+    <select id="4">
+        <option>街道</option>
+        <option>小寨</option>
+        <option>唐兴路</option>
+    </select>
 
+    <script>
+        $.ajax({url:"/map/sele?name=空",success:function(result){
+                $.each( result, function(index, value){
+                    $("#m #1").append("<option >"+value+"</option>");
+                } );
+            }});
 
+        $("#m select").change(function () {
+            var name = $(this).val();
+            var sel = this;
+            var next = $(sel).next();
+            $.ajax({url:"/map/sele?name="+name,success:function(result){
+                    next.empty();
+                    $.each( result, function(index, value){
+                        next.append("<option >"+value+"</option>");
+                    } );
+                }});
+        });
+
+    </script>
+</div>
 
 
 <!--网站底部-->

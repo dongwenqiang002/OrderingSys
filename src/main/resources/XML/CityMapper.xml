@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.dwq.orderingSys.data.dao.CityMapper">
+  <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.City">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="areaname" jdbcType="VARCHAR" property="areaname" />
+    <result column="parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="shortname" jdbcType="VARCHAR" property="shortname" />
+    <result column="areacode" jdbcType="INTEGER" property="areacode" />
+    <result column="zipcode" jdbcType="INTEGER" property="zipcode" />
+    <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="level" jdbcType="BIT" property="level" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="sort" jdbcType="TINYINT" property="sort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, areaname, parentid, shortname, areacode, zipcode, pinyin, lng, lat, level, position, 
+    sort
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pbarea
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pbarea
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.City">
+    insert into pbarea (id, areaname, parentid, 
+      shortname, areacode, zipcode, 
+      pinyin, lng, lat, level, 
+      position, sort)
+    values (#{id,jdbcType=INTEGER}, #{areaname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{shortname,jdbcType=VARCHAR}, #{areacode,jdbcType=INTEGER}, #{zipcode,jdbcType=INTEGER}, 
+      #{pinyin,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{level,jdbcType=BIT}, 
+      #{position,jdbcType=VARCHAR}, #{sort,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.City">
+    insert into pbarea
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="areaname != null">
+        areaname,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="shortname != null">
+        shortname,
+      </if>
+      <if test="areacode != null">
+        areacode,
+      </if>
+      <if test="zipcode != null">
+        zipcode,
+      </if>
+      <if test="pinyin != null">
+        pinyin,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="areaname != null">
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null">
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null">
+        #{areacode,jdbcType=INTEGER},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null">
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=BIT},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.City">
+    update pbarea
+    <set>
+      <if test="areaname != null">
+        areaname = #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null">
+        shortname = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null">
+        areacode = #{areacode,jdbcType=INTEGER},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null">
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=BIT},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="indi.dwq.orderingSys.data.pojo.City">
+    update pbarea
+    set areaname = #{areaname,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      shortname = #{shortname,jdbcType=VARCHAR},
+      areacode = #{areacode,jdbcType=INTEGER},
+      zipcode = #{zipcode,jdbcType=INTEGER},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      level = #{level,jdbcType=BIT},
+      position = #{position,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByName" parameterType="java.lang.String"  resultType="java.lang.Integer" >
+    select
+    id
+    from pbarea
+    where areaname = #{name}
+  </select>
+  <select id="selectByParentid" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select
+    areaname
+    from pbarea
+    where parentid = #{id}
+  </select>
+  
+</mapper>

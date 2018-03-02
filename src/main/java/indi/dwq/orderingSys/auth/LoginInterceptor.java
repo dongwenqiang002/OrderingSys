@@ -55,7 +55,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         final Method method = handlerMethod.getMethod();
         final Class<?> clazz = method.getDeclaringClass();
-        return method.isAnnotationPresent(Auth.class) || !clazz.isAnnotationPresent(Pub.class) && !method.isAnnotationPresent(Pub.class);
+        //return method.isAnnotationPresent(Auth.class) || !clazz.isAnnotationPresent(Pub.class) && !method.isAnnotationPresent(Pub.class);
+        return false;
     }
 
 
