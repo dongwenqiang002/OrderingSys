@@ -6,59 +6,68 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <script th:src="@{/js/jquery.min.js}" ></script>
     <script th:src="@{/js/bootstrap.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0">
-        <!--<h1 class="radio-inline " href="#">登录</h1>-->
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">首页</a></li>
-            <li><a href="#">信息</a></li>
-            <li><a href="#">订单</a></li>
-        </ul>
+
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
+        <div class="container">
+            <div class="row">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">网络订餐系统</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">首页</a></li>
+                        <li><a href="#">关于我们</a></li>
+                    </ul>
+                    <!--<form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="请输入内容"/>
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li><a href="#">链接</a></li>-->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">设置</a></li>
+                                <li><a href="#">个人资料</a></li>
+                                <li><a href="#">账户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </div>
     </nav>
 </header>
 
-<main>
-    <div class=" container-fluid">
+<main >
+    <div class=" container-fluid" id="main"  >
 
-        <div class="row">
-            <div class="carousel slide" id="carousel-131307">
-                <ol class="carousel-indicators">
-                    <li class="active" data-slide-to="0" data-target="#carousel-131307">&nbsp;</li>
-                    <li data-slide-to="1" data-target="#carousel-131307">&nbsp;</li>
-                    <li data-slide-to="2" data-target="#carousel-131307">&nbsp;</li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="item active"><img alt="" src="img/r.png"/>
-                    </div>
-                    <div class="item"><img alt="" src="img/v.png"/>
-                    </div>
-                    <div class="item"><img alt="" src="img/s.png"/>
-                    </div>
-                </div>
-                <a class="left carousel-control" data-slide="prev" href="#carousel-131307">&lsaquo;</a>
-                <a class="right carousel-control" data-slide="next" href="#carousel-131307">&rsaquo;</a></div>
-
-        </div>
 
         <div class="row index_seach" >
-            <div class="col-md-offset-4 col-md-4">
-                <!--<div class="col-md-12">-->
-                <input type="text"  placeholder="输入地址搜索周边美食"  />
+            <div class="col-md-offset-3 col-md-1" align="right"><h3 >所在地址: </h3></div>
+            <div class="col-md-4">
+                <input type="search"  placeholder="输入地址搜索周边美食"  />
                 <!--</div>-->
             </div>
         </div>
 
     </div>
 
-
-    </div>
 </main>
 
 <footer>
     <div class="text-center py-2 lead" style="background: white;margin-top: 20px;margin-bottom: 0;">
-        <hr>
+        <hr/>
         Copyright © 2018 - 董文强个人毕设网站
     </div>
 </footer>

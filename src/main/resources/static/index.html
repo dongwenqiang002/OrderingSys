@@ -1,71 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <title>网络订餐</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <meta charset="UTF-8"/>
+    <title>首页</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
     <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!--css-->
-    <link rel="stylesheet" href="css/index.css">
+    <script src="js/bootstrap.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/index.css"/>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0">
-        <!--<h1 class="radio-inline " href="#">登录</h1>-->
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">首页</a></li>
-            <li><a href="#">信息</a></li>
-            <li><a href="#">订单</a></li>
-        </ul>
+
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
+        <div class="container">
+            <div class="row">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">网络订餐系统</a>
+                </div>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">首页</a></li>
+                        <li><a href="#">关于我们</a></li>
+                    </ul>
+                    <!--<form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="请输入内容"/>
+                        </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>-->
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">设置</a></li>
+                                <li><a href="#">个人资料</a></li>
+                                <li><a href="#">账户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </nav>
 </header>
 
 <main>
-    <div class=" container-fluid">
+    <div class=" container-fluid" id="main" style=" background-image: url('img/index_bg.jpg');">
 
-        <div class="row">
-            <div class="carousel slide" id="carousel-131307">
-                <ol class="carousel-indicators">
-                    <li class="active" data-slide-to="0" data-target="#carousel-131307">&nbsp;</li>
-                    <li data-slide-to="1" data-target="#carousel-131307">&nbsp;</li>
-                    <li data-slide-to="2" data-target="#carousel-131307">&nbsp;</li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="item active"><img alt="" src="img/r.png"/>
-                    </div>
-                    <div class="item"><img alt="" src="img/v.png"/>
-                    </div>
-                    <div class="item"><img alt="" src="img/s.png"/>
-                    </div>
+
+        <div class="row index_seach">
+
+            <div class="col-md-offset-4 col-md-4 input-group">
+                <div class="input-group-btn" >
+                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">西安</button>
+                    <ul class="dropdown-menu" >
+                        <li><a href="#">西安</a></li>
+                        <li><a href="#">渭南</a></li>
+                        <li><a href="#">咸阳</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">宝鸡</a></li>
+                    </ul>
                 </div>
-                <a class="left carousel-control" data-slide="prev" href="#carousel-131307">&lsaquo;</a>
-                <a class="right carousel-control" data-slide="next" href="#carousel-131307">&rsaquo;</a></div>
-
-        </div>
-
-        <div class="row index_seach" >
-            <div class="col-md-offset-4 col-md-4">
-                    <!--<div class="col-md-12">-->
-                       <input type="text"  placeholder="输入地址搜索周边美食"  />
-                    <!--</div>-->
+                <input  id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()" >
+                        搜索
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <h1>asdasdasd</h1>
 
+            <script>
+                $(".dropdown-menu li a").click(function () {
+                    $("#city").text (this.text);
+                });
+                function onClickS() {
+                    var city = $("#city").html();
+                    var keyword = $("#keyword").val();
+                    console.log(city);
+                    console.log(keyword);
+                    /**
+                    * 这里添加搜索提交代码
+                    * */
+                }
+            </script>
         </div>
+
+
+
+
+
     </div>
 
-
-    </div>
 </main>
 
+
 <footer>
-    <div class="text-center py-2 lead" style="background: white;margin-top: 20px;margin-bottom: 0;">
-        <hr>
-        Copyright © 2018 - 董文强个人毕设网站
+    <div class="row row-pb-md">
+        <div class="col-md-12 text-center copyright">
+            <p>
+                <small class="block">
+                    <hr/>
+                    Copyright © 2018 - 董文强个人毕设网站
+                </small>
+            </p>
+        </div>
+
     </div>
 </footer>
 </body>
+
+
 </html>

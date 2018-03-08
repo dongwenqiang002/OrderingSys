@@ -1,0 +1,24 @@
+
+.index_seach  input{
+    height: 60px;
+
+    font-size: 25px;
+}
+.index_seach  div h3    {
+    height: 60px;
+
+    font-size: 25px;
+}
+
+#main{
+    height: 60px;
+    font-size: 25px;
+    padding-top: 15%;
+    padding-bottom: 20%;
+    background-size:cover;
+   }
+.index_seach div div button{
+    height: 60px;
+    font-size: 25px;
+}
+

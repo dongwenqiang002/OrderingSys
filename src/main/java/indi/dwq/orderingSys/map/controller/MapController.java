@@ -1,5 +1,6 @@
 package indi.dwq.orderingSys.map.controller;
 
+import indi.dwq.orderingSys.auth.Auth;
 import indi.dwq.orderingSys.map.service.MapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class MapController {
      * @param name 当前地区名， 可以是 省，市，区，县
      * @return  返回下一级列表
      * */
+    @Auth
     @GetMapping("/sele")
     public List name(String name){
 

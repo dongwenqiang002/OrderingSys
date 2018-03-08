@@ -1,82 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
+
 <body>
-<table>
-    <tr>
-        <td>
-            <center>用户名:</center>
-        </td>
-        <td><input name="name"></td>
-    </tr>
-    <tr>
-        <td>
-            <center>密码:</center>
-        </td>
-        <td><input type="password" name="name"></td>
-    </tr>
-    <tr>
-        <td rowspan="2"><input type="submit" value="登录"></td>
-    </tr>
-</table>
-<div id="m">
-    <select id="1">
-        <option>省</option>
-    </select>
-    <select id="2">
-        <option>市</option>
-        <option>西安市</option>
-        <option>渭南市市</option>
-    </select>
-    <select id="3">
-        <option>区</option>
-        <option>未央区</option>
-        <option>新城区</option>
-    </select>
-    <select id="4">
-        <option>街道</option>
-        <option>小寨</option>
-        <option>唐兴路</option>
-    </select>
 
-    <script>
-        $.ajax({url:"/map/sele?name=空",success:function(result){
-                $.each( result, function(index, value){
-                    $("#m #1").append("<option >"+value+"</option>");
-                } );
-            }});
-
-        $("#m select").change(function () {
-            var name = $(this).val();
-            var sel = this;
-            var next = $(sel).next();
-            $.ajax({url:"/map/sele?name="+name,success:function(result){
-                    next.empty();
-                    $.each( result, function(index, value){
-                        next.append("<option >"+value+"</option>");
-                    } );
-                }});
-        });
-
-    </script>
-</div>
-
-
-<!--网站底部-->
-<div id="footer" class="container">
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <div class="navbar-inner navbar-content-center">
-            <p class="text-muted credit" style="padding: 10px;">
-
-            </p>
+<!-- Top menu -->
+<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Bootstrap Registration Form Template</a>
         </div>
-    </nav>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="top-navbar-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+							<span class="li-text">
+								Put some text or
+							</span>
+                    <a href="#"><strong>links</strong></a>
+                    <span class="li-text">
+								here, or some icons:
+							</span>
+                    <span class="li-social">
+								<a href="#"><i class="fa fa-facebook"></i></a>
+								<a href="#"><i class="fa fa-twitter"></i></a>
+								<a href="#"><i class="fa fa-envelope"></i></a>
+								<a href="#"><i class="fa fa-skype"></i></a>
+							</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>Bootstrap</strong> Registration Form</h1>
+                    <div class="description">
+                        <p>
+                            This is a free responsive registration form made with Bootstrap.
+                            Download it on <a href="#"><strong>AZMIND</strong></a>, customize and use it as you like!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 phone">
+                    <img src="assets/img/iphone.png" alt="">
+                </div>
+                <div class="col-sm-5 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Register to our App</h3>
+                            <p>Fill in the form below to get instant access:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="" method="post" class="registration-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-first-name">First name</label>
+                                <input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-last-name">Last name</label>
+                                <input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-email">Email</label>
+                                <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
+                            </div>
+                            <button type="submit" class="btn">Sign me up!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
+<!-- Javascript -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+
 </body>
+
 </html>

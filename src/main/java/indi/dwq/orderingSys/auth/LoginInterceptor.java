@@ -4,6 +4,7 @@ package indi.dwq.orderingSys.auth;
 import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -28,9 +29,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 //        LOGGER.info("------preHandle-----");
-//        if (!handler.getClass().isAssignableFrom(HandlerMethod.class)) {
-//            return true;
-//        }
+        if (!handler.getClass().isAssignableFrom(HandlerMethod.class)) {
+            return true;
+        }
         if (isInter(handler)) {
             User user = (User) request.getSession().getAttribute("user");
             if (user != null && user.getName() != null && !user.getName().isEmpty()) {
@@ -51,12 +52,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      * @param handler 即将要执行的函数句柄
      * @return 映射路径是否需要登录访问
      */
+    @Value("test")
+    static boolean  t = false;
     private static boolean isInter(Object handler) {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         final Method method = handlerMethod.getMethod();
         final Class<?> clazz = method.getDeclaringClass();
-        //return method.isAnnotationPresent(Auth.class) || !clazz.isAnnotationPresent(Pub.class) && !method.isAnnotationPresent(Pub.class);
-        return false;
+        if(t)return false;
+        return method.isAnnotationPresent(Auth.class) || !clazz.isAnnotationPresent(Pub.class) && !method.isAnnotationPresent(Pub.class);
+
     }
 
 
