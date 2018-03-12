@@ -31,4 +31,3 @@ mydata:
 #  client:
 #    serviceUrl:
 #      defaultZone: http://horcrux:hor66@127.0.0.1:8651/eureka/
-test: false;

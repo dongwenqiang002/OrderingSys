@@ -1,6 +1,5 @@
 package indi.dwq.orderingSys.user.controller;
 
-import indi.dwq.orderingSys.auth.Pub;
 import indi.dwq.orderingSys.data.dao.UserMapper;
 import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
@@ -24,7 +23,6 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
-    @Pub
     @GetMapping("/")
     public String index() {
         LOGGER.info(userMapper.selectByPrimaryKey(1).toString());
@@ -32,7 +30,6 @@ public class UserController {
 
     }
 
-    @Pub
     @PostMapping("/login")
     public User login(User user) {
 
@@ -46,7 +43,6 @@ public class UserController {
         return "redirect://";
     }
 
-    @Pub
     @PostMapping
     public String register(User user){
 

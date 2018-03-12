@@ -1,12 +1,43 @@
 package indi.dwq.orderingSys.user.service;
 
+import indi.dwq.orderingSys.data.dao.UserMapper;
+import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 董文强
  * @Time 2018/3/2 16:36
  */
-public class UserService {
+@Service
+public class UserService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
+    @Autowired
+    private UserMapper userDao;
+
+    @Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        User user = userDao.findByUserName(name);
+        if (user == null) {
+            throw new UsernameNotFoundException("用户名不存在");
+        }
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        //用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
+        for (SysRole role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            System.out.println(role.getName());
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                user.getPassword(), authorities);
+    }
 }

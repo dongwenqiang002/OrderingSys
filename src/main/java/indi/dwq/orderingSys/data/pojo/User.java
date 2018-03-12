@@ -1,5 +1,7 @@
 package indi.dwq.orderingSys.data.pojo;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+
 public class User {
     private Integer id;
 
