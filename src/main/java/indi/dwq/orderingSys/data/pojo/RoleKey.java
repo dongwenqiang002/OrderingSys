@@ -1,6 +1,6 @@
 package indi.dwq.orderingSys.data.pojo;
 
-public class Menutype {
+public class RoleKey {
     private Integer id;
 
     private String name;

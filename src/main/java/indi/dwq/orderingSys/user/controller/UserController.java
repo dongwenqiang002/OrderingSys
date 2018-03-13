@@ -30,18 +30,6 @@ public class UserController {
 
     }
 
-    @PostMapping("/login")
-    public User login(User user) {
-
-
-        return null;
-    }
-
-    @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect://";
-    }
 
     @PostMapping
     public String register(User user){

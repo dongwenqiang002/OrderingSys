@@ -9,12 +9,6 @@ public class City {
 
     private String shortname;
 
-    private Integer areacode;
-
-    private Integer zipcode;
-
-    private String pinyin;
-
     private String lng;
 
     private String lat;
@@ -22,8 +16,6 @@ public class City {
     private Boolean level;
 
     private String position;
-
-    private Byte sort;
 
     public Integer getId() {
         return id;
@@ -57,30 +49,6 @@ public class City {
         this.shortname = shortname == null ? null : shortname.trim();
     }
 
-    public Integer getAreacode() {
-        return areacode;
-    }
-
-    public void setAreacode(Integer areacode) {
-        this.areacode = areacode;
-    }
-
-    public Integer getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(Integer zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public String getPinyin() {
-        return pinyin;
-    }
-
-    public void setPinyin(String pinyin) {
-        this.pinyin = pinyin == null ? null : pinyin.trim();
-    }
-
     public String getLng() {
         return lng;
     }
@@ -111,13 +79,5 @@ public class City {
 
     public void setPosition(String position) {
         this.position = position == null ? null : position.trim();
-    }
-
-    public Byte getSort() {
-        return sort;
-    }
-
-    public void setSort(Byte sort) {
-        this.sort = sort;
     }
 }

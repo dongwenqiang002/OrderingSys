@@ -1,35 +1,20 @@
 package indi.dwq.orderingSys.data.pojo;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class User {
+import java.util.Arrays;
+import java.util.Collection;
+
+public class User implements UserDetails {
     private Integer id;
 
     private String username;
 
     private String password;
 
-    private String name;
-
-    private String gender;
-
-    private Integer permission;
-
-    private String remark;
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", permission=" + permission +
-                ", remark='" + remark + '\'' +
-                '}';
-    }
+    private String role;
 
     public Integer getId() {
         return id;
@@ -55,35 +40,39 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getGender() {
-        return gender;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
     }
 
-    public Integer getPermission() {
-        return permission;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
-    public void setPermission(Integer permission) {
-        this.permission = permission;
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 
-    public String getRemark() {
-        return remark;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(this.getRole()));
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
+
 }
