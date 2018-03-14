@@ -2,6 +2,8 @@ package indi.dwq.orderingSys.data;
 
 
 import com.mchange.v2.c3p0.AbstractComboPooledDataSource;
+import org.apache.ibatis.logging.log4j.Log4jImpl;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.slf4j.Logger;
@@ -86,6 +88,7 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
 
         DataProperties thii = dataProperties;
         mybatisProperties.setMapperLocations(thii.getMapperPath());
+        mybatisProperties.getConfiguration().setLogImpl(StdOutImpl.class);
 
         super.setJdbcUrl(thii.getDbUrl());
         try {

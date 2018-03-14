@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.user.controller;
 
 import indi.dwq.orderingSys.data.dao.UserMapper;
 import indi.dwq.orderingSys.data.pojo.User;
+import indi.dwq.orderingSys.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,12 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
-    @GetMapping("/")
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/sele")
     public String index() {
         LOGGER.info(userMapper.selectByPrimaryKey(1).toString());
         return "/loginView";
@@ -31,9 +35,9 @@ public class UserController {
     }
 
 
-    @PostMapping
+    @PostMapping("/reg")
     public String register(User user){
-
+        LOGGER.info(user.toString());
         return "index";
     }
 

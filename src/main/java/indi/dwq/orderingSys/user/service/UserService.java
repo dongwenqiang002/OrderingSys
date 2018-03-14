@@ -28,9 +28,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
-        LOGGER.info("用户名字:{} ", user.getUsername());
-        LOGGER.info("用户密码:{} ", user.getPassword());
-        LOGGER.info("用户权限:{} ", user.getRole());
         return user;
 
     }

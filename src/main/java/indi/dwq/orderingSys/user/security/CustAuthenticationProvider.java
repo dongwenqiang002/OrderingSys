@@ -31,7 +31,6 @@ public class CustAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
-        LOGGER.info("{} : {}", username, password);
         UserDetails userDetials = userService.loadUserByUsername(username);
 
         //获取用户权限列表

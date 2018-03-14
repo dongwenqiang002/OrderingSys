@@ -4,12 +4,12 @@
     <meta charset="UTF-8"/>
     <title>首页</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <script th:src="@{/js/jquery.min.js}" ></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
     <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
 <body>
-<header>
+<header id="header">
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
         <div class="container">
             <div class="row">
@@ -20,7 +20,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">首页</a></li>
+                        <li><a th:href="@{/}">首页</a></li>
                         <li><a href="#">关于我们</a></li>
                     </ul>
                     <!--<form class="navbar-form navbar-left" role="search">
@@ -48,26 +48,57 @@
     </nav>
 </header>
 
-<main >
-    <div class=" container-fluid" id="main"  >
+<main>
+    <div class=" container-fluid" id="main" style=" background-image: url('img/index_bg.jpg');">
 
 
-        <div class="row index_seach" >
-            <div class="col-md-offset-3 col-md-1" align="right"><h3 >所在地址: </h3></div>
-            <div class="col-md-4">
-                <input type="search"  placeholder="输入地址搜索周边美食"  />
-                <!--</div>-->
+        <div class="row index_seach">
+
+            <div class="col-md-offset-4 col-md-4 input-group">
+                <div class="input-group-btn" >
+                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">西安</button>
+                    <ul class="dropdown-menu" >
+                        <li><a href="#">西安</a></li>
+                        <li><a href="#">渭南</a></li>
+                        <li><a href="#">咸阳</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">宝鸡</a></li>
+                    </ul>
+                </div>
+                <input  id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()" >
+                        搜索
+                    </button>
+                </div>
             </div>
-        </div>
 
+            <script>
+                $(".dropdown-menu li a").click(function () {
+                    $("#city").text (this.text);
+                });
+                function onClickS() {
+                    var city = $("#city").html();
+                    var keyword = $("#keyword").val();
+                    console.log(city);
+                    console.log(keyword);
+                    /**
+                     * 这里添加搜索提交代码
+                     * */
+                }
+            </script>
+        </div>
     </div>
 
 </main>
 
-<footer>
-    <div class="text-center py-2 lead" style="background: white;margin-top: 20px;margin-bottom: 0;">
-        <hr/>
-        Copyright © 2018 - 董文强个人毕设网站
+<footer id="footer">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/footer.css}"/>
+    <div class="row row-pb-md" style="margin: 0;">
+        <div class=" col-md-12 text-center copyright py-2 lead" style="background: white;margin-top: 40px;margin-bottom: 0;">
+            <hr/>
+           <span > Copyright © 2018 - 董文强个人毕设网站 网上订餐系统</span>
+        </div>
     </div>
 </footer>
 

@@ -5,6 +5,9 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <id column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+  <select id="selectNameById" resultType="string">
+    <![CDATA[ SELECT name FROM user_role where id = #{id}]]>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="indi.dwq.orderingSys.data.pojo.RoleKey">
     delete from role
     where id = #{id,jdbcType=INTEGER}

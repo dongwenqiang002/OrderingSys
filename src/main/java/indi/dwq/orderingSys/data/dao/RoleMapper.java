@@ -10,4 +10,5 @@ public interface RoleMapper {
     int insert(RoleKey record);
 
     int insertSelective(RoleKey record);
+    String selectNameById(Integer id);
 }
