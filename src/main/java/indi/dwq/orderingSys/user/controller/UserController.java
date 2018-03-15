@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,17 +30,30 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/sele")
-    public String index() {
-        LOGGER.info(userMapper.selectByPrimaryKey(1).toString());
+    public String index(HttpSession session) {
+       // LOGGER.info(userMapper.selectByPrimaryKey(1).toString());
+       // LOGGER.info(session.getAttribute("user").toString());
         return "/loginView";
 
     }
 
+    @GetMapping("/register.html")
+    public ModelAndView registerHtml(){
+        LOGGER.info("注册页面");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/register");
+        return modelAndView;
+    }
 
     @PostMapping("/reg")
     public String register(User user){
         LOGGER.info(user.toString());
         return "index";
+    }
+
+    @GetMapping("/aa")
+    public ModelAndView aa(){
+        return new ModelAndView("/index ::#header");
     }
 
 }

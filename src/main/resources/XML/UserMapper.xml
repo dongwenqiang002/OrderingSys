@@ -13,7 +13,7 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
        <![CDATA[ select id, username, password ,role  from user where id = #{id,jdbcType=INTEGER} ]]>
     </select>
-    <select id="findByUserName" parameterType="java.lang.String" resultType="indi.dwq.orderingSys.data.pojo.User">
+    <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
         <![CDATA[ SELECT *
         FROM USER  WHERE username = #{username} ]]>
     </select>

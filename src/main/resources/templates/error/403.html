@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>权限错误</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+
+<div th:replace="/index ::#header"/>
+<main>
+    <div class="container">
+
+        <div class="starter-template">
+            <h1>403 - Access is denied</h1>
+            <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+                你没有权限访问当前网页
+            </div>
+        </div>
+
+    </div>
+</main>
+<div th:replace="/index :: #footer"/>
+
+</body>
+</html>

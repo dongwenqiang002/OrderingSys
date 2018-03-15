@@ -4,39 +4,73 @@
     <meta charset="UTF-8"/>
     <title>登录</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <script th:src="@{/js/jquery.min.js}" ></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
     <style type="text/css">
-        body {
+        /*body {
             padding-top: 50px;
-        }
+            font-family: 'microsoft yahei', Arial, sans-serif;
+            margin: 0;
+        }*/
 
         .starter-template {
             padding: 40px 15px;
             text-align: center;
         }
+
+        .starter-template {
+            width: 435px;
+            height: 200%;
+            margin: 0 auto;
+        }
+        .starter-template hr{
+            margin: 6px;
+        }
+        /*#footer {
+            padding-top: 300px;
+        }*/
     </style>
 </head>
 <body>
-<div th:replace="/index ::#header">Ma</div>
-<div class="container">
-    <div class="starter-template">
-        <p th:if="${param.logout}" class="bg-warning">已注销</p>
-        <p th:if="${param.error}" class="bg-danger">有错误，请重试</p>
-        <h2>使用账号密码登录</h2>
-        <form class="form-signin" role="form" name="form" th:action="@{/login}" action="/ogin" method="post">
-            <div class="form-group">
-               <label for="username">账号</label>
-                <input type="text" class="form-control" name="username" value="" placeholder="账号"/>
+<div th:include="/index ::#header"></div>
+<main>
+    <div class="container">
+        <div class="row"><h1 th:inline="text">${ctx.variables}</h1></div>
+        <div class="starter-template">
+            <p th:if="${param.logout}" class="bg-warning">已注销</p>
+            <p th:if="${param.error}" class="bg-danger">有错误，请重试</p>
+            <h2>使用账号密码登录</h2>
+            <form class="form-signin" role="form" name="form" th:action="@{/login}"  method="post">
+                <div class="form-group">
+                    <label for="username">账号</label>
+                    <input type="text" class="form-control" name="username"  placeholder="账号"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" name="password" placeholder="密码"/>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-4">
+                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="登录"/>
+                    </div>
+                </div>
+            </form>
+            <hr />
+            <div class="row">
+                <div class=" col-md-3">
+                    <a th:href="@{/user/reg}">
+                        <button class="btn  btn-warning btn-block btn-xs">注册</button>
+                    </a>
+                </div>
+                <div class="col-md-offset-6 col-md-3">
+                    <a th:href="@{/user/reg}" >
+                        <button class="btn btn-link btn-block btn-xs">忘记密码</button>
+                    </a>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">密码</label>
-                <input type="password" class="form-control" name="password" placeholder="密码"/>
-            </div>
-            <input type="submit" id="login" value="登录" class="btn btn-primary"/>
-        </form>
+        </div>
     </div>
-</div>
+</main>
 <div th:include="/index ::#footer"></div>
 </body>
 </html>

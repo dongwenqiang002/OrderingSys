@@ -1,113 +1,127 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
 <head>
+    <meta charset="UTF-8"/>
+    <title>登录</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+            font-family: 'microsoft yahei', Arial, sans-serif;
+            margin: 0;
+        }
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
 
+        .starter-template {
+            width: 435px;
+            height: 200%;
+            margin: 0 auto;
+        }
+        #footer{
+            margin-top: 300px;
+        }
+
+
+    </style>
 </head>
-
 <body>
-
-<!-- Top menu -->
-<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Bootstrap Registration Form Template</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="top-navbar-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-							<span class="li-text">
-								Put some text or
-							</span>
-                    <a href="#"><strong>links</strong></a>
-                    <span class="li-text">
-								here, or some icons:
-							</span>
-                    <span class="li-social">
-								<a href="#"><i class="fa fa-facebook"></i></a>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-								<a href="#"><i class="fa fa-envelope"></i></a>
-								<a href="#"><i class="fa fa-skype"></i></a>
-							</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Top content -->
-<div class="top-content">
-
-    <div class="inner-bg">
+<header id="header">
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>Bootstrap</strong> Registration Form</h1>
-                    <div class="description">
-                        <p>
-                            This is a free responsive registration form made with Bootstrap.
-                            Download it on <a href="#"><strong>AZMIND</strong></a>, customize and use it as you like!
-                        </p>
-                    </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">网络订餐系统</a>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 phone">
-                    <img src="assets/img/iphone.png" alt="">
-                </div>
-                <div class="col-sm-5 form-box">
-                    <div class="form-top">
-                        <div class="form-top-left">
-                            <h3>Register to our App</h3>
-                            <p>Fill in the form below to get instant access:</p>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="#">关于我们</a></li>
+                    </ul>
+                    <!--<form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="请输入内容"/>
                         </div>
-                        <div class="form-top-right">
-                            <i class="fa fa-pencil"></i>
-                        </div>
-                    </div>
-                    <div class="form-bottom">
-                        <form role="form" action="" method="post" class="registration-form">
-                            <div class="form-group">
-                                <label class="sr-only" for="form-first-name">First name</label>
-                                <input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-last-name">Last name</label>
-                                <input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="form-email">Email</label>
-                                <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
-                            </div>
-                            <button type="submit" class="btn">Sign me up!</button>
-                        </form>
-                    </div>
-                </div>
+                        <button type="submit" class="btn btn-default">搜索</button>
+                    </form>-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--<li><a href="#">链接</a></li>-->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">设置</a></li>
+                                <li><a href="#">个人资料</a></li>
+                                <li><a href="#">账户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
             </div>
         </div>
+    </nav>
+</header>
+<main>
+    <div class="container">
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form th:action="@{/login}" method="post">
+                    <fieldset>
+                        <h1>请登录</h1>
+
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username and password.
+                            </div>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                已提出
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="username" id="username" class="form-control input-lg"
+                                   placeholder="UserName" required="true" autofocus="true"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg"
+                                   placeholder="Password" required="true"/>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
+                            </div>
+                            <div class="col-xs-6 offset-3 col-sm-6 col-md-6">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-</div>
+</main>
 
-
-<!-- Javascript -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-
-
+<footer id="footer">
+    <link type="text/css" rel="stylesheet" href="/css/footer.css"/>
+    <div class="row row-pb-md" style="margin: 0;">
+        <div class=" col-md-12 text-center copyright py-2 lead"
+             style="background: white;margin-top: 40px;margin-bottom: 0;">
+            <hr/>
+            <span> Copyright © 2018 - 董文强个人毕设网站 网上订餐系统</span>
+        </div>
+    </div>
+</footer>
 </body>
-
 </html>

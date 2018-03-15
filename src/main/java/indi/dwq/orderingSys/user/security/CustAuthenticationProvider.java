@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
 /**
@@ -27,10 +28,14 @@ public class CustAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HttpSession session;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
+
         UserDetails userDetials = userService.loadUserByUsername(username);
 
         //获取用户权限列表
@@ -38,6 +43,7 @@ public class CustAuthenticationProvider implements AuthenticationProvider {
 
         //判断用户密码是否正确
         if (userDetials.getPassword().equals(password)) {
+            session.setAttribute("user",userDetials);
             return new UsernamePasswordAuthenticationToken(userDetials, password, authorities);
         } else {
             return null;//new UsernamePasswordAuthenticationToken(userDetials,password,null);

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8"/>
     <title>首页</title>
@@ -10,37 +11,45 @@
 </head>
 <body>
 <header id="header">
+    <style>body {
+        padding-top: 50px;
+        font-family: 'microsoft yahei', Arial, sans-serif;
+        margin: 0;
+    }</style>
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
         <div class="container">
             <div class="row">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">网络订餐系统</a>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a th:href="@{/}">首页</a></li>
                         <li><a href="#">关于我们</a></li>
                     </ul>
-                    <!--<form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="请输入内容"/>
-                        </div>
-                        <button type="submit" class="btn btn-default">搜索</button>
-                    </form>-->
+
                     <ul class="nav navbar-nav navbar-right">
                         <!--<li><a href="#">链接</a></li>-->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a>
+                        <li class="dropdown" th:if="${session.user != null}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:inline="text">
+                                欢迎您，
+                                [[${session.user.username}]]<b class="caret"></b>
+                            </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">设置</a></li>
                                 <li><a href="#">个人资料</a></li>
                                 <li><a href="#">账户中心</a></li>
+                                <li th:if="${session.user != null}"><a href="#" th:text="${session.user.role}">a</a>
+                                </li>
+                                <!-- /*<div th:if="${user != null}" th:switch="${user.role}">
+                                     <li><a href="#" ><p th:case="'admin'">User is an administrator</p></a></li>
+                                 </div>*/ -->
                                 <li class="divider"></li>
                                 <li><a href="/logout">退出登录</a></li>
                             </ul>
                         </li>
+                        <li th:if="${session.user == null}">
+                            <a href="#">登录</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div>
@@ -49,15 +58,15 @@
 </header>
 
 <main>
-    <div class=" container-fluid" id="main" style=" background-image: url('img/index_bg.jpg');">
+    <div class=" container-fluid" id="main" style=" background-image: url('/img/index_bg.jpg');">
 
 
         <div class="row index_seach">
 
             <div class="col-md-offset-4 col-md-4 input-group">
-                <div class="input-group-btn" >
+                <div class="input-group-btn">
                     <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">西安</button>
-                    <ul class="dropdown-menu" >
+                    <ul class="dropdown-menu">
                         <li><a href="#">西安</a></li>
                         <li><a href="#">渭南</a></li>
                         <li><a href="#">咸阳</a></li>
@@ -65,9 +74,9 @@
                         <li><a href="#">宝鸡</a></li>
                     </ul>
                 </div>
-                <input  id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
+                <input id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()" >
+                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()">
                         搜索
                     </button>
                 </div>
@@ -75,8 +84,9 @@
 
             <script>
                 $(".dropdown-menu li a").click(function () {
-                    $("#city").text (this.text);
+                    $("#city").text(this.text);
                 });
+
                 function onClickS() {
                     var city = $("#city").html();
                     var keyword = $("#keyword").val();
@@ -93,11 +103,12 @@
 </main>
 
 <footer id="footer">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/footer.css}"/>
     <div class="row row-pb-md" style="margin: 0;">
-        <div class=" col-md-12 text-center copyright py-2 lead" style="background: white;margin-top: 40px;margin-bottom: 0;">
+        <div class=" col-md-12 text-center copyright py-2 lead"
+             style="background: white;margin-top: 40px;margin-bottom: 0;">
             <hr/>
-           <span > Copyright © 2018 - 董文强个人毕设网站 网上订餐系统</span>
+            <span> Copyright © 2018 - 董文强个人毕设网站 网上订餐系统</span>
+            <span></span>
         </div>
     </div>
 </footer>
