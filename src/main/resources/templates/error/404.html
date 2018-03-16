@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>页面找不到啦</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
 </head>
 <body>
-    <h1>页面不见啦</h1>
+<div th:include="/index ::#header"></div>
+    <main><h1>页面不见啦</h1></main>
+<div th:include="/index ::#footer"></div>
 </body>
 </html>
