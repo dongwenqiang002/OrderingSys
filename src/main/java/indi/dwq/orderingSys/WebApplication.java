@@ -18,4 +18,8 @@ public class WebApplication {
     public String index(){
         return "/index";
     }
+    @RequestMapping("/index")
+    public String index1(){
+        return "/index";
+    }
 }

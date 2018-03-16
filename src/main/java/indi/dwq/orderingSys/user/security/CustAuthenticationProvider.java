@@ -19,6 +19,7 @@ import java.util.Collection;
 /**
  * @author 董文强
  * @Time 2018/3/13 16:55
+ * 验证用户名与密码
  */
 @Component
 public class CustAuthenticationProvider implements AuthenticationProvider {
@@ -46,6 +47,7 @@ public class CustAuthenticationProvider implements AuthenticationProvider {
             session.setAttribute("user",userDetials);
             return new UsernamePasswordAuthenticationToken(userDetials, password, authorities);
         } else {
+            /*密码不正确*/
             return null;//new UsernamePasswordAuthenticationToken(userDetials,password,null);
         }
     }

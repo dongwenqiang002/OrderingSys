@@ -35,7 +35,6 @@
 <div th:include="/index ::#header"></div>
 <main>
     <div class="container">
-        <div class="row"><h1 th:inline="text">${ctx.variables}</h1></div>
         <div class="starter-template">
             <p th:if="${param.logout}" class="bg-warning">已注销</p>
             <p th:if="${param.error}" class="bg-danger">有错误，请重试</p>

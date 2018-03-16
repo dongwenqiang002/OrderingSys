@@ -1,4 +1,4 @@
-package indi.dwq.orderingSys.map.service;
+package indi.dwq.orderingSys.app.service;
 
 import indi.dwq.orderingSys.data.dao.CityMapper;
 import org.slf4j.Logger;

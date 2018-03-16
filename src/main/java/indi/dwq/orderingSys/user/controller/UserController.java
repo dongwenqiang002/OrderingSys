@@ -31,8 +31,6 @@ public class UserController {
 
     @GetMapping("/sele")
     public String index(HttpSession session) {
-       // LOGGER.info(userMapper.selectByPrimaryKey(1).toString());
-       // LOGGER.info(session.getAttribute("user").toString());
         return "/loginView";
 
     }

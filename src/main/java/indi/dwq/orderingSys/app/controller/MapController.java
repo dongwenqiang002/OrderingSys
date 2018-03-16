@@ -1,6 +1,6 @@
-package indi.dwq.orderingSys.map.controller;
+package indi.dwq.orderingSys.app.controller;
 
-import indi.dwq.orderingSys.map.service.MapService;
+import indi.dwq.orderingSys.app.service.MapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @author 董文强
  * @Time 2018/3/2 10:19
+ * 地图有关功能的controller
  */
 @RestController
 @RequestMapping("/map")

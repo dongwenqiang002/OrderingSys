@@ -41,17 +41,14 @@
                                 <li><a href="#">账户中心</a></li>
                                 <li th:if="${session.user != null}"><a href="#" th:text="${session.user.role}">a</a>
                                 </li>
-                                <!-- /*<div th:if="${user != null}" th:switch="${user.role}">
-                                     <li><a href="#" ><p th:case="'admin'">User is an administrator</p></a></li>
-                                 </div>*/ -->
                                 <li class="divider"></li>
                                 <li><a href="/logout">退出登录</a></li>
                             </ul>
                         </li>
-                        <li th:if="${session.user == null}">
-                            <a href="#">登录</a></li>
+                        <li th:if="${session.user == null}"> <a th:href="@{/login.html}">登录</a></li>
+                        <li th:if="${session.user == null}"><a th:href="@{/register.html}">注册</a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
+                </div>
             </div>
         </div>
     </nav>
@@ -73,6 +70,16 @@
                         <li class="divider"></li>
                         <li><a href="#">宝鸡</a></li>
                     </ul>
+
+                    <script>
+                        $.ajax('http://api.map.baidu.com/location/ip', {data: {'ak':'wUU9lOlhiGEbCe1XabIwgGr6YlChet2d'}, dataType: 'jsonp', crossDomain: true,
+                            success: function(data) {
+                                if(data){
+                                   // console.log(data.content.address_detail.city)
+                                    $("#city").text(data.content.address_detail.city);
+                                }
+                            }});</script>
+
                 </div>
                 <input id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
                 <div class="input-group-btn">

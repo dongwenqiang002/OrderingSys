@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author 董文强
  * @Time 2018/3/13 10:56
@@ -14,10 +17,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcConfig.class);
 
+    Map<String, String> map = new HashMap<String, String>() {
+        {
+            put("/login.html"        ,   "/login"    );
+            put("/"                  ,   "/index"    );
+            put("/index.html"        ,   "/index"    );
+            put("/register.html"     ,   "/register" );
+            //put("/register",   "/register" );
+           // put("/login.html"   ,   "login"     );
+        }
+    };
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("/login");
+        //registry.addViewController("/login").setViewName("/login");
+        map.forEach((k,v)-> registry.addViewController(k).setViewName(v));
     }
 
 
