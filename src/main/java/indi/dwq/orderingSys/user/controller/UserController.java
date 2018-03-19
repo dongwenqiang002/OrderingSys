@@ -1,7 +1,8 @@
 package indi.dwq.orderingSys.user.controller;
 
-import indi.dwq.orderingSys.data.dao.UserMapper;
+
 import indi.dwq.orderingSys.data.pojo.User;
+import indi.dwq.orderingSys.data.pojo.UserDetail;
 import indi.dwq.orderingSys.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -23,8 +24,8 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserMapper userMapper;
+   /* @Autowired
+    private UserMapper userMapper;*/
 
     @Autowired
     private UserService userService;
@@ -35,16 +36,16 @@ public class UserController {
 
     }
 
-    @GetMapping("/register.html")
+    /*@GetMapping("/register.html")
     public ModelAndView registerHtml(){
         LOGGER.info("注册页面");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/register");
         return modelAndView;
-    }
+    }*/
 
     @PostMapping("/reg")
-    public String register(User user){
+    public String register(User user, UserDetail detail){
         LOGGER.info(user.toString());
         return "index";
     }

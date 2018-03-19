@@ -39,19 +39,30 @@
                                 <li><a href="#">设置</a></li>
                                 <li><a href="#">个人资料</a></li>
                                 <li><a href="#">账户中心</a></li>
-                                <li th:if="${session.user != null}"><a href="#" th:text="${session.user.role}">a</a>
+                                <li th:if="${session.user != null}">
+                                <a href="#" th:text="${session.user.role}">a</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="/logout">退出登录</a></li>
                             </ul>
                         </li>
-                        <li th:if="${session.user == null}"> <a th:href="@{/login.html}">登录</a></li>
+                        <li th:if="${session.user == null}"> <a data-toggle="modal" href="#loginModal">登录</a>
+                        </li>
                         <li th:if="${session.user == null}"><a th:href="@{/register.html}">注册</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"  aria-hidden="true" th:if="${session.user == null}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body"><div th:include="/login ::#loginPage"></div></div>
+            </div>
+        </div>
+    </div>
+
 </header>
 
 <main>

@@ -4,10 +4,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author 董文强
@@ -20,14 +27,35 @@ public class ErrorPageConfig  implements ErrorController {
 
 
     private static final String ERROR_PATH = "/error";
+    private Set<String> errorName = null;
+
+    @PostConstruct
+    public void initError(){
+        try {
+            File file = ResourceUtils.getFile("classpath:templates/error");
+            errorName = new TreeSet<>();
+            for (String s : Objects.requireNonNull(file.list())) {
+                errorName.add(s.substring(0,3));
+                LOGGER.info("添加错误页面 {}",s);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping(ERROR_PATH)
-    public String errorrr(, HttpServletResponse response){
+    public String errorrr(HttpServletResponse response,HttpServletRequest request){
 
         int statusInt = response.getStatus();
-        LOGGER.error("错误状态码: {}",statusInt);
-        return "/error/"+statusInt;
+        request.getParameterMap().forEach(LOGGER::info);
+        if(errorName.contains(Integer.toString(statusInt))){
+            return "/error/" + statusInt;
+        }else {
+            return "/error/error";
+        }
     }
+
+
 
     @Override
     public String getErrorPath() {
