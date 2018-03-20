@@ -44,11 +44,14 @@ public class ErrorPageConfig  implements ErrorController {
     }
 
     @RequestMapping(ERROR_PATH)
-    public String errorrr(HttpServletResponse response,HttpServletRequest request){
+    public String errorrr(HttpServletResponse response,HttpServletRequest request,Exception e){
 
         int statusInt = response.getStatus();
-        request.getParameterMap().forEach(LOGGER::info);
+        LOGGER.error("页面出错,错误码:{}",statusInt);
         if(errorName.contains(Integer.toString(statusInt))){
+            if(statusInt == 404){
+                LOGGER.error("{}",response.getHeaderNames());
+            }
             return "/error/" + statusInt;
         }else {
             return "/error/error";

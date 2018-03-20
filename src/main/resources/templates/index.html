@@ -1,6 +1,5 @@
 <!DOCTYPE html >
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>首页</title>
@@ -73,7 +72,7 @@
 
             <div class="col-md-offset-4 col-md-4 input-group">
                 <div class="input-group-btn">
-                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">西安</button>
+                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">北京</button>
                     <ul class="dropdown-menu">
                         <li><a href="#">西安</a></li>
                         <li><a href="#">渭南</a></li>
@@ -99,7 +98,10 @@
                     </button>
                 </div>
             </div>
-
+            <script th:src="@{/js/dataPro.js}" src="/static/js/dataPro.js"></script>
+            <form id="index_form" th:action="@{/foot/footList}" action="/foot/footList" method="post" hidden="hidden">
+                <input name="city" /><input name="keyword"/>
+            </form>
             <script>
                 $(".dropdown-menu li a").click(function () {
                     $("#city").text(this.text);
@@ -110,9 +112,12 @@
                     var keyword = $("#keyword").val();
                     console.log(city);
                     console.log(keyword);
+                    $("#index_form").find("input[name='city']").val(city);
+                    $("#index_form").find("input[name='keyword']").val(keyword);
                     /**
                      * 这里添加搜索提交代码
                      * */
+                    $("#index_form").submit();
                 }
             </script>
         </div>

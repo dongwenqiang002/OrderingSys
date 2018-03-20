@@ -10,7 +10,7 @@ spring:
   application:
     name: eureka-ording
   thymeleaf:
-      mode: HTML5
+      mode: LEGACYHTML5
       encoding: UTF-8
       content-type: text/html
       cache: false #开发时关闭缓存,不然没法看到实时页面
@@ -19,6 +19,9 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  mvc:
+    throw-exception-if-no-handler-found: false
+
 mydata:
   db-url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8
   username: root
