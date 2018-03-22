@@ -1,4 +1,4 @@
-package indi.dwq.orderingSys.user.controller;
+package indi.dwq.orderingSys.app.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import java.io.OutputStream;
  * <p>用来管理项目中文件的使用</p>
  */
 @Controller
-@RequestMapping("file")
+@RequestMapping("/file")
 public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 

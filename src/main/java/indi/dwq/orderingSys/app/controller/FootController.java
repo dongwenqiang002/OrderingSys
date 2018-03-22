@@ -1,4 +1,4 @@
-package indi.dwq.orderingSys.user.controller;
+package indi.dwq.orderingSys.app.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

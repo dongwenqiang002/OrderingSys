@@ -22,7 +22,7 @@ import java.util.TreeSet;
  */
 
 @Controller
-public class ErrorPageConfig  implements ErrorController {
+public class ErrorPageConfig implements ErrorController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ErrorPageConfig.class);
 
 
@@ -30,13 +30,13 @@ public class ErrorPageConfig  implements ErrorController {
     private Set<String> errorName = null;
 
     @PostConstruct
-    public void initError(){
+    public void initError() {
         try {
             File file = ResourceUtils.getFile("classpath:templates/error");
             errorName = new TreeSet<>();
             for (String s : Objects.requireNonNull(file.list())) {
-                errorName.add(s.substring(0,3));
-                LOGGER.info("添加错误页面 {}",s);
+                errorName.add(s.substring(0, 3));
+                LOGGER.info("添加错误页面 {}", s);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -44,21 +44,18 @@ public class ErrorPageConfig  implements ErrorController {
     }
 
     @RequestMapping(ERROR_PATH)
-    public String errorrr(HttpServletResponse response,HttpServletRequest request,Exception e){
-
+    public String errorrr(HttpServletResponse response, HttpServletRequest request, Exception e) {
         int statusInt = response.getStatus();
-        LOGGER.error("页面出错,错误码:{}",statusInt);
-        if(errorName.contains(Integer.toString(statusInt))){
-            if(statusInt == 404){
-                LOGGER.error("{}",response.getHeaderNames());
+        LOGGER.error("页面出错,错误码:{}", statusInt);
+        if (errorName.contains(Integer.toString(statusInt))) {
+            if (statusInt == 404) {
+                LOGGER.error("{}", response.getHeaderNames());
             }
             return "/error/" + statusInt;
-        }else {
+        } else {
             return "/error/error";
         }
     }
-
-
 
     @Override
     public String getErrorPath() {

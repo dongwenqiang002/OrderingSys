@@ -28,7 +28,7 @@ mydata:
   password: root
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
-logging.level.org.springframework.security: info
+#logging.level.org.springframework.security: info
 mybatis:
   configuration:
     log-impl:
