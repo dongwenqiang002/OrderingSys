@@ -88,7 +88,7 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
 
         DataProperties thii = dataProperties;
         mybatisProperties.setMapperLocations(thii.getMapperPath());
-        mybatisProperties.getConfiguration().setLogImpl(StdOutImpl.class);
+//        mybatisProperties.getConfiguration().setLogImpl(StdOutImpl.class);
 
         super.setJdbcUrl(thii.getDbUrl());
         try {

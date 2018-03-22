@@ -6,11 +6,12 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/register.js}"></script>
     <style>
 
-        .reg {
+       /* .reg {
             padding-top: 75px;
-        }
+        }*/
 
         .reg div div form div {
             margin-bottom: 4%;
@@ -26,72 +27,116 @@
             margin-left: -20%;
         }
 
+        .left_vox , .left_vox img  {
+            height: 600px;
+            padding: 0 ;
+            background: url("/img/register.jpg") no-repeat;
+            background-size:100% 100%;
+            -moz-background-size:100% 100%;
+            z-index:999;
+        }
+        #div2{
+            display:none;
+        }
     </style>
 </head>
 <body>
-<div th:include="/index ::#header"></div>
-<main>
-    <div class="reg container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-3">
-                <div class="row">
-                    <h1>欢迎注册</h1>
-                </div>
-                <div class="row">
-                    <form action="/user/reg" method="post" class="form-horizontal" role="form">
-                        <!--DIV CLASS has-{error/warning/success}-->
-                        <div>
-                            <span>用户名</span>
-                            <div class="input-group" t="glyphicon-user">
-                                <input name="username" type="text" placeholder="用户名" title="底部的 Tooltip"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <span>电子邮箱</span>
-                            <div class="input-group" t="glyphicon-envelope">
-                                <input name="email" type="text" placeholder="请输入email" title="底部的 Tooltip"/>
-                            </div>
-                        </div>
-                        <div>
-                            <span>密码</span>
-                            <div class="input-group" t="glyphicon-lock">
-                                <input name="password" type="password" placeholder="密码" title="底部的 Tooltip"/>
-                            </div>
+<header th:include="/index ::#header"></header>
+<main class="reg  container-fluid">
 
-                        </div>
-                        <div>
-                            <span>再次输入密码</span>
-                            <div class="input-group" t="glyphicon-lock">
-                                <input type="password" placeholder="密码" title="底部的 Tooltip"/>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-4 left_vox visible-lg visible-md">
 
-                    </form>
-                    <script>
-                        $("form >div").addClass("form-group ");
-
-                        $("form >div >div >input").attr({
-                            "class": "form-control  ",
-                            "data-toggle": "tooltip",
-                            "data-placement": "bottom",
-                            "data-trigger": "manual"
-                        });
-                        $("form >div >div").each(function () {
-                            var sp = $("  <span class=\"input-group-addon \" ><span " +
-                                "class=\"glyphicon\"></span></span>");
-                            sp.children().addClass( $(this).attr("t"));
-                            $(this).prepend(sp);
-                        });
-                        $('form div  input:even').tooltip('show');
-                    </script>
-                </div>
+        </div>
+        <div id="div1" class="col-md-offset-1 col-md-2">
+            <div class="row">
+                <h1>欢迎注册</h1>
             </div>
+            <div class="row">
+                <form action="/user/reg" method="post" class="form-horizontal regForm  " role="form">
+                    <!--DIV CLASS has-{error/warning/success}-->
+                    <div>
+                        <span>用户名</span>
+                        <div class="input-group" t="glyphicon-user">
+                            <input name="username" type="text" placeholder="用户名" title="底部的 Tooltip"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <span>电子邮箱</span>
+                        <div class="input-group" t="glyphicon-envelope">
+                            <input name="email" type="text" placeholder="请输入email" title="底部的 Tooltip"/>
+                        </div>
+                    </div>
+                    <div>
+                        <span>密码</span>
+                        <div class="input-group" t="glyphicon-lock">
+                            <input name="password" type="password" placeholder="密码" title="底部的 Tooltip"/>
+                        </div>
+
+                    </div>
+                    <div>
+                        <span>再次输入密码</span>
+                        <div class="input-group" t="glyphicon-lock">
+                            <input type="password" placeholder="密码" title="底部的 Tooltip"/>
+                        </div>
+                    </div>
+                    <a id="regsub">下一步</a>
+                </form>
+                <form action="/user/reg_detail" method="post" class="form-horizontal" role="form">
+
+                    <div>
+                        <span>用户名</span>
+                        <div class="input-group" t="glyphicon-user">
+                            <input name="username" type="text" placeholder="用户名" title="底部的 Tooltip"
+                            />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <footer th:include="/index ::#footer"></footer>
+        </div>
+        <div id="div2" class="col-md-offset-1 col-md-2">
+            <div class="row">
+                <h1>请完善个人信息</h1>
+            </div>
+            <div class="row">
+                <form action="/user/reg" method="post" class="form-horizontal detail_form  " role="form">
+                    <!--DIV CLASS has-{error/warning/success}-->
+                    <div>
+                        <span>用户名</span>
+                        <div class="input-group" t="glyphicon-user">
+                            <input name="username" type="text" placeholder="用户名" title="底部的 Tooltip"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <span>电子邮箱</span>
+                        <div class="input-group" t="glyphicon-envelope">
+                            <input name="email" type="text" placeholder="请输入email" title="底部的 Tooltip"/>
+                        </div>
+                    </div>
+                    <div>
+                        <span>密码</span>
+                        <div class="input-group" t="glyphicon-lock">
+                            <input name="password" type="password" placeholder="密码" title="底部的 Tooltip"/>
+                        </div>
+
+                    </div>
+                    <div>
+                        <span>再次输入密码</span>
+                        <div class="input-group" t="glyphicon-lock">
+                            <input type="password" placeholder="密码" title="底部的 Tooltip"/>
+                        </div>
+                    </div>
+                    <a id="abc">下一步</a>
+                </form>
+            </div>
+            <footer th:include="/index ::#footer"></footer>
         </div>
     </div>
 
 </main>
-<div th:include="/index ::#footer"></div>
+
 </body>
 </html>

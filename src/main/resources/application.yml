@@ -21,7 +21,8 @@ spring:
       max-request-size: 100MB
   mvc:
     throw-exception-if-no-handler-found: false
-
+#  aop:
+#    auto: true
 mydata:
   db-url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8
   username: root
@@ -29,9 +30,9 @@ mydata:
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
 #logging.level.org.springframework.security: info
-mybatis:
-  configuration:
-    log-impl:
+#mybatis:
+#  configuration:
+#    log-impl:
 
 #
 #eureka:

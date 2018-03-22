@@ -49,7 +49,7 @@ public class ErrorPageConfig implements ErrorController {
         LOGGER.error("页面出错,错误码:{}", statusInt);
         if (errorName.contains(Integer.toString(statusInt))) {
             if (statusInt == 404) {
-                LOGGER.error("{}", response.getHeaderNames());
+              //  LOGGER.error("{}", response.getHeaderNames());
             }
             return "/error/" + statusInt;
         } else {
