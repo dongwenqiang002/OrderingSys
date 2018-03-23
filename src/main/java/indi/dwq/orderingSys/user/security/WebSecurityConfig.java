@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         /*不拦截的页面*/
                         "/img/**.**","/fonts/**.**"
-                        ,"/","/register.html","index.html"
+                        ,"/","/register.html","index.html","/map/**"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login.html")

@@ -6,12 +6,12 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
-    <script th:src="@{/js/register.js}"></script>
+    <script th:src="@{/js/register.js}" ></script>
     <style>
 
-       /* .reg {
-            padding-top: 75px;
-        }*/
+        /* .reg {
+             padding-top: 75px;
+         }*/
 
         .reg div div form div {
             margin-bottom: 4%;
@@ -27,16 +27,17 @@
             margin-left: -20%;
         }
 
-        .left_vox , .left_vox img  {
+        .left_vox, .left_vox img {
             height: 600px;
-            padding: 0 ;
+            padding: 0;
             background: url("/img/register.jpg") no-repeat;
-            background-size:100% 100%;
-            -moz-background-size:100% 100%;
-            z-index:999;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            z-index: 999;
         }
-        #div2{
-            display:none;
+
+        #div2 {
+            display: none;
         }
     </style>
 </head>
@@ -48,7 +49,8 @@
         <div class="col-md-4 left_vox visible-lg visible-md">
 
         </div>
-        <div id="div1" class="col-md-offset-1 col-md-2">
+        <div class="col-md-8">
+        <div id="div1" class="col-md-offset-1 col-md-4">
             <div class="row">
                 <h1>欢迎注册</h1>
             </div>
@@ -69,6 +71,15 @@
                         </div>
                     </div>
                     <div>
+                        <div class="input-group" t="glyphicon-forward">
+                            <input class="form-control " name="code" type="text" placeholder="邮箱验证码"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="button">发送</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
                         <span>密码</span>
                         <div class="input-group" t="glyphicon-lock">
                             <input name="password" type="password" placeholder="密码" title="底部的 Tooltip"/>
@@ -83,20 +94,10 @@
                     </div>
                     <a id="regsub">下一步</a>
                 </form>
-                <form action="/user/reg_detail" method="post" class="form-horizontal" role="form">
-
-                    <div>
-                        <span>用户名</span>
-                        <div class="input-group" t="glyphicon-user">
-                            <input name="username" type="text" placeholder="用户名" title="底部的 Tooltip"
-                            />
-                        </div>
-                    </div>
-                </form>
             </div>
-            <footer th:include="/index ::#footer"></footer>
+
         </div>
-        <div id="div2" class="col-md-offset-1 col-md-2">
+        <div id="div2" class="col-md-offset-1 col-md-4">
             <div class="row">
                 <h1>请完善个人信息</h1>
             </div>
@@ -116,6 +117,7 @@
                             <input name="email" type="text" placeholder="请输入email" title="底部的 Tooltip"/>
                         </div>
                     </div>
+
                     <div>
                         <span>密码</span>
                         <div class="input-group" t="glyphicon-lock">
@@ -132,7 +134,8 @@
                     <a id="abc">下一步</a>
                 </form>
             </div>
-            <footer th:include="/index ::#footer"></footer>
+        </div>
+        <footer id="footer" th:include="/index ::#footer"  ></footer>
         </div>
     </div>
 

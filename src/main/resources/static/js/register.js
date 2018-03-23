@@ -11,13 +11,17 @@ $(function () {
     $(".regForm  >div >div").each(function () {
         var sp = $("  <span class=\"input-group-addon \" ><span " +
             "class=\"glyphicon\"></span></span>");
-        sp.children().addClass($(this).attr("t"));
-        $(this).prepend(sp);
+        var t = $(this).attr("t");
+        if (t != null) {
+            sp.children().addClass($(this).attr("t"));
+            $(this).prepend(sp);
+        }
+
     });
     $('.regForm  div  input:even').tooltip('show');
 
     $("#regsub").click(function () {
-        $("#div1").animate({right: '500px'}, "2000",function () {
+        $("#div1").animate({right: '500px'}, "2000", function () {
             $(this).hide();
             $("#div2").fadeIn(3000);
         });
@@ -25,11 +29,14 @@ $(function () {
 
     });
 
-    var height = $(window).height()-50 ;//$("header").height()//-$("footer").height();
-    console.log( $("header").height());
+    var height = $(window).height() - 50;//$("header").height()//-$("footer").height();
+    console.log($("header").height());
     $(".left_vox").height(height);
-    $(window).resize(function() {
-        var height = $(window).height()-50;
+    $("#footer").css('marginTop',height);
+    $(window).resize(function () {
+        var height = $(window).height() - 50;
         $(".left_vox").height(height);
     });
+
+
 });
