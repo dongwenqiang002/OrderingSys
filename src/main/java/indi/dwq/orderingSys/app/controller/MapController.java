@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -29,8 +31,8 @@ public class MapController {
      * @return  返回下一级列表
      * */
     @GetMapping("/sele")
-    public List name(String name){
-
+    public List name(String name , HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
         List list = mapService.name(name);
         return list;
     }
