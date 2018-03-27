@@ -33,6 +33,7 @@ public class MapController {
     @GetMapping("/sele")
     public List name(String name , HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
+
         List list = mapService.name(name);
         return list;
     }

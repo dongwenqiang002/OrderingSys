@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -44,14 +41,18 @@ public class UserController {
         return modelAndView;
     }*/
 
+    /**
+     *  注册
+     * */
     @PostMapping("/reg")
-    public String register(User user, UserDetail detail){
+    public String register(@ModelAttribute("user") User user, UserDetail detail) {
         LOGGER.info(user.toString());
+        LOGGER.info(detail.toString());
         return "index";
     }
 
     @GetMapping("/aa")
-    public ModelAndView aa(){
+    public ModelAndView aa() {
         return new ModelAndView("/index ::#header");
     }
 

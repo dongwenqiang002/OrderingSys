@@ -18,10 +18,10 @@ $(function () {
         }
 
     });
-    $('.regForm  div  input:even').tooltip('show');
+   // $('.regForm  div  input:even').tooltip('show');
 
     $("#regsub").click(function () {
-        $("#div1").animate({right: '500px'}, "2000", function () {
+        $("#div1").animate({right: '800px'}, 1300, function () {
             $(this).hide();
             $("#div2").fadeIn(3000);
         });
@@ -32,11 +32,24 @@ $(function () {
     var height = $(window).height() - 50;//$("header").height()//-$("footer").height();
     console.log($("header").height());
     $(".left_vox").height(height);
-    $("#footer").css('marginTop',height);
     $(window).resize(function () {
         var height = $(window).height() - 50;
         $(".left_vox").height(height);
     });
 
+
+    $("#sub_all").click(function () {
+        var f1 = $("#form1").serialize();
+        var f2 = $("#form2").serialize();
+        console.log(f1);
+        console.log(f2);
+        $.post("/user/reg",f1+"&"+f2,function(d) {
+            if(d === 'index'){
+                alert("注册成功");
+                location.href="/index";
+            }
+        });
+        //$("#all_form").submit();
+    });
 
 });

@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.user.service;
 
 import indi.dwq.orderingSys.data.dao.UserMapper;
 import indi.dwq.orderingSys.data.pojo.User;
+import indi.dwq.orderingSys.data.pojo.UserDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,11 @@ public class UserService implements UserDetailsService {
         return user;
 
     }
+
+
+    public User register(User user, UserDetail detail){
+        userDao.insert(user);
+        return user;
+    }
+
 }

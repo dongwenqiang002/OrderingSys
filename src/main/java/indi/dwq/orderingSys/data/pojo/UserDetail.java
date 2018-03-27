@@ -13,6 +13,18 @@ public class UserDetail {
 
     private String address;
 
+    @Override
+    public String toString() {
+        return "UserDetail{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
