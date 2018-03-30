@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
 
     }
 
-        
+
     public User register(User user, UserDetail detail){
         userDao.insert(user);
         return user;
