@@ -3,27 +3,15 @@ package indi.dwq.orderingSys.data.pojo;
 public class UserDetail {
     private Integer id;
 
-    private String name;
-
-    private String sex;
-
-    private String email;
+    private String address;
 
     private String phone;
 
-    private String address;
+    private String name;
 
-    @Override
-    public String toString() {
-        return "UserDetail{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
+    private Integer age;
+
+    private String sex;
 
     public Integer getId() {
         return id;
@@ -33,28 +21,12 @@ public class UserDetail {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public String getPhone() {
@@ -65,11 +37,27 @@ public class UserDetail {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
     }
 }

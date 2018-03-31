@@ -12,6 +12,8 @@ public class User implements UserDetails {
 
     private String username;
 
+    private Integer detailId;
+
     private String password;
 
     private String role;
@@ -48,6 +50,13 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public Integer getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(Integer detailId) {
+        this.detailId = detailId;
+    }
 
     @Override
     public String toString() {

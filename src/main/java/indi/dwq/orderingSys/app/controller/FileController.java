@@ -3,13 +3,17 @@ package indi.dwq.orderingSys.app.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
 
 /**
@@ -22,16 +26,24 @@ import java.io.OutputStream;
 public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
+    private static String fileDir ;
+    //new File(ResourceUtils.getURL("classpath:").getPath());
+    @PostConstruct
+    public void init() throws FileNotFoundException {
+      //  imageDir = ResourceUtils.getURL("classpath:").getPath();
+        fileDir = "D:/Desktop/PROJECT/OrderingSys/file";
+    }
 
     @GetMapping("/img/{name}.{type}")
     public void valicode(@PathVariable("name") String name, @PathVariable("type") String type,
                          HttpServletResponse response) throws Exception {
         LOGGER.info("图片获取: {} . {}", name, type);
+        LOGGER.info(fileDir+"/img/"+name+"."+type);
         //将图片输出给浏览器
-        BufferedImage image = ImageIO.read(new File("E:\\abc.bmp"));
-        response.setContentType("image/bmp");
+        BufferedImage image = ImageIO.read(new File(fileDir+ "/img/" +name+"."+type));
+        response.setContentType("image/"+type);
         OutputStream os = response.getOutputStream();
-        ImageIO.write(image, "bmp", os);
+        ImageIO.write(image, type, os);
 
     }
 

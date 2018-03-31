@@ -5,11 +5,13 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"   />
-        <association property="role" javaType="java.lang.String" select="indi.dwq.orderingSys.data.dao.RoleMapper.selectNameById"   column="role"/>
+        <result column="role"     jdbcType="VARCHAR" property="role"  />
     </resultMap>
+
     <sql id="Base_Column_List">
-    <![CDATA[ id, username, password ]]>
+    <![CDATA[ id, username, password ,role ]]>
   </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
        <![CDATA[ select id, username, password ,role  from user where id = #{id,jdbcType=INTEGER} ]]>
     </select>
@@ -17,6 +19,7 @@
         <![CDATA[ SELECT *
         FROM USER  WHERE username = #{username} ]]>
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <![CDATA[ delete from user
         where id = #{id,jdbcType=INTEGER} ]]>
@@ -52,6 +55,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.User">
         update user
         <set>
@@ -70,4 +74,5 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

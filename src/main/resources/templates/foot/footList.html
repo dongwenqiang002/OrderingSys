@@ -7,7 +7,7 @@
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
     <style>
-        main a {
+        table a {
             height: 210px;
             width: 200px;
             text-decoration: none;
@@ -38,56 +38,33 @@
 <body>
 <header th:include="/index ::#header"></header>
 
-<main>
-    <table>
-        <tr>
-            <td>
-                <a href="#" class="thumbnail">
+<main class="container ">
+    <table style="margin: auto  " >
+        <tr th:each="list : ${eateryList}" >
+            <td th:each="eatery : ${list}">
+                <a href="#" class="thumbnail" th:href="'/foot/eatery/'+${eatery.id}">
                     <div>
-                        <div><img class="img-rounded" src="/static/img/u.png"/>
+                        <div><img class="img-rounded" src="/file/img/u.png"/>
                         </div>
-                        <span style="color: #3c3c3c">一个神奇的餐厅</span><br/>
-                        <span class="name" style=""> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
-                        <span style="color: red">月销量 999 单</span>
-                    </div>
-                </a>
-            </td>
-            <td>
-                <a href="#" class="thumbnail">
-                    <div>
-                        <div><img class="img-rounded" src="/static/img/u.png"/>
-                        </div>
-                        <span style="color: #3c3c3c">一个神奇的餐厅</span><br/>
-                        <span class="name" style=""> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
-                        <span style="color: red">月销量 999 单</span>
-                    </div>
-                </a>
-            </td>
-
-            <td>
-                <a href="#" class="thumbnail">
-                    <div>
-                        <div><img class="img-rounded" src="/static/img/u.png"/>
-                        </div>
-                        <span style="color: #3c3c3c">一个神奇的餐厅</span><br/>
-                        <span class="name" style=""> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
-                        <span style="color: red">月销量 999 单</span>
+                        <span style="color: #3c3c3c" th:text="${eatery.des}" >一个神奇的餐厅</span><br/>
+                        <span class="name" th:text="${eatery.eaterName}"> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
+                        <span style="color: red" th:text="'地址: '+ ${eatery.address}" >西安市</span>
                     </div>
                 </a>
             </td>
         </tr>
-        <tr> <td>
-            <a href="#" class="thumbnail">
-                <div>
-                    <div><img class="img-rounded" src="/static/img/u.png"/>
-                    </div>
-                    <span style="color: #3c3c3c">一个神奇的餐厅</span><br/>
-                    <span class="name" style=""> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
-                    <span style="color: red">月销量 999 单</span>
-                </div>
-            </a>
-        </td></tr>
     </table>
+    <div class="text-center">
+        <ul class="pagination ">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
 </main>
 
 <footer th:include="/index ::#footer"></footer>

@@ -43,7 +43,7 @@ $(function () {
         var f2 = $("#form2").serialize();
         console.log(f1);
         console.log(f2);
-        $.post("/user/reg",f1+"&"+f2,function(d) {
+        $.post("/security/reg",f1+"&"+f2,function(d) {
             if(d === 'index'){
                 alert("注册成功");
                 location.href="/index";
