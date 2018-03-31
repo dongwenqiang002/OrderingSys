@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @Time 2018/3/20 11:20
  */
 @Controller
-@RequestMapping("/foot")
+@RequestMapping("/food")
 public class FootController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FootController.class);
 
@@ -24,7 +24,7 @@ public class FootController {
     @RequestMapping("/eateryList")
     public ModelAndView footList(Integer pageNum) {
         LOGGER.info("列表页面!");
-        ModelAndView modelAndView = new ModelAndView("/foot/eateryList");
+        ModelAndView modelAndView = new ModelAndView("/food/eateryList");
         modelAndView.addObject("eateryList",eateryService.getAll(pageNum));
         return modelAndView;
     }
@@ -32,9 +32,9 @@ public class FootController {
     @RequestMapping("/eatery/{id}")
     public ModelAndView intoEatery(@PathVariable("id") Integer id){
 
-        ModelAndView mv = new ModelAndView("foot/footList");
+        ModelAndView mv = new ModelAndView("/food/foodList");
 
-        mv.addObject("foot",null);
+        //mv.addObject("food",null);
 
         return mv;
     }
