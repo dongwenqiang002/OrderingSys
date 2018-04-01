@@ -1,6 +1,6 @@
 package indi.dwq.orderingSys.data.pojo;
 
-public class food {
+public class Food {
     private Integer id;
 
     private String name;

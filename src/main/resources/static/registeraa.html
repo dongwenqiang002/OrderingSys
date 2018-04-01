@@ -41,8 +41,30 @@
         .footInfo div > div > .input-group > span {
             cursor: pointer;
         }
-        .footInfo >span:nth-child(3){
-            color: red;display: block;
+
+        .footInfo > span:nth-child(3) {
+            color: red;
+            display: block;
+        }
+
+        .footInfo > span:nth-child(2) {
+            font-weight: 300;
+            font-family: sans-serif;
+
+        }
+
+        .footInfo > span:nth-child(1) {
+            display: block;
+            font-weight: 900;
+            font-family: sans-serif;
+
+        }
+
+        #shoppingCart > li > div > span:nth-child(2) {
+            margin: auto;
+            width: 15%;
+            height: 80%;
+            background: #0d0d0d;
         }
     </style>
 </head>
@@ -99,7 +121,7 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-7">
             <div class="container-fluid footList">
-                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
+                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid">
                     <div class="col-md-3 col-xs-3  col-sm-3"><img
                             src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
                             style="width: 100%;height: 100%"></div>
@@ -109,12 +131,13 @@
                         <span style=""><i class="glyphicon glyphicon-usd"></i>6元</span>
                         <div class="pull-right">
 
-                            <div class="show">
-                                <div class="btn btn-sm btn-info">
+                            <div>
+                                <div class="btn btn-sm btn-info" onclick="addToCart(this,'酸辣土豆丝',1,6)">
+                                    <!--this,name,id,price-->
                                     加入购物车
                                 </div>
                             </div>
-                            <div class="hide">
+                            <div style="display:none">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-addon"><i class=" glyphicon glyphicon-plus"></i></span>
                                     <input type="tel" class="form-control">
@@ -126,34 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
-                    <div class="col-md-3 col-xs-3  col-sm-3"><img
-                            src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
-                            style="width: 100%;height: 100%"></div>
-                    <div class="footInfo  col-md-9 col-xs-9  col-sm-9 container " style="padding: 10px;">
-                        <span>酸辣土豆丝</span>
-                        <span class="text-nowrap">咸鲜味大，基部钝形，边缘呈波状，平滑无毛，开黄白色花的一或二年生的草本植物。极受消费者的欢迎。</span>
-                        <span style=""><i class="glyphicon glyphicon-usd"></i>6元</span>
-                        <div class="pull-right">
-
-                            <div class="hide">
-                                <div class="btn btn-sm btn-info">
-                                    加入购物车
-                                </div>
-                            </div>
-                            <div class="show">
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-addon"><i class=" glyphicon glyphicon-plus"></i></span>
-                                    <input type="tel" class="form-control">
-                                    <span class="input-group-addon 	"><i
-                                            class="glyphicon glyphicon-minus"></i></span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
+                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid">
                     <div class="col-md-3 col-xs-3  col-sm-3"><img
                             src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
                             style="width: 100%;height: 100%"></div>
@@ -180,7 +176,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
+                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid">
                     <div class="col-md-3 col-xs-3  col-sm-3"><img
                             src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
                             style="width: 100%;height: 100%"></div>
@@ -207,7 +203,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
+                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid">
+                    <div class="col-md-3 col-xs-3  col-sm-3"><img
+                            src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
+                            style="width: 100%;height: 100%"></div>
+                    <div class="footInfo  col-md-9 col-xs-9  col-sm-9 container " style="padding: 10px;">
+                        <span>酸辣土豆丝</span>
+                        <span class="text-nowrap">咸鲜味大，基部钝形，边缘呈波状，平滑无毛，开黄白色花的一或二年生的草本植物。极受消费者的欢迎。</span>
+                        <span style=""><i class="glyphicon glyphicon-usd"></i>6元</span>
+                        <div class="pull-right">
+
+                            <div class="hide">
+                                <div class="btn btn-sm btn-info">
+                                    加入购物车
+                                </div>
+                            </div>
+                            <div class="show">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-addon"><i class=" glyphicon glyphicon-plus"></i></span>
+                                    <input type="tel" class="form-control">
+                                    <span class="input-group-addon 	"><i
+                                            class="glyphicon glyphicon-minus"></i></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid">
                     <div class="col-md-3 col-xs-3  col-sm-3"><img
                             src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
                             style="width: 100%;height: 100%"></div>
@@ -238,21 +261,70 @@
 
             </div>
         </div>
+        <script>
+            function addToCart(btn, name, id, price) {
+                $(btn).parent().hide();
+                console.log($(btn).parent().next());
+                $(btn).parent().next().show();
+                $(btn).parent().next().find("input").val(1);
+                var li = "<li class='list-group-item'>\n" +
+                    "<div ><span class='pull-left'>土猪红烧肉</span><span class='text-center' >" +
+                    "<button>-</button><input style='width: 15%'><button>+</button></span>" +
+                    "<span class='pull-right'>¥252</span>" +
+                    "</div></li>";
+                $("#shoppingCart").append();
+            }
+        </script>
         <div class="col-md-3     ">
             <nav class="text-center " role="navigation">
                 <div class="container-fluid">
-                    <a href="#AssetsMent" class="nav-header collapsed" data-toggle="collapse">
+                    <a href="#shoppingCart" class="nav-header collapsed" data-toggle="collapse">
                         <button type="button" class="btn btn-info btn-lg"
                                 style="text-shadow: black 5px 3px 3px;font-size: 30px;"><span
                                 class="glyphicon glyphicon-shopping-cart">购物车</span></button>
                     </a>
-                    <ul id="AssetsMent" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li>
-                            <div><img src="img/u.png"></div>
+
+                    <ul id="shoppingCart" class="nav nav-list collapse secondmenu list-group"
+                        style="height: 0px;background: #eee">
+                        <li class="list-group-item">
+                            <div>
+                                <span class="pull-left">土猪红烧肉</span>
+                                <span class="text-center">
+                                   <button>-</button><input style="width: 15%"><button>+</button>
+                                </span>
+                                <span class="pull-right">¥252</span>
+                            </div>
                         </li>
-                        <li></li>
-                        <li></li>
+                        <li class="list-group-item">
+                            <div>
+                                <span class="pull-left">土猪红烧肉</span>
+                                <span class="text-center"
+                                      style="margin:auto;width: 15%;height: 80%;background: #0d0d0d">
+                                   <button>-</button><input style="width: 15%"><button>+</button>
+                                </span>
+                                <span class="pull-right">¥252</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div>
+                                <span class="pull-left">土猪红烧肉</span>
+                                <span class="text-center"
+                                      style="margin:auto;width: 15%;height: 80%;background: #0d0d0d">
+                                   <button>-</button><input style="width: 15%"><button>+</button>
+                                </span>
+                                <span class="pull-right">¥252</span>
+                            </div>
+                        </li>
                     </ul>
+                    <!--结算栏目-->
+                    <div class="container-fluid" style="background-color: #2c2c2c;box-shadow: 0 1px 3px #2c2c2c;">
+                        <div class="col-md-7" style="color: white;    font-size: 24px;">
+                            <span class="visible-md-inline">总金额:9999元</span>
+                        </div>
+                        <div class="col-md-5">
+                            <button class="btn btn-primary btn-block">结算</button>
+                        </div>
+                    </div>
                 </div>
 
             </nav>

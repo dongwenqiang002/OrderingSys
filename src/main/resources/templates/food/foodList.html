@@ -43,6 +43,17 @@
         .footInfo >span:nth-child(3){
             color: red;display: block;
         }
+        .footInfo >span:nth-child(2){
+            font-weight:300;
+            font-family: sans-serif;
+
+        }
+        .footInfo >span:nth-child(1){
+            display: block;
+            font-weight:900;
+            font-family: sans-serif;
+
+        }
     </style>
 </head>
 
@@ -53,18 +64,18 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-7">
             <div class="container-fluid footList">
-                <div class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
+                <div th:each="food :${foodList}" class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
                     <div class="col-md-3 col-xs-3  col-sm-3"><img
                             src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
                             style="width: 100%;height: 100%"></div>
-                    <div class="footInfo  col-md-9 col-xs-9  col-sm-9 container " style="padding: 10px;">
-                        <span>酸辣土豆丝</span>
-                        <span class="text-nowrap">咸鲜味大，基部钝形，边缘呈波状，平滑无毛，开黄白色花的一或二年生的草本植物。极受消费者的欢迎。</span>
-                        <span style=""><i class="glyphicon glyphicon-usd"></i>6元</span>
+                    <div  class="footInfo  col-md-9 col-xs-9  col-sm-9 container " style="padding: 10px;">
+                        <span th:text="${food.name}">酸辣土豆丝</span>
+                        <span class="text-nowrap" th:text="' '+${food.des}">咸鲜味大，基部钝形，边缘呈波状，平滑无毛，开黄白色花的一或二年生的草本植物。极受消费者的欢迎。</span>
+                        <span style=""><i class="glyphicon glyphicon-usd" th:text="${food.price}"></i>6元</span>
                         <div class="pull-right">
 
                             <div class="show">
-                                <div class="btn btn-sm btn-info">
+                                <div class="btn btn-sm btn-info" th:value="${food.id}" onclick="addToCart(this)">
                                     加入购物车
                                 </div>
                             </div>
@@ -80,11 +91,14 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
+        <script>
+            function addToCart(btn){
+                $(this).parent().hide();
+                $(this).parent().next().show();
+        }
+        </script>
         <div class="col-md-3     ">
             <nav class="text-center " role="navigation">
                 <div class="container-fluid">

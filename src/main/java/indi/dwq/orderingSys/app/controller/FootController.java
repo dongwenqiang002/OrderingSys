@@ -1,6 +1,7 @@
 package indi.dwq.orderingSys.app.controller;
 
 import indi.dwq.orderingSys.app.service.EateryService;
+import indi.dwq.orderingSys.app.service.FoodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,23 @@ public class FootController {
 
     @Autowired
     private EateryService eateryService;
+    @Autowired
+    private FoodService foodService;
 
     @RequestMapping("/eateryList")
     public ModelAndView footList(Integer pageNum) {
         LOGGER.info("列表页面!");
         ModelAndView modelAndView = new ModelAndView("/food/eateryList");
-        modelAndView.addObject("eateryList",eateryService.getAll(pageNum));
+        modelAndView.addObject("eateryList", eateryService.getAll(pageNum));
         return modelAndView;
     }
 
     @RequestMapping("/eatery/{id}")
-    public ModelAndView intoEatery(@PathVariable("id") Integer id){
+    public ModelAndView intoEatery(@PathVariable("id") Integer id) {
 
         ModelAndView mv = new ModelAndView("/food/foodList");
 
-        //mv.addObject("food",null);
+        mv.addObject("foodList",foodService.getAll(id,1));
 
         return mv;
     }

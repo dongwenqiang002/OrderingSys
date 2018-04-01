@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.dwq.orderingSys.data.dao.FoodMapper">
+  <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.Food">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+    <result column="eatery_id" jdbcType="INTEGER" property="eateryId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, price, des, eatery_id
+  </sql>
+  <select id="getAll"   parameterType="java.lang.Integer"  resultMap="BaseResultMap">
+    select * from food where eatery=#{eateryId}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from food
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from food
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.Food">
+    insert into food (id, name, price, 
+      des, eatery_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, 
+      #{des,jdbcType=VARCHAR}, #{eateryId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.Food">
+    insert into food
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="des != null">
+        des,
+      </if>
+      <if test="eateryId != null">
+        eatery_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="eateryId != null">
+        #{eateryId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.Food">
+    update food
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="eateryId != null">
+        eatery_id = #{eateryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="indi.dwq.orderingSys.data.pojo.Food">
+    update food
+    set name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      des = #{des,jdbcType=VARCHAR},
+      eatery_id = #{eateryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
