@@ -18,122 +18,26 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from pbarea
+        from pb_area
         where id = #{id,jdbcType=INTEGER}
     </select>
 
     <select id="selectByName" parameterType="java.lang.String" resultType="java.lang.Integer">
-        select id FROM pbarea WHERE areaname = #{name}
+        select id FROM pb_area WHERE areaname = #{name}
     </select>
     <select id="selectByParentid" parameterType="java.lang.Integer" resultType="java.lang.String">
-        SELECT areaname FROM pbarea where parentid = #{id}
+        SELECT areaname FROM pb_area where parentid = #{id}
+    </select>
+    <select id="selectParentName" resultType="java.lang.String">
+        select areaname from pb_area where id = (select parentid FROM pb_area where areaname=#{name} or shortname=#{name})
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from pbarea
-    where id = #{id,jdbcType=INTEGER}
-    </delete>
+    <select id="findName" parameterType="java.lang.String" resultMap="BaseResultMap">
+         SELECT * FROM pb_area WHERE areaname LIKE "%"#{name}"%" OR shortname LIKE "%"#{name}"%"
+    </select>
+    <select id="ByParentid" resultType="indi.dwq.orderingSys.data.pojo.City">
+          SELECT * FROM pb_area WHERE parentid = #{parentid}
+    </select>
 
-    <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.City">
-    insert into pbarea (id, areaname, parentid, 
-      shortname, lng, lat, 
-      level, position)
-    values (#{id,jdbcType=INTEGER}, #{areaname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
-      #{shortname,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
-      #{level,jdbcType=BIT}, #{position,jdbcType=VARCHAR})
-    </insert>
 
-    <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.City">
-        insert into pbarea
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="areaname != null">
-                areaname,
-            </if>
-            <if test="parentid != null">
-                parentid,
-            </if>
-            <if test="shortname != null">
-                shortname,
-            </if>
-            <if test="lng != null">
-                lng,
-            </if>
-            <if test="lat != null">
-                lat,
-            </if>
-            <if test="level != null">
-                level,
-            </if>
-            <if test="position != null">
-                position,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="areaname != null">
-                #{areaname,jdbcType=VARCHAR},
-            </if>
-            <if test="parentid != null">
-                #{parentid,jdbcType=INTEGER},
-            </if>
-            <if test="shortname != null">
-                #{shortname,jdbcType=VARCHAR},
-            </if>
-            <if test="lng != null">
-                #{lng,jdbcType=VARCHAR},
-            </if>
-            <if test="lat != null">
-                #{lat,jdbcType=VARCHAR},
-            </if>
-            <if test="level != null">
-                #{level,jdbcType=BIT},
-            </if>
-            <if test="position != null">
-                #{position,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.City">
-        update pbarea
-        <set>
-            <if test="areaname != null">
-                areaname = #{areaname,jdbcType=VARCHAR},
-            </if>
-            <if test="parentid != null">
-                parentid = #{parentid,jdbcType=INTEGER},
-            </if>
-            <if test="shortname != null">
-                shortname = #{shortname,jdbcType=VARCHAR},
-            </if>
-            <if test="lng != null">
-                lng = #{lng,jdbcType=VARCHAR},
-            </if>
-            <if test="lat != null">
-                lat = #{lat,jdbcType=VARCHAR},
-            </if>
-            <if test="level != null">
-                level = #{level,jdbcType=BIT},
-            </if>
-            <if test="position != null">
-                position = #{position,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="indi.dwq.orderingSys.data.pojo.City">
-    update pbarea
-    set areaname = #{areaname,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=INTEGER},
-      shortname = #{shortname,jdbcType=VARCHAR},
-      lng = #{lng,jdbcType=VARCHAR},
-      lat = #{lat,jdbcType=VARCHAR},
-      level = #{level,jdbcType=BIT},
-      position = #{position,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

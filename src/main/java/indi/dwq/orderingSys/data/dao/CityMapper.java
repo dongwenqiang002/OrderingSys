@@ -7,19 +7,16 @@ import java.util.List;
 
 @Repository
 public interface CityMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(City record);
 
-    int insertSelective(City record);
 
     City selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(City record);
-
-    int updateByPrimaryKey(City record);
-
+    List<City> findName(String name);
+    List<City>  ByParentid(Integer parentid);
     Integer selectByName(String name);
 
     List<String> selectByParentid(Integer id);
+
+    List<String> selectParentName(String name);
 }

@@ -71,16 +71,8 @@
         <div class="row index_seach">
 
             <div class="col-md-offset-4 col-md-4 input-group">
-                <div class="input-group-btn">
-                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">北京</button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">西安</a></li>
-                        <li><a href="#">渭南</a></li>
-                        <li><a href="#">咸阳</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">宝鸡</a></li>
-                    </ul>
-
+                <div class="input-group-btn" style="width: 15%">
+                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown" style="width: 100%">北京</button>
                     <script>
                         $.ajax('http://api.map.baidu.com/location/ip', {data: {'ak':'wUU9lOlhiGEbCe1XabIwgGr6YlChet2d'}, dataType: 'jsonp', crossDomain: true,
                             success: function(data) {
@@ -91,9 +83,60 @@
                             }});</script>
 
                 </div>
-                <input id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()">
+                <!--<div class="dropdown">
+                <input id="keyword" class="form-control " type="text" placeholder="输入地址" 	data-toggle="dropdown"/>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="keyword">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">Java</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">数据挖掘</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">数据通信/网络</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">分离的链接</a>
+                        </li>
+                    </ul>
+                </div>-->
+                <div class="dropdown  input-group-btn " style="width: 65%">
+                    <input  id="keyword" oninput="oncharkey()" data-hover="dropdown" class="myDropdownHandle"  autoComplete="off"  data-toggle="dropdown" placeholder="输入地址" style="font-size: 20px;width: 100%">
+                    <ul class="dropdown-menu"  >
+
+                    </ul>
+                </div>
+                <script>
+
+                    var oncharkey = function findCityName() {
+                        $("#keyword").next().html("");
+                        var name = $("#keyword").val();
+                        console.log("name: "+name);
+                        $.get("/map/findName?name="+name,function (data) {
+                            $.each(data,function () {
+                                var li = " <li  ><a  href='javascript:keywordChang(\""+this+"\");' >" +
+                                    this+"</a></li>";
+                                $("#keyword").next().append(li);
+                            })
+                        })
+                    }
+                    function keywordChang(name) {
+                        $("#keyword").val(name);
+                    }
+                    
+                    $("#keyword").next().find("a").click(function () {
+
+                        $("#keyword").val($(this).text());
+                        console.log($(this).text());
+                        //$("#keyword").val(name);
+                    });
+
+
+
+                </script>
+                <div class="input-group-btn" style="width: 20%">
+                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()"style="width: 100%">
                         搜索
                     </button>
                 </div>
@@ -103,10 +146,10 @@
                 <input name="city" /><input name="keyword"/>
             </form>
             <script>
-                $(".dropdown-menu li a").click(function () {
+               /* $(".dropdown-menu li a").click(function () {
                     $("#city").text(this.text);
                 });
-
+*/
                 function onClickS() {
                     var city = $("#city").html();
                     var keyword = $("#keyword").val();

@@ -23,9 +23,9 @@ spring:
     throw-exception-if-no-handler-found: false
 # JavaMailSender 邮件发送的配置 https://blog.csdn.net/u011244202/article/details/54809696
   mail:
-    host: smtp.163.com
-    username: 18892061129@163.com
-    password: dong19951018
+    host: smtp.qq.com
+    username: 826112946@qq.com
+    password: ztykezvrzmsbbcef
     properties:
       mail:
         smtp:
@@ -41,9 +41,7 @@ mydata:
   password: root
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
-
-
-
+logging.level.indi.dwq.orderingSys.data.dao: debug
 
 #logging.level.org.springframework.security: info
 #mybatis:

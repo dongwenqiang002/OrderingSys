@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,5 +37,20 @@ public class MapController {
 
         List list = mapService.name(name);
         return list;
+    }
+
+    @GetMapping("/likeName")
+    public List likeName(String name , HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        List list = mapService.likeName(name);
+
+        return list;
+    }
+
+    @GetMapping("/findName")
+    public List findName(String name){
+
+        return mapService.findName(name);
     }
 }

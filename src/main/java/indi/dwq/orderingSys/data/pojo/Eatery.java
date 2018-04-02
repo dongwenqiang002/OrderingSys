@@ -9,6 +9,16 @@ public class Eatery {
 
     private String des;
 
+    private String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public Integer getId() {
         return id;
     }

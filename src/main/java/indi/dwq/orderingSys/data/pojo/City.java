@@ -1,5 +1,23 @@
 package indi.dwq.orderingSys.data.pojo;
+/*
+*  private Integer id;
 
+    private String areaname;
+
+    private Integer parentid;
+
+    private String shortname;
+
+    private String lng;
+
+    private String lat;
+
+    private Boolean level;
+
+    private String position;
+
+    private Byte sort;
+* */
 public class City {
     private Integer id;
 
@@ -16,6 +34,21 @@ public class City {
     private Boolean level;
 
     private String position;
+
+    public int hashCode()
+    {
+
+        return this.id;
+    }
+    public boolean equals(Object obj)
+    {
+        if(id.equals(obj))return true;
+        if(!(obj instanceof City))
+            return false;
+        City city = (City)obj;
+        return this.id.equals(city.id);// && this.age == p.age;
+    }
+
 
     public Integer getId() {
         return id;

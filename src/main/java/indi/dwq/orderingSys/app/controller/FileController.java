@@ -27,11 +27,10 @@ public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
     private static String fileDir ;
-    //new File(ResourceUtils.getURL("classpath:").getPath());
+
     @PostConstruct
-    public void init() throws FileNotFoundException {
-      //  imageDir = ResourceUtils.getURL("classpath:").getPath();
-        fileDir = "D:/Desktop/PROJECT/OrderingSys/file";
+    public void init() {
+        fileDir = "E:/Desktop/peoject/OrderingSys/file";
     }
 
     @GetMapping("/img/{name}.{type}")

@@ -85,7 +85,6 @@ public class DataSource extends AbstractComboPooledDataSource implements Seriali
      */
     @PostConstruct
     public void initDataSources() throws SQLException {
-
         DataProperties thii = dataProperties;
         mybatisProperties.setMapperLocations(thii.getMapperPath());
 //        mybatisProperties.getConfiguration().setLogImpl(StdOutImpl.class);

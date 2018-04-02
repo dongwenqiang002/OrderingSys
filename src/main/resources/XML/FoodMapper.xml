@@ -12,7 +12,7 @@
     id, name, price, des, eatery_id
   </sql>
   <select id="getAll"   parameterType="java.lang.Integer"  resultMap="BaseResultMap">
-    select * from food where eatery=#{eateryId}
+    select * from food where eatery_id=#{eateryId}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

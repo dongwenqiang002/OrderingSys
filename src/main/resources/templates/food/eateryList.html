@@ -39,12 +39,12 @@
 <header th:include="/index ::#header"></header>
 
 <main class="container ">
-    <table style="margin: auto  " >
+    <table style="margin-left: 175px  " >
         <tr th:each="list : ${eateryList}" >
             <td th:each="eatery : ${list}">
                 <a href="#" class="thumbnail" th:href="'/food/eatery/'+${eatery.id}">
                     <div>
-                        <div><img class="img-rounded" src="/file/img/u.png"/>
+                        <div><img class="img-rounded" th:src="'/file/img/'+${eatery.imgUrl}" src="/file/img/u.png"/>
                         </div>
                         <span style="color: #3c3c3c" th:text="${eatery.des}" >一个神奇的餐厅</span><br/>
                         <span class="name" th:text="${eatery.eaterName}"> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
