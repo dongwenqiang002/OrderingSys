@@ -67,6 +67,7 @@ public class MapService {
         return data;
     }
 
+
     /**
      * 获取字符串中可能的所有有效地区
      */
@@ -101,21 +102,19 @@ public class MapService {
         if (city.size() == 0) {
             return null;
         }
-        //链接地区
+
         List<List<City>> list = new LinkedList();
-        int i = 0;
+        //链接地区
         city.forEach((k, v) -> {
             List<City> citys = new LinkedList();
-            list.add(i, citys);
+            list.add(citys);
             citys.add(v);
-            for (int id = v.getParentid(); city.containsKey(id); ) {
-
+            for (int id = v.getParentid(); city.containsKey(id); id = city.get(id).getParentid()) {
                 citys.add(0, city.get(id));
-                id = city.get(id).getParentid();
             }
-
         });
-        //获取最大可能性的地区
+
+        //排序获取最大可能性的地区
         list.sort((v1, v2) -> {
             if (v1.size() > v2.size()) return -1;
             else if (v1.size() < v2.size()) return 1;
@@ -126,6 +125,8 @@ public class MapService {
                 else return 0;
             }
         });
+
+        //将最大可能地区的下一级加入
         List<City> firstList = list.get(0);
         City smallCity = firstList.get(firstList.size() - 1);
         cityMapper.ByParentid(smallCity.getId()).forEach(v -> {
@@ -135,16 +136,15 @@ public class MapService {
         });
 
         //填补完全
-        list.forEach(v -> {
-            //v.get(0).getParentid();
+        for (int vi = 0; vi < list.size() && vi < 15; vi++) {
+            List<City> v = list.get(vi);
             for (int id = v.get(0).getParentid(); id != 0; id = v.get(0).getParentid()) {
                 v.add(0, this.cityMapper.selectByPrimaryKey(id));
             }
-        });
-
-
+        }
+        //转成字符串
         List<String> cccc = new LinkedList<>();
-        for (int i1 = 0; i1 < list.size() && i1 < 10; i1++) {
+        for (int i1 = 0; i1 < list.size() && i1 < 15; i1++) {
             StringBuilder c = new StringBuilder();
             list.get(i1).forEach(v -> c.append(v.getAreaname()));
             cccc.add(c.toString());

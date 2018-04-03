@@ -2,13 +2,18 @@ package indi.dwq.orderingSys.app.controller;
 
 import indi.dwq.orderingSys.app.service.EateryService;
 import indi.dwq.orderingSys.app.service.FoodService;
+import indi.dwq.orderingSys.app.service.OrderService;
+import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author 董文强
@@ -19,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class FootController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FootController.class);
 
+    @Autowired
+    private OrderService orderService;
     @Autowired
     private EateryService eateryService;
     @Autowired
@@ -42,4 +49,14 @@ public class FootController {
         return mv;
     }
 
+    @RequestMapping("/oreder")
+    @ResponseBody
+    public String order(String order, HttpSession session){
+       // LOGGER.info("订单内容{}",order);
+        User user = (User) session.getAttribute("user");
+        orderService.orderDown(order,user);
+       // LOGGER.info("用户名:{}",user.getUsername());
+       // LOGGER.info("用户ID   :{}",user.getId());
+        return "OK";
+    }
 }

@@ -104,7 +104,7 @@
                 <div class="dropdown  input-group-btn " style="width: 65%">
                     <input  id="keyword" oninput="oncharkey()" data-hover="dropdown" class="myDropdownHandle"  autoComplete="off"  data-toggle="dropdown" placeholder="输入地址" style="font-size: 20px;width: 100%">
                     <ul class="dropdown-menu"  >
-
+                        <li  ><a   href="#">请输入有效地区</a></li>
                     </ul>
                 </div>
                 <script>
@@ -123,6 +123,8 @@
                     }
                     function keywordChang(name) {
                         $("#keyword").val(name);
+                        oncharkey();
+                        $("#keyword").next().show();
                     }
                     
                     $("#keyword").next().find("a").click(function () {

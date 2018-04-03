@@ -26,9 +26,9 @@ import java.sql.SQLException;
  * mybatis自动化工具
  * free-idea-mybatis (https://github.com/wuzhizhan/free-idea-mybatis)
  */
-@Configuration
+/*@Configuration
 @MapperScan("indi.dwq.orderingSys.data.dao")
-@Component("DataSource")
+@Component("DataSource")*/
 public class DataSource extends AbstractComboPooledDataSource implements Serializable, Referenceable, javax.sql.DataSource {
 
     private static Logger LOGGER = LoggerFactory.getLogger(DataSource.class);
