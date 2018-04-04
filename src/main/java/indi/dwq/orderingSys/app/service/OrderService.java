@@ -52,10 +52,12 @@ public class OrderService {
         //将商品加入到订单下
         o.getFoods().forEach(v -> {
             Double price = Double.valueOf(foodMapper.selectByPrimaryKey(v.getFoodid()).getPrice());
+            price = price*v.getCount();
+            price =  b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
             o.setPrice(o.getPrice() + price);
             orderMapper.insertOrderFood(v,orderId,price);
         });
-
+        LOGGER.info("id:{}   price:{}",orderId,o.getPrice());
         //设置订单的金额
         orderMapper.setOrderPrice(orderId,o.getPrice());
 
