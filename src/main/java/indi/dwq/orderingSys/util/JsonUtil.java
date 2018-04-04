@@ -78,7 +78,6 @@ public class JsonUtil {
             } else {
                 o = cls.newInstance();
             }
-
             Map map = jsonStrToMap2(string);
             Method[] methods = getMethods(o.getClass(), Type.Set);
             assert methods != null;
@@ -117,7 +116,7 @@ public class JsonUtil {
                         }
                         value = co;
                     } else if (Map.class.isAssignableFrom(type)) {
-                        Map m;//= null;
+                        Map m ;//= null;
                         if (type.isInterface()) {
                             m = new HashMap();
                         } else {
@@ -156,14 +155,14 @@ public class JsonUtil {
         str.deleteCharAt(str.length() - 1);
         str.append(',');
         while (str.length() > 0) {
-            String value;
+            String value ;
             if (str.charAt(0) == '{' || str.charAt(0) == '[') {
                 int[] temp = str.chars().toArray();
                 int dk = 0;
                 int xk = 0;
                 if (str.charAt(0) == '{') dk++;
                 else xk++;
-                int i;//= 0;
+                int i ;//= 0;
                 for (i = 1; i < temp.length; i++) {
                     switch (temp[i]) {
                         case '{':
@@ -200,6 +199,10 @@ public class JsonUtil {
         if (((String) value).contains("{")) /*不是java自带类型*/ {
             value = jsonToObject2((String) value, type);
         } else {
+            String val = (String)value;
+            if(val.indexOf("\"")==0 && val.lastIndexOf("\"")==val.length()-1){
+                value = val.substring(1,val.length()-1);
+            }
             if (type == boolean.class || type == Boolean.class) {
                 value = Boolean.parseBoolean((String) value);
             } else if (type == byte.class || type == Byte.class) {
@@ -250,7 +253,7 @@ public class JsonUtil {
             int index = str.indexOf(":");
             String key = str.substring(1, index - 1);
             str.delete(0, index + 1);
-            Object value;//= null;
+            Object value ;//= null;
             //解析json 属性值类型
             if (str.charAt(0) == '{')       /*对象*/ {
                 value = str.substring(0, str.indexOf("}") + 1);
@@ -276,6 +279,7 @@ public class JsonUtil {
             }
             map.put(key, value);
         }
+
         return map;
     }
 
@@ -293,7 +297,7 @@ public class JsonUtil {
         str.deleteCharAt(str.length() - 1);
         str.append(',');
         while (str.length() > 0) {
-            String key, value;//= null;
+            String key, value ;//= null;
             key = str.substring(1, str.indexOf(":") - 1);
             str.delete(0, str.indexOf(":") + 1);
             if (str.charAt(0) == '{' || str.charAt(0) == '[') {
@@ -302,7 +306,7 @@ public class JsonUtil {
                 int xk = 0;
                 if (str.charAt(0) == '{') dk++;
                 else xk++;
-                int i;// = 0;
+                int i ;// = 0;
                 for (i = 1; i < temp.length; i++) {
                     switch (temp[i]) {
                         case '{':
@@ -328,6 +332,7 @@ public class JsonUtil {
             }
             map.put(key, value);
         }
+
         return map;
     }
 

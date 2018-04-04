@@ -54,9 +54,9 @@ public class FootController {
     public String order(String order, HttpSession session){
        // LOGGER.info("订单内容{}",order);
         User user = (User) session.getAttribute("user");
-        orderService.orderDown(order,user);
+       Double price =  orderService.orderDown(order,user);
        // LOGGER.info("用户名:{}",user.getUsername());
        // LOGGER.info("用户ID   :{}",user.getId());
-        return "OK";
+        return price.toString();
     }
 }

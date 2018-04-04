@@ -18,7 +18,12 @@ public class JsonObject {
             jsonStr.append("\"").append(key).append("\":");
         }
         if (value instanceof CharSequence || value instanceof Character || value.getClass() == char.class) {
-            jsonStr.append("\"").append(value).append("\",");
+            String temp_value = String.valueOf(value);
+            if (temp_value.indexOf("\"") == 0 ||temp_value.indexOf("[")==0 || temp_value.indexOf("{") == 0) {
+                jsonStr.append(value).append(",");
+            } else {
+                jsonStr.append("\"").append(value).append("\",");
+            }
         } else if (value.getClass().isArray()) {
             jsonStr.append("[");
             if (value.getClass() == byte[].class) {

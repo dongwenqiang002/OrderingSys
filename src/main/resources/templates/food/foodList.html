@@ -118,7 +118,7 @@
             var food ={};
             $(this).attr('foodid');
             food.count = $(this).find("input").val();
-            food.id=$(this).attr("foodid");
+            food.foodid=$(this).attr("foodid");
             order[i] = food;
         })
         console.log(order);
