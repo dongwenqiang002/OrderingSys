@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -42,8 +43,8 @@ public class UserController {
     }*/
 
     /**
-     *  注册
-     * */
+     * 注册
+     */
     @PostMapping("/reg")
     public String register(@ModelAttribute("user") User user, UserDetail detail) {
         LOGGER.info(user.toString());

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -53,7 +54,8 @@ public class OrderService {
         o.getFoods().forEach(v -> {
             Double price = Double.valueOf(foodMapper.selectByPrimaryKey(v.getFoodid()).getPrice());
             price = price*v.getCount();
-            price =  b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
+            //price.s
+            price =  new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
             o.setPrice(o.getPrice() + price);
             orderMapper.insertOrderFood(v,orderId,price);
         });

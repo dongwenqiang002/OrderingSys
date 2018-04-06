@@ -56,51 +56,95 @@
         <div class="row index_seach">
 
             <div class="col-md-offset-4 col-md-4 input-group">
-                <div class="input-group-btn" >
-                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown">西安</button>
-                    <ul class="dropdown-menu" >
-                        <li><a href="#">西安</a></li>
-                        <li><a href="#">渭南</a></li>
-                        <li><a href="#">咸阳</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">宝鸡</a></li>
+                <div class="input-group-btn" style="width: 15%">
+                    <button type="button" id="city" class="btn btn-default " data-toggle="dropdown" style="width: 100%">北京</button>
+                    <script>
+                        $.ajax('http://api.map.baidu.com/location/ip', {data: {'ak':'wUU9lOlhiGEbCe1XabIwgGr6YlChet2d'}, dataType: 'jsonp', crossDomain: true,
+                            success: function(data) {
+                                if(data){
+
+                                    $("#city").text(data.content.address_detail.city);
+                                }
+                            }});</script>
+
+                </div>
+
+                <div class="dropdown  input-group-btn " style="width: 65%">
+                    <input  id="keyword" oninput="oncharkey()" data-hover="dropdown" class="myDropdownHandle"  autoComplete="off"  data-toggle="dropdown" placeholder="输入地址" style="font-size: 20px;width: 100%">
+                    <ul class="dropdown-menu"  >
+                        <li  ><a   href="#">请输入有效地区</a></li>
                     </ul>
                 </div>
-                <input  id="keyword" class="form-control " type="text" placeholder="输入地址搜索周边美食"/>
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()" >
+                <script>
+
+                    var oncharkey = function findCityName() {
+                        $("#keyword").next().html("");
+                        var name = $("#keyword").val();
+                        console.log("name: "+name);
+                        $.get("/map/findName?name="+name,function (data) {
+                            $.each(data,function () {
+                                var li = " <li  ><a  href='javascript:keywordChang(\""+this+"\");' >" +
+                                    this+"</a></li>";
+                                $("#keyword").next().append(li);
+                            })
+                        })
+                    }
+                    function keywordChang(name) {
+                        $("#keyword").val(name);
+                        oncharkey();
+                        $("#keyword").next().show();
+                    }
+
+                    $("#keyword").next().find("a").click(function () {
+
+                        $("#keyword").val($(this).text());
+                        console.log($(this).text());
+                        //$("#keyword").val(name);
+                    });
+
+
+
+                </script>
+                <div class="input-group-btn" style="width: 20%">
+                    <button type="button" class="btn btn-default btn-warning" onclick="onClickS()"style="width: 100%">
                         搜索
                     </button>
                 </div>
             </div>
-
+            <script th:src="@{/js/dataPro.js}" src="/static/js/dataPro.js"></script>
+            <form id="index_form" th:action="@{/food/eateryList}" action="/food/foodList" method="post" hidden="hidden">
+                <input name="city" /><input name="keyword"/>
+            </form>
             <script>
-                $(".dropdown-menu li a").click(function () {
-                    $("#city").text (this.text);
-                });
+                /* $(".dropdown-menu li a").click(function () {
+                     $("#city").text(this.text);
+                 });
+ */
                 function onClickS() {
                     var city = $("#city").html();
                     var keyword = $("#keyword").val();
                     console.log(city);
                     console.log(keyword);
+                    $("#index_form").find("input[name='city']").val(city);
+                    $("#index_form").find("input[name='keyword']").val(keyword);
                     /**
-                    * 这里添加搜索提交代码
-                    * */
+                     * 这里添加搜索提交代码
+                     * */
+                    $("#index_form").submit();
                 }
             </script>
         </div>
 
-
-
-
-
+        <div class="row" style="margin-top: 50px">
+            <div class="col-md-offset-2 col-md-3 " style="height: 250px;background-color: #0d0d0d" ></div>
+            <div class="col-md-offset-2 col-md-3 " style="height: 250px;background-color: #0d0d0d" ></div>
+        </div>
     </div>
 
 </main>
 
 
 <footer id="footer">
-    <link type="text/css" rel="stylesheet" th:href="@{/css/footer.css}"/>
     <div class="row row-pb-md" style="margin: 0;">
         <div class=" col-md-12 text-center copyright py-2 lead" style="background: white;margin-top: 40px;margin-bottom: 0;">
             <hr/>
