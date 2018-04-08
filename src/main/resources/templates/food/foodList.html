@@ -16,26 +16,29 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-7">
             <div class="container-fluid footList">
-                <div th:each="food :${foodList}" class="col-md-5 col-xs-5  col-sm-5 container-fluid" >
+                <div th:each="food :${foodList}" class="col-md-5 col-xs-5  col-sm-5 container-fluid">
                     <div class="col-md-3 col-xs-3  col-sm-3"><img
 
                             src="https://fuss10.elemecdn.com/6/5c/22d97554e08e160e47d2d7dafd027jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85"
                             style="width: 100%;height: 100%"></div>
-                    <div  th:attr="foodid=${food.id}" class="footInfo  col-md-9 col-xs-9  col-sm-9 container " style="padding: 10px;">
+                    <div th:attr="foodid=${food.id}" class="footInfo  col-md-9 col-xs-9  col-sm-9 container "
+                         style="padding: 10px;">
                         <span th:text="${food.name}">酸辣土豆丝</span>
                         <span class="text-nowrap" th:text="' '+${food.des}">咸鲜味大，基部钝形，边缘呈波状，平滑无毛，开黄白色花的一或二年生的草本植物。极受消费者的欢迎。</span>
-                        <span ><i class="glyphicon glyphicon-usd" th:text="${food.price}"></i>6元</span>
+                        <span><i class="glyphicon glyphicon-usd" th:text="${food.price}"></i>6元</span>
                         <div class="pull-right">
 
-                            <div >
+                            <div>
 
-                                <div class="btn btn-sm btn-info" th:value="${food.id}" th:onclick="${'addToCart(this,'''+food.name+''','+food.id+','+food.price+')'}" >
+                                <div class="btn btn-sm btn-info" th:value="${food.id}"
+                                     th:onclick="${'addToCart(this,'''+food.name+''','+food.id+','+food.price+')'}">
                                     加入购物车
                                 </div>
                             </div>
                             <div style="display:none">
                                 <div class="input-group input-group-sm"><!--onclickadd(1,this)-->
-                                    <span class="input-group-addon" th:onclick="${'onclickadd('+food.id+',this)'}"><i class=" glyphicon glyphicon-plus"></i></span>
+                                    <span class="input-group-addon" th:onclick="${'onclickadd('+food.id+',this)'}"><i
+                                            class=" glyphicon glyphicon-plus"></i></span>
                                     <input type="tel" class="form-control"/>
                                     <span class="input-group-addon" th:onclick="${'onclicksub('+food.id+',this)'}"><i
                                             class="glyphicon glyphicon-minus"></i></span>
@@ -60,10 +63,12 @@
                         style="height: 0px;background: #eee">
 
                     </ul>
-
+                    <script> $(function () {
+                        $('#shoppingCart').collapse('toggle');
+                    }); </script>
                     <div class="container-fluid" style="background-color: #2c2c2c;box-shadow: 0 1px 3px #2c2c2c;">
                         <div class="col-md-7" style="color: white;    font-size: 18px;">
-                            <span class="list-inline" style="color: red">总金额:9999元</span>
+                            <span class="list-inline" style="color: red">总金额:<span id="sumpricemoney">0</span>元</span>
                         </div>
                         <div class="col-md-5">
                             <button class="btn btn-primary btn-block" id="submitOrder">结算</button>
@@ -76,22 +81,30 @@
         </div>
     </div>
 
-    <div class=" row text-center">
-        <ul class="pagination ">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-        </ul>
-    </div>
+
 </main>
 
 <footer th:include="/index ::#footer"></footer>
 </body>
 <script>
+    /**
+     * 计算前端购物车总钱数,不提交
+     * */
+    function sumpricemoney() {
+        var sumpricemoney = 0.0;
+        $("#shoppingCart >li >div").each(function () {
+            var count = $(this).children("span:eq(1)").find("input").val();
+            console.log($(this).children("span:eq(2)"));
+            var price = $(this).children("span:eq(2)").text();
+            console.log(sumpricemoney);
+            console.log(count);
+            console.log(price);
+            sumpricemoney += parseInt(count) * parseFloat(price);
+            console.log(sumpricemoney);
+        });
+        $("#sumpricemoney").text(sumpricemoney);
+    }
+
 
     /**点击添加购物车,左侧购物车出现*/
     function addToCart(btn, name, id, price) {
@@ -99,50 +112,60 @@
         console.log($(btn).parent().next());
         $(btn).parent().next().show();
         $(btn).parent().next().find("input").val(1);
-        var li = "<li class='list-group-item' foodid='"+
-            id+"'><div ><span >"+
-            name+"</span><span><button " +
-            "onclick='onclicksub("+id+",this)'>-</button><input value='1'><button " +
-            "onclick='onclickadd("+id+",this)'>+</button></span><span>"+
-            price+"</span></div></li>";
+        var li = "<li class='list-group-item' foodid='" +
+            id + "'><div ><span >" +
+            name + "</span><span><button " +
+            "onclick='onclicksub(" + id + ",this)'>-</button><input value='1'><button " +
+            "onclick='onclickadd(" + id + ",this)'>+</button></span><span>" +
+            price + "</span></div></li>";
         $("#shoppingCart").append(li);
+        sumpricemoney();
     }
+
 
     /**
      * 点击购物车提交
      * */
     $("#submitOrder").click(function () {
-        var order=new Array();
+        var order = new Array();
 
         $("#shoppingCart >li").each(function (i) {
-            var food ={};
+            var food = {};
             $(this).attr('foodid');
             food.count = $(this).find("input").val();
-            food.foodid=$(this).attr("foodid");
+            food.foodid = $(this).attr("foodid");
             order[i] = food;
-        })
+        });
         console.log(order);
-       $.ajax({url:"/food/oreder",type:'post',data:{'order':JSON.stringify(order)}, success:function(result){
-              console.log(result)
-           }});
+        $.ajax({
+            url: "/food/oreder", type: 'post', data: {'order': JSON.stringify(order)}, success: function (result) {
+                console.log(result);
+               alert("下单成功,货到付款! 一共"+result+"元");
+                location.href="/userHome.html";
+            }
+        });
     });
 
     /**
      * 点击添加和删除
      * */
-    function onclickadd(id,btn){
+    function onclickadd(id, btn) {
 
         var count = $(btn).siblings("input").val();
-        $("[foodid='"+id+"'] input").val(parseInt(count)+1);
+        $("[foodid='" + id + "'] input").val(parseInt(count) + 1);
+        sumpricemoney();
     }
-    function onclicksub(id,btn){
+
+    function onclicksub(id, btn) {
         var count = $(btn).siblings("input").val();
-        if(parseInt(count) == 1){
-            $("#shoppingCart > [foodid='"+id+"']").remove();
-            $("[foodid='"+id+"'] >div >div:eq(0)").show();
-            $("[foodid='"+id+"'] >div >div:eq(1)").hide();
-        }else
-            $("[foodid='"+id+"']  input").val(parseInt(count)-1);
+        if (parseInt(count) == 1) {
+            $("#shoppingCart > [foodid='" + id + "']").remove();
+            $("[foodid='" + id + "'] >div >div:eq(0)").show();
+            $("[foodid='" + id + "'] >div >div:eq(1)").hide();
+        } else {
+            $("[foodid='" + id + "']  input").val(parseInt(count) - 1);
+        }
+        sumpricemoney();
     }
 </script>
 <!--    -->

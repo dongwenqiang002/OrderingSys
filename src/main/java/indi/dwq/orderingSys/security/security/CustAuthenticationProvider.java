@@ -1,7 +1,8 @@
 package indi.dwq.orderingSys.security.security;
 
 
-import indi.dwq.orderingSys.security.service.UserService;
+import indi.dwq.orderingSys.app.service.UserService;
+import indi.dwq.orderingSys.util.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,8 @@ public class CustAuthenticationProvider implements AuthenticationProvider {
         Collection<? extends GrantedAuthority> authorities = userDetials.getAuthorities();
 
         //判断用户密码是否正确
-        if (userDetials.getPassword().equals(password)) {
+        String MD5Password = MD5Util.MD5(password);
+        if (MD5Password.equals(userDetials.getPassword())) {
             session.setAttribute("user",userDetials);
             return new UsernamePasswordAuthenticationToken(userDetials, password, authorities);
         } else {

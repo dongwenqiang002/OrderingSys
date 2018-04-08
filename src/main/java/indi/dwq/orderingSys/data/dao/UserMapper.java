@@ -1,11 +1,13 @@
 package indi.dwq.orderingSys.data.dao;
 
 import indi.dwq.orderingSys.data.pojo.User;
+import indi.dwq.orderingSys.data.pojo.UserDetail;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
+
 
     int insert(User record);
 

@@ -2,7 +2,7 @@ package indi.dwq.orderingSys.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.boot.autoconfigure.web.ErrorController;
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;

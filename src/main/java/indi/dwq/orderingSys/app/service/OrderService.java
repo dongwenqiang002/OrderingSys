@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,6 +33,7 @@ public class OrderService {
      * @param user  下单人, id 不能为空
      * @return 订单金额
      */
+    @Transactional
     public Double orderDown(String order, User user) {
 
 
@@ -59,9 +61,11 @@ public class OrderService {
             o.setPrice(o.getPrice() + price);
             orderMapper.insertOrderFood(v,orderId,price);
         });
+        //throw  new NullPointerException("aa");
         LOGGER.info("id:{}   price:{}",orderId,o.getPrice());
         //设置订单的金额
-        orderMapper.setOrderPrice(orderId,o.getPrice());
+        Double price =  new BigDecimal(o.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
+        orderMapper.setOrderPrice(orderId,price);
 
         return o.getPrice();
     }

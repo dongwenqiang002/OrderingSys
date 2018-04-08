@@ -22,13 +22,10 @@
     delete from user_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
-    insert into user_detail (id, name, sex, 
-      email, phone, address
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
-      )
+
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
+    insert into user_detail (name, sex,email, phone, address,age)
+    values (#{id}, #{name}, #{sex},#{email}, #{phone}, #{address},#{age})
   </insert>
   <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
     insert into user_detail

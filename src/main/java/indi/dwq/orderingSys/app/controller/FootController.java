@@ -1,5 +1,7 @@
 package indi.dwq.orderingSys.app.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import indi.dwq.orderingSys.app.service.EateryService;
 import indi.dwq.orderingSys.app.service.FoodService;
 import indi.dwq.orderingSys.app.service.OrderService;
@@ -32,31 +34,47 @@ public class FootController {
     private FoodService foodService;
 
     @RequestMapping("/eateryList")
-    public ModelAndView footList(Integer pageNum) {
-        LOGGER.info("列表页面!");
-        ModelAndView modelAndView = new ModelAndView("/food/eateryList");
-        modelAndView.addObject("eateryList", eateryService.getAll(pageNum));
+    public ModelAndView footList(Integer pageNum, Boolean isSubPage) {
+        LOGGER.info("请求商店列表页面!");
+        ModelAndView modelAndView = new ModelAndView();
+        if (isSubPage ==null || isSubPage.equals(false)) {
+            modelAndView.setViewName("/food/eateryList");
+        }else{
+            modelAndView.setViewName("/food/eateryList ::#eateryList");
+        }
+        if (pageNum == null || pageNum <= 0) {
+            pageNum = 1;
+        }
+        Page page = PageHelper.startPage(pageNum, 12);
+        modelAndView.addObject("eateryList", eateryService.getAll());
+        if(pageNum >page.getPages()){
+            pageNum =page.getPages();
+            PageHelper.startPage(pageNum, 12);
+            modelAndView.addObject("eateryList", eateryService.getAll());
+        }
+        modelAndView.addObject("total", page.getTotal());
+        modelAndView.addObject("pages", page.getPages());
+        modelAndView.addObject("pageNum", pageNum);
         return modelAndView;
     }
+
 
     @RequestMapping("/eatery/{id}")
     public ModelAndView intoEatery(@PathVariable("id") Integer id) {
 
-        ModelAndView mv = new ModelAndView("/food/foodList");
-
-        mv.addObject("foodList",foodService.getAll(id,1));
-
-        return mv;
+        ModelAndView modelAndView = new ModelAndView("/food/foodList");
+        modelAndView.addObject("foodList", foodService.getAll(id));
+        return modelAndView;
     }
 
     @RequestMapping("/oreder")
     @ResponseBody
-    public String order(String order, HttpSession session){
-       // LOGGER.info("订单内容{}",order);
+    public String order(String order, HttpSession session) {
+        // LOGGER.info("订单内容{}",order);
         User user = (User) session.getAttribute("user");
-       Double price =  orderService.orderDown(order,user);
-       // LOGGER.info("用户名:{}",user.getUsername());
-       // LOGGER.info("用户ID   :{}",user.getId());
+        Double price = orderService.orderDown(order, user);
+        // LOGGER.info("用户名:{}",user.getUsername());
+        // LOGGER.info("用户ID   :{}",user.getId());
         return price.toString();
     }
 }

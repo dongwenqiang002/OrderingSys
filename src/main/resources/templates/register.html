@@ -62,9 +62,25 @@
                         <div>
                             <span>用户名</span>
                             <div class="input-group" t="glyphicon-user">
-                                <input name="username" type="text" placeholder="用户名" title="底部的 Tooltip">
+                                <input name="username" type="text" placeholder="用户名"  title="用户名已存在或用户名不合法">
                             </div>
                         </div>
+                        <script>
+                            $("input[name='username']").blur(function () {
+                                var name = $(this).val();
+                                var input = this;
+                                if(name.length <2 )return;
+                                $.get("/user/regFindName?name="+name,function (data) {
+                                    console.log(data);
+                                    if(data === 'true'){
+                                        $(input).tooltip("show")
+                                    }else{
+                                        $(input).tooltip("hide")
+                                    }
+                                })
+                            });
+
+                        </script>
                         <div>
                             <span>电子邮箱</span>
                             <div class="input-group" t="glyphicon-envelope">
@@ -73,12 +89,26 @@
                         </div>
                         <div>
                             <div class="input-group" t="glyphicon-forward">
-                                <input class="form-control " name="code" type="text" placeholder="邮箱验证码"/>
+                                <input class="form-control " name="code" type="text" placeholder="邮箱验证码" title="邮箱验证码有误"/>
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default" type="button">发送</button>
+                                    <button onclick="sendCode()" class="btn btn-default" type="button">发送</button>
                                 </div>
                             </div>
-
+                        <script>
+                        $("input[name='code']").blur(function () {
+                            var code = $("input[name='code']").val();
+                            var input = this;
+                            if(code.length <2 )return;
+                            $.get("/user/regCodeVer?code="+code,function (data) {
+                                console.log(data);
+                                if(data === true){
+                                    $(input).tooltip("hide")
+                                }else{
+                                    $(input).tooltip("show")
+                                }
+                            })
+                        });
+                        </script>
                         </div>
                         <div>
                             <span>密码</span>
@@ -118,8 +148,12 @@
                         </div>
                         <div>
                             <span>性别</span>
-                            <div class="input-group" t="glyphicon-sex">
-                                <input name="sex" type="text" placeholder="请输入性别" title="底部的 Tooltip"/>
+                            <div class="input-group" t="glyphicon-exclamation-sign">
+                                <select class="form-control" name="sex">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+
                             </div>
                         </div>
 
@@ -149,6 +183,18 @@
     </div>
 
 </main>
-
+<script>
+    function sendCode() {
+        var emailaddresss = $("input[name='email']").val();
+        $.get("/user/regCode?emailAddress="+emailaddresss,function (result) {
+            if(result === true){
+                $("input[name='email']").parent().parent().children("span").html("电子邮箱")
+                $("input[name='code']").next().find("button").addClass("btn-primary");
+            }else {
+                $("input[name='email']").parent().parent().children("span").html("<span style='color: red'>邮箱不正确</span>")
+            }
+        })
+    }
+</script>
 </body>
 </html>

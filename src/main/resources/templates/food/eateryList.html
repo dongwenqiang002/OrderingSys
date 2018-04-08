@@ -39,34 +39,45 @@
 <header th:include="/index ::#header"></header>
 
 <main class="container ">
-    <table style="margin-left: 175px  " >
-        <tr th:each="list : ${eateryList}" >
-            <td th:each="eatery : ${list}">
-                <a href="#" class="thumbnail" th:href="'/food/eatery/'+${eatery.id}">
-                    <div>
-                        <div><img class="img-rounded" th:src="'/file/img/'+${eatery.imgUrl}" src="/file/img/u.png"/>
+    <div id="eateryList">
+        <table style="margin-left: 175px ">
+            <tr th:each="list : ${eateryList}">
+                <td th:each="eatery : ${list}">
+                    <a href="#" class="thumbnail" th:href="'/food/eatery/'+${eatery.id}">
+                        <div>
+                            <div><img class="img-rounded" th:src="'/file/img/'+${eatery.imgUrl}" src="/file/img/u.png"/>
+                            </div>
+                            <span style="color: #3c3c3c" th:text="${eatery.des}">一个神奇的餐厅</span><br/>
+                            <span class="name" th:text="${eatery.eaterName}"> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
+                            <span style="color: red" th:text="'地址: '+ ${eatery.address}">西安市</span>
                         </div>
-                        <span style="color: #3c3c3c" th:text="${eatery.des}" >一个神奇的餐厅</span><br/>
-                        <span class="name" th:text="${eatery.eaterName}"> 餐馆名称:<span>黄焖鸡巴饭</span></span><br/>
-                        <span style="color: red" th:text="'地址: '+ ${eatery.address}" >西安市</span>
-                    </div>
-                </a>
-            </td>
-        </tr>
-    </table>
-    <div class="text-center">
-        <ul class="pagination ">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-        </ul>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="text-center">
+            <ul class="pagination ">
+                <li><a href="javascript:pageChange(-999);">&laquo;</a></li>
+                <li><a href="javascript:pageChange(-1);">上一页</a></li>
+                <li><a href="javascript:pageChange(0);">当前第<span id="span_pageNum" th:text="${pageNum}">1</span>页</a>
+                </li>
+                <li><a href="javascript:pageChange(1);">下一页</a></li>
+                <li><a href="javascript:pageChange(999);">&raquo;</a></li>
+            </ul>
+        </div>
     </div>
 </main>
+<script>
+    function pageChange(changePage) {
+        var pageNum = parseInt($("#span_pageNum").text());
+        pageNum +=changePage;
+        $("main").load("/food/eateryList?isSubPage=true&pageNum=" + pageNum, function () {
+            $(".text-center > .pagination>li>a:eq(3)")
+        })
 
+    }
+</script>
 <footer th:include="/index ::#footer"></footer>
 </body>
 <!--    -->

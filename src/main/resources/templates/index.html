@@ -37,7 +37,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">设置</a></li>
                                 <li><a href="#">个人资料</a></li>
-                                <li><a href="#">账户中心</a></li>
+                                <li><a href="/userHome.html">个人中心</a></li>
                                 <li th:if="${session.user != null}">
                                 <a href="#" th:text="${session.user.role}">a</a>
                                 </li>
@@ -77,30 +77,13 @@
                         $.ajax('http://api.map.baidu.com/location/ip', {data: {'ak':'wUU9lOlhiGEbCe1XabIwgGr6YlChet2d'}, dataType: 'jsonp', crossDomain: true,
                             success: function(data) {
                                 if(data){
-                                   // console.log(data.content.address_detail.city)
+
                                     $("#city").text(data.content.address_detail.city);
                                 }
                             }});</script>
 
                 </div>
-                <!--<div class="dropdown">
-                <input id="keyword" class="form-control " type="text" placeholder="输入地址" 	data-toggle="dropdown"/>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="keyword">
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="#">Java</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="#">数据挖掘</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="#">数据通信/网络</a>
-                        </li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="#">分离的链接</a>
-                        </li>
-                    </ul>
-                </div>-->
+
                 <div class="dropdown  input-group-btn " style="width: 65%">
                     <input  id="keyword" oninput="oncharkey()" data-hover="dropdown" class="myDropdownHandle"  autoComplete="off"  data-toggle="dropdown" placeholder="输入地址" style="font-size: 20px;width: 100%">
                     <ul class="dropdown-menu"  >

@@ -21,9 +21,11 @@ $(function () {
    // $('.regForm  div  input:even').tooltip('show');
 
     $("#regsub").click(function () {
-        $("#div1").animate({right: '800px'}, 1300, function () {
+
+
+        $("#div1").animate({right: '800px'}, 1000, function () {
             $(this).hide();
-            $("#div2").fadeIn(3000);
+            $("#div2").fadeIn(1900);
         });
 
 
@@ -43,7 +45,7 @@ $(function () {
         var f2 = $("#form2").serialize();
         console.log(f1);
         console.log(f2);
-        $.post("/security/reg",f1+"&"+f2,function(d) {
+        $.post("/user/reg",f1+"&"+f2,function(d) {
             if(d === 'index'){
                 alert("注册成功");
                 location.href="/index";

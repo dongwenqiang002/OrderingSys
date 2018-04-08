@@ -2,6 +2,8 @@ package indi.dwq.orderingSys.data.pojo;
 
 
 
+import sun.security.x509.OCSPNoCheckExtension;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +44,7 @@ public class Order {
     }
 
     public Double getPrice() {
+        //throw  new NullPointerException("aa");
         return price;
     }
 

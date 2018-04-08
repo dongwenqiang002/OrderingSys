@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 /**
@@ -25,14 +26,14 @@ public class TestController {
 
     @RequestMapping("/{name}")
     @ResponseBody
-    public String name(@PathVariable("name") String name) {
-
-        if(emailService.sendMail("1136859952@qq.com")){
+    public String name(@PathVariable("name") String name, HttpSession session) {
+        String code = emailService.regCode("826112946@qq.com");
+        if(code != null && !code.isEmpty()){
+            session.setAttribute("regCode",code);
             return "true";
         }else{
-
+            return "false";
         }
-        return "/" + name;
 
     }
 }

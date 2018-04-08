@@ -18,11 +18,9 @@ public class FoodService {
     private FoodMapper foodMapper;
 
 
-    public List<Food> getAll(Integer eateryId,Integer pageNum ){
-       //获取记录数
-        long n = PageHelper.count(()->foodMapper.getAll(eateryId));
-        //开始分页查询
-        PageHelper.startPage(pageNum,pageSzie);
+    public List<Food> getAll(Integer eateryId ){
+
+
         return  foodMapper.getAll(eateryId);
     }
 }

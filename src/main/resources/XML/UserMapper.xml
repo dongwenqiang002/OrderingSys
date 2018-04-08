@@ -25,11 +25,12 @@
         where id = #{id,jdbcType=INTEGER} ]]>
   </delete>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.User">
-    insert into user (id, username, password
+    insert into user (detail_id, username, password
       )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{detailId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
       )
   </insert>
+
     <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.User">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">

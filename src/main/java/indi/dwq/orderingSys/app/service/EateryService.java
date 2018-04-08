@@ -12,32 +12,32 @@ import java.util.List;
 
 @Service
 public class EateryService {
-    //每页页数
-    private static int eateryPageSize = 12;
+
 
     @Autowired
-    private EateryMapper eateryMapper ;
+    private EateryMapper eateryMapper;
 
 
-    public List<List> getAll(Integer pageNum){
-        if(pageNum == null || pageNum.intValue() == 0){
-            pageNum = 1;
-        }
+    public List<List> getAll() {
+
         //使用分页插件 PageHelper
-        PageHelper.startPage(pageNum, eateryPageSize);
+
         List list = eateryMapper.getAll();
-        return branch(list,4);
+        //分行
+        return branch(list, 4);
     }
 
-
-    public static List branch(List list,int n){
+    /**
+     * 分行算法
+     */
+    public static List branch(List list, int n) {
         List lists = new LinkedList();
 
         int i;
-        for( i = 0 ; i<list.size()-4;i+=4){
-            lists.add(list.subList(i,i+4));
+        for (i = 0; i < list.size() - 4; i += 4) {
+            lists.add(list.subList(i, i + 4));
         }
-        lists.add(list.subList(i,list.size()));
+        lists.add(list.subList(i, list.size()));
         return lists;
     }
 }
