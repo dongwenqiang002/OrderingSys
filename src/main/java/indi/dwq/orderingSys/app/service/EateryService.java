@@ -1,9 +1,7 @@
 package indi.dwq.orderingSys.app.service;
 
 
-import com.github.pagehelper.PageHelper;
 import indi.dwq.orderingSys.data.dao.EateryMapper;
-import indi.dwq.orderingSys.data.pojo.Eatery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +17,6 @@ public class EateryService {
 
 
     public List<List> getAll() {
-
-        //使用分页插件 PageHelper
-
         List list = eateryMapper.getAll();
         //分行
         return branch(list, 4);

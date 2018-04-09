@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -29,6 +29,7 @@ public class OrderService {
     OrderMapper orderMapper;
 
     /**
+     * 下单
      * @param order [{商品ID:数量}{商品ID:数量}]
      * @param user  下单人, id 不能为空
      * @return 订单金额
@@ -42,7 +43,7 @@ public class OrderService {
         jsonObject.append("foods", order).append("userId", user.getId());
         Order o = JsonUtil.jsonToObject2(jsonObject.toString(), Order.class);
         //设置下单时间
-        o.setTime(new Date());
+        o.setTime(new java.sql.Date(System.currentTimeMillis()));
         //加入三元订单费费
         o.setPrice(3.0d);
         //先插入订单
@@ -69,4 +70,26 @@ public class OrderService {
 
         return o.getPrice();
     }
+
+    /**
+     * 查看订单
+     * */
+    public List<Order> lookOrder(Integer id){
+        return  orderMapper.selectByUserId(id);
+    }
+
+    /**
+     * 查看当前正在途中的订单
+     * */
+    public List<Order> onWayOrder(Integer userId){
+        return  orderMapper.selectByUserIdAndOnWay(userId,Order.OnWay);
+    }
+
+    /**
+     * 查看对应订单的内容
+     * */
+    public List<Order.OrderFood> OrderFood(Integer orderId){
+        return foodMapper.selectFoodSalesByOrderID(orderId);
+    }
+
 }

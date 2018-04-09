@@ -1,4 +1,4 @@
-package indi.dwq.orderingSys.security.security;
+package indi.dwq.orderingSys.config;
 
 
 import indi.dwq.orderingSys.app.service.UserService;
@@ -23,13 +23,12 @@ import java.util.Collection;
  * 验证用户名与密码
  */
 @Component
-public class CustAuthenticationProvider implements AuthenticationProvider {
+public class UserVerificationConfig implements AuthenticationProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustAuthenticationProvider.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserVerificationConfig.class);
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private HttpSession session;
 

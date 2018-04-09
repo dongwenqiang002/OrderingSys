@@ -21,5 +21,11 @@ public class EateryController {
         return null;
     }
 
+    @RequestMapping("/home.html")
+    public ModelAndView homeHtml(){
+        ModelAndView mv = new ModelAndView("/eatery/home");
 
+        // mv.addObject();
+        return mv;
+    }
 }

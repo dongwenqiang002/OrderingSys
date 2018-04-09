@@ -56,13 +56,13 @@ public class MapService {
      * 根据已输入的确定接下来的
      */
     public List findName(String name) {
-        LOGGER.error(name);
+
         if (name == null || name.isEmpty()) {
-            return this.cityMapper.selectByParentid(0);
+            return this.cityMapper.selectByParentid(0).subList(0,20);
         }
         List data = this.getCity(name);
         if (data == null || data.isEmpty()) {
-            return this.cityMapper.selectByParentid(0);
+            return this.cityMapper.selectByParentid(0).subList(0,20);
         }
         return data;
     }

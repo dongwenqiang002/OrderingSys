@@ -4,14 +4,20 @@
     <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.Order">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="to_time" jdbcType="DATE" property="time"/>
+        <result column="to_time"  property="time"/>
         <result column="ps" jdbcType="VARCHAR" property="ps"/>
         <result column="price" jdbcType="DOUBLE" property="price"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-    id, user_id, to_time, ps, price
-  </sql>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <collection property="foods" column="id"  ofType="list"
+                     select="indi.dwq.orderingSys.data.dao.FoodMapper.selectFoodSalesByOrderID" />
 
+    </resultMap>
+
+
+
+    <sql id="Base_Column_List">
+    id, user_id, to_time, ps, price,state
+  </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -19,15 +25,31 @@
         from food_order
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from food_order
+        where user_id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUserIdAndOnWay" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from food_order
+        where user_id = #{id,jdbcType=INTEGER} and state = #{state}
+    </select>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from food_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.Order">
     insert into food_order (id, user_id, to_time,
-      ps, price)
+      ps, price,state)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{time},
-      #{ps,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE})
+      #{ps,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},1)
   </insert>
     <insert id="insertOrderFood" parameterType="java.util.Map" >
         insert into food_sales(food_id,count,price,order_id) VALUES

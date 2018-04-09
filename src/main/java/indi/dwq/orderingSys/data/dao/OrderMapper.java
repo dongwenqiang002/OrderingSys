@@ -3,6 +3,7 @@ package indi.dwq.orderingSys.data.dao;
 import indi.dwq.orderingSys.data.pojo.Order;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Repository
 public interface OrderMapper {
@@ -15,6 +16,7 @@ public interface OrderMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    List<Order> selectByUserId(Integer id);
     int insert(Order record);
 
     int insertOrder(Order record);
@@ -26,4 +28,6 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     int setOrderPrice(@Param("id") Integer orderId,@Param("price") Double price);
+
+    List<Order> selectByUserIdAndOnWay(@Param("id") Integer userId, @Param("state") Integer onWay);
 }

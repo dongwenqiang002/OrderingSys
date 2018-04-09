@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div th:include="/index ::#header"></div>
+<main class="container-fluid">
+
+    <div class="row" style="background: #1b6d85;">
+        <div class="col-md-2 col-sm-2 col-xs-2 left_nav">
+            <ul id="main_nav" class="nav nav-tabs nav-stacked"  >
+                <li>
+                    <a href="#AssetsMent" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-credit-card"></i>
+                        资产管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#hrmManage" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-user"></i>
+                        人力资源管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="hrmManage" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/notice.html',this)">
+                            <i class="fa fa-gift"></i>通知公告管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/emplist.html',this)">
+                            <i class="fa  fa-address-card-o"></i>员工信息</a></li>
+                        <li><a href="#hrmManage_cwa" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="fa fa-clock-o"></i>考勤管理
+                            <span class="pull-right glyphicon glyphicon-chevron-down"></span></a>
+                            <ul id="hrmManage_cwa" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                <li><a href="javascript:void(0);" onclick="onloada('hrm/cwa/up.html',this)">
+                                    <i class="fa fa-file-text"></i>出勤记录</a></li>
+                                <li><a href="javascript:void(0);" onclick="onloada('hrm/cwa/down.html',this)">
+                                    <i class="fa fa-commenting"></i>请假记录</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/welfare.html',this)">
+                            <i class="fa fa-gift"></i>员工福利</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/trainlist.html',this)">
+                            <i class="fa fa-mortar-board"></i>培训管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/emplist.html',this)">
+                            <i class="fa fa-folder-open"></i>人事档案管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/kpi/kpi.html',this)">
+                            <i class="fa fa-wrench"></i>效绩考核</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/kpi/yearkpi.html',this)">
+                            <i class="fa fa-wrench"></i>年度考评</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/kpi/entrykpi.html',this)">
+                            <i class="fa fa-wrench"></i>转正考评</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/workAdmin.html',this)">
+                            <i class="fa fa-wrench"></i>劳动关系管理</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#empSetting" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        员工管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="empSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="javascript:onload('/emp/emplist.html');"><i class="glyphicon glyphicon-user"></i>员工考核</a>
+                        </li>
+                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>人员编造</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>审批</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        图表统计
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-fire"></i>
+                        关于系统
+                    </a>
+                </li>
+            </ul>
+            <script>
+                $("#main_nav ").append()
+            </script>
+            <div id="footer" class="row row-pb-md" style="margin: 0;">
+                <div class=" col-md-12 text-center copyright py-2 lead"
+                     style="margin-top: 40px;margin-bottom: 0;color: #383838">
+
+                    <span> Copyright © 2018 - 酷聊OA</span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div th:include="/index ::#footer"></div>
+</body>
+</html>

@@ -19,17 +19,18 @@ public class WebMvcConfig implements WebMvcConfigurer /*WebMvcConfigurerAdapter*
 
     Map<String, String> map = new HashMap<String, String>() {
         {
-            put("/login.html", "/login");
+            put("/login.html", "/user/login");
             put("/", "/index");
             put("/index.html", "/index");
-            put("/register.html", "/register");
-            put("/userHome.html", "/userHome");
+            put("/register.html", "/user/register");
+            //put("/userHome.html", "/food/lookOrder");
         }
     };
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        //registry.addViewController("/login").setViewName("/login");
+        registry.addRedirectViewController("/userHome.html","/food/lookOrder");
+
         map.forEach((k, v) -> registry.addViewController(k).setViewName(v));
     }
 

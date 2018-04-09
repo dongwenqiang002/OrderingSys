@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
@@ -23,34 +22,34 @@ public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    /* @Autowired
-     private UserMapper userMapper;*/
+
     @Autowired
     private EmailService emailService;
 
     @Autowired
     private UserService userService;
 
+
+
+    /**
+     * 用户名效验
+     * */
     @GetMapping("/regFindName")
     @ResponseBody
     public String index(String name) {
+        if(name.isEmpty()||name.length()<3)return "false";
         try {
             User user = (User) userService.loadUserByUsername(name);
             if (user == null) return "false";
         } catch (Exception e) {
             return "false";
         }
+
         return "true";
 
     }
 
-    /*@GetMapping("/register.html")
-    public ModelAndView registerHtml(){
-        LOGGER.info("注册页面");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/register");
-        return modelAndView;
-    }*/
+
 
     /**
      * 注册
@@ -67,7 +66,9 @@ public class UserController {
         LOGGER.info(JsonUtil.objectToJson(detail));
         return "index";
     }
-
+    /**
+     *获取注册验证码
+     * */
     @GetMapping("regCode")
     public boolean regCide(String emailAddress, HttpSession session) {
         String code = emailService.regCode(emailAddress);
@@ -77,20 +78,19 @@ public class UserController {
         }
         return false;
     }
-
+    /**
+     * 注册验证码 验证
+     * */
     @GetMapping("regCodeVer")
     public boolean regCideVer(String code, HttpSession session) {
         String sessionCode = (String) session.getAttribute("regcode");
         LOGGER.info("code:{}\n\t sessioncode:{}",code,sessionCode);
-        return  sessionCode != null&& code != null && !code.isEmpty() && sessionCode != null
-                && !sessionCode.isEmpty() && code.equalsIgnoreCase(sessionCode);
+        return  sessionCode != null&& code != null &&
+                !code.isEmpty() && !sessionCode.isEmpty() &&
+                code.equalsIgnoreCase(sessionCode);
     }
 
-    @GetMapping("/aa")
-    public ModelAndView aa() {
 
-        return new ModelAndView("/index ::#header");
 
-    }
 
 }

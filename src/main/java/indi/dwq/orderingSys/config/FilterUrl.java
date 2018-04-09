@@ -2,6 +2,8 @@ package indi.dwq.orderingSys.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -13,14 +15,19 @@ import java.io.IOException;
 /**
  * @author 董文强
  * @Time 2018/3/22 16:01
+ *
+ * 监视URL的访问
  */
 @Component
 @WebFilter(urlPatterns = "/*",filterName = "blosTest")
 public class FilterUrl implements Filter{
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterUrl.class);
 
+
+
+
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
 
     }
 

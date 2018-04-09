@@ -2,16 +2,20 @@ package indi.dwq.orderingSys.data.pojo;
 
 
 
-import sun.security.x509.OCSPNoCheckExtension;
-
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 /**
  * 订单类
- * */
+ */
 public class Order {
+
+    public static Integer OK = 1;
+    public static Integer NO = 1;
+    public static Integer OnWay = 1;
+
+    private Integer state = OK;
     //订单ID
     private Integer id;
     //下单用户ID
@@ -20,9 +24,19 @@ public class Order {
     private Date time;
     //订单内容
     private List<OrderFood> foods;
+
     private Double price;
     //备注
     private String ps;
+
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     @Override
     public String toString() {
@@ -30,7 +44,7 @@ public class Order {
                 "id=" + id +
                 ", 下单人ID=" + userId +
                 ", 下单时间=" + time +
-                ", 备注="+
+                ", 备注=" +
                 ", foods=" + Arrays.toString(foods.toArray()) +
                 '}';
     }
@@ -85,7 +99,7 @@ public class Order {
     }
 
     //订单内容类
-    public class OrderFood{
+    public static class OrderFood {
         @Override
         public String toString() {
             return "food{" +
@@ -94,8 +108,37 @@ public class Order {
                     '}';
         }
 
+        private String foodName;
         private Integer foodid;
         private Integer count;
+        private Double price;
+
+
+        public OrderFood() {
+        }
+
+        public OrderFood(Integer foodid, Integer count, String foodName, Double price) {
+            this.foodName = foodName;
+            this.foodid = foodid;
+            this.count = count;
+            this.price = price;
+        }
+
+        public Double getPrice() {
+            return price;
+        }
+
+        public void setPrice(Double price) {
+            this.price = price;
+        }
+
+        public String getFoodName() {
+            return foodName;
+        }
+
+        public void setFoodName(String foodName) {
+            this.foodName = foodName;
+        }
 
         public Integer getFoodid() {
             return foodid;

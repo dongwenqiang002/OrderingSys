@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,9 +38,9 @@ public class FootController {
     public ModelAndView footList(Integer pageNum, Boolean isSubPage) {
         LOGGER.info("请求商店列表页面!");
         ModelAndView modelAndView = new ModelAndView();
-        if (isSubPage ==null || isSubPage.equals(false)) {
+        if (isSubPage == null || isSubPage.equals(false)) {
             modelAndView.setViewName("/food/eateryList");
-        }else{
+        } else {
             modelAndView.setViewName("/food/eateryList ::#eateryList");
         }
         if (pageNum == null || pageNum <= 0) {
@@ -47,8 +48,8 @@ public class FootController {
         }
         Page page = PageHelper.startPage(pageNum, 12);
         modelAndView.addObject("eateryList", eateryService.getAll());
-        if(pageNum >page.getPages()){
-            pageNum =page.getPages();
+        if (pageNum > page.getPages()) {
+            pageNum = page.getPages();
             PageHelper.startPage(pageNum, 12);
             modelAndView.addObject("eateryList", eateryService.getAll());
         }
@@ -58,7 +59,9 @@ public class FootController {
         return modelAndView;
     }
 
-
+    /**
+     * 进入餐馆
+     */
     @RequestMapping("/eatery/{id}")
     public ModelAndView intoEatery(@PathVariable("id") Integer id) {
 
@@ -66,15 +69,31 @@ public class FootController {
         modelAndView.addObject("foodList", foodService.getAll(id));
         return modelAndView;
     }
-
+    /**
+     * 下订单
+     * */
     @RequestMapping("/oreder")
     @ResponseBody
     public String order(String order, HttpSession session) {
-        // LOGGER.info("订单内容{}",order);
         User user = (User) session.getAttribute("user");
         Double price = orderService.orderDown(order, user);
-        // LOGGER.info("用户名:{}",user.getUsername());
-        // LOGGER.info("用户ID   :{}",user.getId());
+
         return price.toString();
+    }
+
+    /**
+     * 获取当前用户的订单列表
+     * */
+    @GetMapping("/lookOrder")
+    //@ResponseBody
+    public ModelAndView lookOrder(HttpSession session) {
+        LOGGER.info("根据用户ID查订单");
+        User user = (User) session.getAttribute("user");
+        if (user == null) throw new NullPointerException("用户未登录");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("onOrderList",orderService.onWayOrder(user.getId()));
+        modelAndView.addObject("OrderList",orderService.lookOrder(user.getId()));
+        modelAndView.setViewName("/user/userHome");
+        return modelAndView;
     }
 }

@@ -74,7 +74,11 @@ public class JsonUtil {
                 //这是一个内部类
                 Constructor<?> c = cls.getConstructors()[0];
                 Object sup = Class.forName(cls.getName().substring(0,cls.getName().indexOf('$'))).newInstance();
-                o = (T) c.newInstance(sup);
+                try {
+                    o = (T) c.newInstance(sup);
+                }catch (Exception e){
+                    o = cls.newInstance();
+                }
             } else {
                 o = cls.newInstance();
             }
