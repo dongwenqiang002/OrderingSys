@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <span>姓名 : </span>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <span>面试岗位 : </span>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <span>性别 : </span>
+                        <select class="form-control">
+                            <option>所有</option>
+                            <option>男</option>
+                            <option>女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <span>地址 : </span>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px">
+                            <i class="glyphicon glyphicon-search"></i>查询
+                        </button>
+                    </div>
+                </form>
+                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+                     <li>
+                         <div class="btn-group" style="margin-right: 20px">
+                             <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                                 <i class="glyphicon glyphicon-plus"></i>简历录入
+                             </button>
+                         </div>
+                         <div id="addmodal_div"></div>
+                     </li>
+
+                 </ul>
+            </div>
+        </div>
+    </nav>
+    <table id="main_table" class="table table-hover table-striped table-bordered">
+        <thead>
+        <!--序号、日期、姓名、性别、年龄、应聘岗位、学历、专业、毕业院校、联系电话、个人邮箱、预约面试时间、是否参加面试、面试责任人、面试结果、备注 -->
+        <tr class="success">
+            <th>序号</th>
+            <th>日期</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>应聘岗位</th>
+            <th>学历</th>
+            <th>专业</th>
+            <th>毕业院校</th>
+            <th>招聘渠道</th>
+            <th>联系电话</th>
+            <th>个人邮箱</th>
+            <th>预约面试时间</th>
+            <th>是否参加面试</th>
+            <th>面试责任人</th>
+            <th>面试结果</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <th>001</th>
+            <th>2018-4-9</th>
+            <th>马云</th>
+            <th>男</th>
+            <th>33</th>
+            <th>JAVA工程师</th>
+            <th>二本</th>
+            <th>软件工程</th>
+            <th>五道口大学</th>
+            <td>校招</td>
+            <th>123456789123</th>
+            <th>157565275@qq.com</th>
+            <th>2018年4月12日下午2点</th>
+            <th>是</th>
+            <th>马化腾</th>
+            <th></th>
+            <th>有阿里巴巴CEO工作经历</th>
+        </tr>
+        <tr >
+            <th>001</th>
+            <th>2018-4-9</th>
+            <th>马云</th>
+            <th>男</th>
+            <th>33</th>
+            <th>JAVA工程师</th>
+            <th>二本</th>
+            <th>软件工程</th>
+            <th>五道口大学</th>
+            <td>网上投递</td>
+            <th>123456789123</th>
+            <th>157565275@qq.com</th>
+            <th>2018年4月12日下午2点</th>
+            <th>是</th>
+            <th>马化腾</th>
+            <th></th>
+            <th>有阿里巴巴CEO工作经历</th>
+        </tr>
+        <tr >
+            <th>001</th>
+            <th>2018-4-9</th>
+            <th>马云</th>
+            <th>男</th>
+            <th>33</th>
+            <th>JAVA工程师</th>
+            <th>二本</th>
+            <th>电子信息科学与技术</th>
+            <th>西安电子科技大学</th>
+            <td>网上投递</td>
+            <th>123456789123</th>
+            <th>157565275@qq.com</th>
+            <th>2018年4月12日下午2点</th>
+            <th>是</th>
+            <th>马化腾</th>
+            <th></th>
+            <th>有阿里巴巴CEO工作经历</th>
+        </tr>
+       <!-- <tr>
+            <td>马化腾</td>
+            <td>45</td>
+            <td>男</td>
+            <td>清洁工/JAVA</td>
+            <td>本科</td>
+            <td>0145874258</td>
+            <td>深圳</td>
+            <td><a href="#">详细简历</a></td>
+            <td style="padding: 3px">
+                <button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-edit">通知面试</i></button>
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-search">放入人才库</i></button>
+            </td>
+        </tr>
+        <tr>
+            <td>特朗普</td>
+            <td>75</td>
+            <td>男</td>
+            <td>总统</td>
+            <td>研究生</td>
+            <td>0145874258</td>
+            <td>美国</td>
+            <td><a href="#">详细简历</a></td>
+            <td style="padding: 3px">
+                <button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-edit">通知面试</i></button>
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-search">放入人才库</i></button>
+            </td>
+        </tr>-->
+
+        </tbody>
+    </table>
+    <div class="text-right">
+        <!-- <ul class="pagination  pagination-lg">
+             <li style="margin-right: 10px">
+                 <a href="#">首页</a>
+             </li>
+             <li class="disabled">
+                 <a href="#">上一页</a>
+             </li>
+             <li class="active">
+                 <a href="#" text="">1</a>
+             </li>
+             <li>
+                 <a href="#">2</a>
+             </li>
+             <li>
+                 <a href="#">3</a>
+             </li>
+             <li>
+                 <a href="#">下一页</a>
+             </li>
+             <li style="margin-left: 10px">
+                 <a href="#">末页</a>
+             </li>
+         </ul>-->
+        <ul class="pager " style="text-align: right">
+            <li><a href="#"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+            <li><a href="#"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+            <li>当前第4页</li>
+            <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+            <li><a href="#"> <span class="glyphicon glyphicon-fast-forward"></span></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    function onAdd(a) {
+        $("#addmodal_div").load("hrm/rec/addRec.html", function () {
+            $("#addModal").modal({keyboard: true});
+        });
+
+    }</script>

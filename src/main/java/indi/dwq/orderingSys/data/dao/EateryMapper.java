@@ -7,6 +7,9 @@ import java.util.List;
 
 @Repository
 public interface EateryMapper {
+
+    Eatery selectByUserId(Integer userId);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Eatery record);

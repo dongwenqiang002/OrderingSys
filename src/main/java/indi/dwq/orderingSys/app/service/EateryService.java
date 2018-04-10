@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.app.service;
 
 
 import indi.dwq.orderingSys.data.dao.EateryMapper;
+import indi.dwq.orderingSys.data.pojo.Eatery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,11 @@ public class EateryService {
         List list = eateryMapper.getAll();
         //分行
         return branch(list, 4);
+    }
+
+    public Eatery getEatery(Integer userId){
+
+        return eateryMapper.selectByUserId(userId);
     }
 
     /**

@@ -18,13 +18,23 @@ public class FilterConfig {
 
 
     @Bean
-    public FilterRegistrationBean testFilterRegistration() {
+    public FilterRegistrationBean eateryFilterRegistration() {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new EateryFilter());
         registration.addUrlPatterns("/eatery/**");
-        //registration.addInitParameter("paramName", "paramValue");
         registration.setName("eateryFilter");
+        registration.setOrder(1);
+        return registration;
+    }
+
+    @Bean
+    public FilterRegistrationBean adminFilterRegistration() {
+
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new AdminFilter());
+        registration.addUrlPatterns("/admin/**");
+        registration.setName("adminFilter");
         registration.setOrder(1);
         return registration;
     }

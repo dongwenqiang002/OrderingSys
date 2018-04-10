@@ -12,6 +12,9 @@
     id, eater_name, address, des ,img_url
   </sql>
 
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select * from eatery WHERE user_id = #{userId}
+  </select>
 
   <select id="getAll" resultMap="BaseResultMap">
     select * from eatery

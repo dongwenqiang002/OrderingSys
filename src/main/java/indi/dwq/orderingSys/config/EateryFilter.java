@@ -21,8 +21,10 @@ public class EateryFilter implements Filter  {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterUrl.class);
 
+
+
     @Override
-    public void init(FilterConfig filterConfig) {
+    public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
 
     }
 
@@ -34,14 +36,16 @@ public class EateryFilter implements Filter  {
         try {
             User user = (User) request.getSession().getAttribute("user");
             if(user == null){
-                return;
+                response.sendRedirect("/login.html");
             }
             LOGGER.info(user.getRole());
+            if(user.getRole().equals("商铺"));
+            filterChain.doFilter(request,response);
         }catch (Exception e){
-            return;
+            response.sendRedirect("/error/error");
         }
         // LOGGER.info("{}:{} " ,request.getMethod() ,request.getRequestURL().toString());
-        filterChain.doFilter(request,response);
+
 
     }
 

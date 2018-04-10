@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>商家管理页面</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div th:include="/index ::#header"></div>
+<main class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2 left_nav" style="background: whitesmoke;border-radius: 12px;">
+            <ul id="main_nav" class="nav nav-tabs nav-stacked">
+                <li>
+                    <a href="javascript:void(0);" onclick="onloada('home',this)">
+                        <i class="glyphicon glyphicon-home"></i>
+                         首页
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="onloada('food',this)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        商品管理
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="onloada('order',this)">
+                        <i class="glyphicon glyphicon-list"></i>
+                        订单管理
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="onloada('sale',this)">
+                        <i class="glyphicon glyphicon-time"></i>
+                        销售记录
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-md-10  col-sm-10 col-xs-10" style="height: 100%;padding: 4px;">
+            <nav id="main_context_nav" class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div>
+                        <ul class="nav navbar-nav"></ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="main_context" class="main_context" style=" ;width: 100%;"></div>
+
+        </div>
+    </div>
+
+    </div>
+</main>
+<div th:include="/index ::#footer"></div>
+</body>
+<script>
+    /**
+     * 当有主体内容添加事假的时候
+     * 添加主体内容
+     * 添加标签
+     * */
+    function onloada(t, a) {
+        // console.log($(a).html());
+        var name = $(a).text().trim();
+        if ($("#" + name).length > 0) {
+            showTable(name);
+            return;
+        }
+        $("#main_context").find(">div").hide();
+        var sbtn = $("<button id = 'table_btn_" + name + "'type='button' class='btn btn-sm' onclick='showTable(\"" + name + "\")'>");
+        sbtn.append($(a).html());
+        var xbtn = $("<button type='button' class='btn btn-warning btn-sm' onclick='hideTable(\"" + name + "\");'><span class='glyphicon glyphicon-remove'></span></button>");
+
+        var li = $("<li><div class='btn-group'></div></li>");
+        li.children().append(sbtn);
+        li.children().append(xbtn);
+        $("#main_context_nav").find(">div >div >ul").append(li);
+        //添加主体
+        var context = $("<div id='" + name + "'></div>");
+        //添加主体内容
+        context.load("/eatery/"+t+".html");
+        $("#main_context").append(context);
+        showTable(name);
+    }
+
+
+    function showTable(name) {
+        if ($("#" + name).length > 0) {
+            $("#main_context").find(">div").hide();
+            $("#" + name).show();
+            $("[id^='table_btn_']").removeClass("btn-success");
+            $("#table_btn_" + name).addClass("btn-success");
+        }
+    }
+
+    //	$("[title^='Tom']")
+    function hideTable(name) {
+        if ($("#" + name).length > 0) {
+            $("#table_btn_" + name).parent().parent().remove();
+            $("#" + name).remove();
+            var las = $("#main_context").find(">div").last();
+            if (las.length > 0) {
+                las.show();
+                showTable(las.attr('id'));
+            }
+
+        }
+    }
+</script>
+
+<script> onloada('home',$("<a><i class=\"glyphicon glyphicon-home\"></i>首页</a>"))</script>
+</html>

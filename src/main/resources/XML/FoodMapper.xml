@@ -9,37 +9,53 @@
         <result column="eatery_id" jdbcType="INTEGER" property="eateryId"/>
     </resultMap>
 
-    <resultMap id="OrderFood"  type="indi.dwq.orderingSys.data.pojo.Order$OrderFood">
+    <resultMap id="OrderFood" type="indi.dwq.orderingSys.data.pojo.Order$OrderFood">
         <result column="count" property="count"/>
         <result column="id" property="foodid"/>
         <result column="name" property="foodName"/>
         <result column="price" property="price"/>
     </resultMap>
+    <sql id="Base_Column_List">
+        id, name, price, des, eatery_id
+    </sql>
+   <!-- /*创建 商品列表视图视图*/
+    DROP VIEW IF EXISTS `food_view`;
+    CREATE VIEW food_view AS
+    SELECT f.* , IFNULL(SUM(fs.count),0) AS COUNT FROM food f LEFT JOIN food_sales fs ON f.id=fs.food_id   GROUP BY f.id;
 
+     id, name, price, des, eatery_id count
+-->
+    <select id="getSortFood" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select * FROM food_view where eatery_id=#{eateryId} order by ${sortName}
+    </select>
+    <select id="selectCountByFoodId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select IFNULL(SUM(count),0)
+        FROM food_sales
+        where  food_id=#{foodId}
+    </select>
 
     <select id="selectFoodSalesByOrderID" parameterType="java.lang.Integer" resultMap="OrderFood">
     select fs.count count,f.id id, f.name name,fs.price price
     FROM food_sales fs  JOIN food f ON fs.food_id=f.id
-    where  fs.order_id=#{id}
+    where  fs.order_id=#{id} and state=1
    </select>
 
 
-    <sql id="Base_Column_List">
-    id, name, price, des, eatery_id
-  </sql>
     <select id="getAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select * from food where eatery_id=#{eateryId}
+    select * from food  where eatery_id=#{eateryId} and state=1
   </select>
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from food
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from food
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    update  food
+    set state=2  WHERE  id = #{id,jdbcType=INTEGER}
+     </update>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.Food">
     insert into food (id, name, price, 
       des, eatery_id)

@@ -20,8 +20,20 @@ public class FoodService {
 
     public List<Food> getAll(Integer eateryId ){
 
-
-        return  foodMapper.getAll(eateryId);
+        return  foodMapper.getSortFood(eateryId,"id");
+    }
+    public List<Food> getSortFood(Integer eateryId ,String sortName){
+        if(sortName == null){
+            return  foodMapper.getSortFood(eateryId,"id");
+        }
+        if(sortName.equals("count")||sortName.equals("销量"))
+            return  foodMapper.getSortFood(eateryId,"count desc");
+        if(sortName.equals("name")||sortName.equals("名字")||sortName.equals("商品名"))
+            return  foodMapper.getSortFood(eateryId,"name");
+        return  foodMapper.getSortFood(eateryId,"id");
+    }
+    public Integer getCount(Integer foodId) {
+        return  foodMapper.selectCountByFoodId(foodId);
     }
 }
 

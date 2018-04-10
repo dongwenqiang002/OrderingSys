@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-info" id="myModalLabel">简历录入</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add_asset_form" class="form-horizontal" action="http://127.0.0.1:7255/insert" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">序号</label>
+                        <div class="col-sm-8">
+                            <input name="asName" type="text" class="form-control" placeholder="序号">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">日期</label>
+                        <div class="col-sm-8">
+                            <input name="asDes" class="form-control" type="date" placeholder="日期">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-8">
+                            <input name="asCount" class="form-control" type="number" placeholder="姓名">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-8">
+                            <input name="asStore" class="form-control" type="number" placeholder="年龄">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">应聘岗位</label>
+                        <div class="col-sm-8">
+                            <input name="asUser" class="form-control" type="text" placeholder="应聘岗位">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">学历</label>
+                        <div class="col-sm-4">
+                            <input name="asState" class="form-control" type="text" placeholder="学历">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">专业</label>
+                        <div class="col-sm-8">
+                            <input name="asPrice" class="form-control" type="text" placeholder="专业">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">毕业院校</label>
+                        <div class="col-sm-8">
+                            <input name="asTime" class="form-control" type="date" placeholder="毕业院校">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">联系电话</label>
+                        <div class="col-sm-8">
+                            <input name="asTime" class="form-control" type="tel" placeholder="联系电话">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">个人邮箱</label>
+                        <div class="col-sm-8">
+                            <input name="asTime" class="form-control" type="text" placeholder="个人邮箱">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">预约面试时间</label>
+                        <div class="col-sm-8">
+                            <div class="col-sm-8">
+                                <input name="asTime" class="form-control" type="time" placeholder="预约面试时间">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否参加面试</label>
+                        <div class="col-sm-8">
+                            <select class="form-control">
+                                <option>是</option>
+                                <option>否</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">面试责任人</label>
+                        <div class="col-sm-8">
+                            <input name="asTime" class="form-control" type="text" placeholder="面试责任人">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">面试结果</label>
+                        <div class="col-sm-8">
+                            <input name="asTime" class="form-control" type="text" placeholder="面试结果">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-8">
+                            <div class="textarea">
+                                <textarea name="asExp" class="form-control" placeholder="备注"> </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="add_submit" type="button" class="btn btn-primary">提交更改</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+
+    </div>
+</div>

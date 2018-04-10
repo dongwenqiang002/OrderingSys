@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search">
+
+                </form>
+                <div id="addmodal_div"></div>
+            </div>
+        </div>
+    </nav>
+    <table id="main_table" class="table table-hover table-striped table-bordered">
+        <thead>
+        <tr class="success">
+            <th>员工编号</th>
+            <th>姓名</th>
+            <th>部门</th>
+            <th>岗位</th>
+            <th>评审人</th>
+            <th>评审结果</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>00001111</td>
+            <td>马云</td>
+            <td>保洁部</td>
+            <td>扫厕所</td>
+            <td>奥巴马</td>
+            <td><button class="btn btn-xs btn-success" onclick="onAdd(this)">查看</button>
+                <button class="btn btn-xs btn-success">下载</button>
+                <button class="btn btn-xs btn-danger">上传</button></td>
+        </tr>
+        <tr>
+            <td>0000213213</td>
+            <td>刘强东</td>
+            <td>人事部</td>
+            <td>前台</td>
+            <td>武则天</td>
+            <td><button class="btn btn-xs btn-success">查看</button>
+                <button class="btn btn-xs btn-success">下载</button>
+                <button class="btn btn-xs btn-danger">上传</button></td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="text-right">
+
+        <ul class="pager " style="text-align: right">
+            <li><a href="#"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+            <li><a href="#"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+            <li>当前第4页</li>
+            <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+            <li><a href="#"> <span class="glyphicon glyphicon-fast-forward"></span></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    function onAdd(a) {
+        $("#addmodal_div").load("hrm/kpi/pfModel.html", function () {
+            $("#addModal").modal({keyboard: true});
+        });
+
+    }</script>

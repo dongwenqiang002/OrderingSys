@@ -81,6 +81,21 @@ public class FootController {
         return price.toString();
     }
 
+
+    /**
+     *
+     * 获取指定商品销量
+     * */
+    @GetMapping("/getCount")
+    @ResponseBody
+    public String getCount(Integer foodId) {
+        LOGGER.info("查看商品 {} 的销量",foodId);
+        Integer count = foodService.getCount(foodId);
+        if(count==null)count = 0;
+        return count+"份";
+    }
+
+
     /**
      * 获取当前用户的订单列表
      * */
