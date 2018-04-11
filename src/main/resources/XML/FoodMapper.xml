@@ -18,15 +18,15 @@
     <sql id="Base_Column_List">
         id, name, price, des, eatery_id
     </sql>
-   <!-- /*创建 商品列表视图视图*/
-    DROP VIEW IF EXISTS `food_view`;
-    CREATE VIEW food_view AS
-    SELECT f.* , IFNULL(SUM(fs.count),0) AS COUNT FROM food f LEFT JOIN food_sales fs ON f.id=fs.food_id   GROUP BY f.id;
+    <!-- /*创建 商品列表视图视图*/
+     DROP VIEW IF EXISTS `food_view`;
+     CREATE VIEW food_view AS
+     SELECT f.* , IFNULL(SUM(fs.count),0) AS COUNT FROM food f LEFT JOIN food_sales fs ON f.id=fs.food_id   GROUP BY f.id;
 
-     id, name, price, des, eatery_id count
--->
+      id, name, price, des, eatery_id count
+ -->
     <select id="getSortFood" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-      select * FROM food_view where eatery_id=#{eateryId} order by ${sortName}
+      select * FROM food_view where eatery_id=#{eateryId} and state=1 order by ${sortName}
     </select>
     <select id="selectCountByFoodId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select IFNULL(SUM(count),0)
@@ -50,16 +50,16 @@
         select
         <include refid="Base_Column_List"/>
         from food
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER} and state=1
     </select>
     <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     update  food
     set state=2  WHERE  id = #{id,jdbcType=INTEGER}
      </update>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.Food">
-    insert into food (id, name, price, 
+    insert into food ( name, price,
       des, eatery_id)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, 
+    values ( #{name,jdbcType=VARCHAR}, #{price,jdbcType=REAL},
       #{des,jdbcType=VARCHAR}, #{eateryId,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.Food">
@@ -125,4 +125,9 @@
       eatery_id = #{eateryId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <update id="removeFood" parameterType="java.lang.Integer">
+        update food
+        set state=2
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

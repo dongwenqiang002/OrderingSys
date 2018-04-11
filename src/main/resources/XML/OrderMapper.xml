@@ -18,7 +18,12 @@
     <sql id="Base_Column_List">
     id, user_id, to_time, ps, price,state
   </sql>
-
+    <select id="selectByEateryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM food_order
+        WHERE id IN (SELECT order_id id FROM food_sales
+               WHERE food_id IN (SELECT id FROM food WHERE eatery_id=#{eateryId})  )
+         ORDER BY state
+    </select>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -81,6 +86,9 @@
             </if>
             <if test="price != null">
                 price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=DOUBLE},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}

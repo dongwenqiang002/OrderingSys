@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDetailMapper {
+
     int deleteByPrimaryKey(Integer id);
+
 
     int insert(UserDetail record);
 

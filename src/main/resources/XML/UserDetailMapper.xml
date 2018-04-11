@@ -3,14 +3,15 @@
 <mapper namespace="indi.dwq.orderingSys.data.dao.UserDetailMapper">
   <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.UserDetail">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone"  property="phone" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age"  property="age" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, sex, email, phone, address
+    id,address,phone,name,age,sex,email
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -18,14 +19,18 @@
     from user_detail
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
-    insert into user_detail (name, sex,email, phone, address,age)
-    values (#{id}, #{name}, #{sex},#{email}, #{phone}, #{address},#{age})
+    insert into user_detail (address,phone,name,age,sex,email)
+    values (#{address},#{phone}, #{name}, #{age}, #{sex},#{email})
   </insert>
   <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
     insert into user_detail

@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="button"  class="btn  btn-default btn-md" style="margin-left: 30px">
+                        <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px">
                             <i class="glyphicon glyphicon-search"></i>查询
                         </button>
                     </div>
@@ -61,38 +61,75 @@
                 <td></td>
                 <td th:text="${food.des}">巨难吃</td>
                 <td>
-                    <button class="btn btn-xs btn-danger" onclick="onDelete([[${food.id}]])">删除</button>
+                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
                 </td>
             </tr>
 
             </tbody>
             <script> $("#main_table >tbody>tr").each(function () {
                 var id = $(this).children("td:eq(0)").text();
+                if(isNaN(id))return;
                 var countTd = $(this).children("td:eq(3)");
                 $.get("/food/getCount?foodId=" + id, function (data) {
                     countTd.html(data);
                 });
             }); </script>
+            <tr>
+                <td colspan="6">
+                    <div class="text-center">
+
+                        <ul class="pager " style="text-align: right">
+                            <li><a href="javascript:pageChange(-999);"> <span
+                                    class="glyphicon glyphicon-fast-backward"></span></a></li>
+                            <li><a href="javascript:pageChange(-1);"><span
+                                    class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+                            <li>当前第<span id="span_pageNum" th:text="${pageNum}">1</span>页</li>
+                            <li><a href="javascript:pageChange(1);"><span
+                                    class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                            <li><a href="javascript:pageChange(999);"> <span
+                                    class="glyphicon glyphicon-fast-forward"></span></a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
         </table>
+
+
     </div>
-        <div class="text-right">
-
-            <ul class="pager " style="text-align: right">
-                <li><a href="#"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
-                <li><a href="#"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
-                <li>当前第4页</li>
-                <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                <li><a href="#"> <span class="glyphicon glyphicon-fast-forward"></span></a></li>
-            </ul>
-        </div>
-
 </div>
 <script>
     function reLoadTable(sele) {
+        var pageNum = parseInt($("#span_pageNum").text());
         var sortName = $(sele).val();
         console.log(sortName);
-        $("#food_main_context").load("/eatery/food.html",data={isSubPage:true,sortName:sortName});
+        $("#food_main_context").load("/eatery/food.html", data = {
+            isSubPage: true,
+            sortName: sortName,
+            pageNum: pageNum
+        });
     }
 
+    function pageChange(changePage) {
+        var pageNum = parseInt($("#span_pageNum").text());
+        var sortName = $("select[name='sort']").val();
+        pageNum += changePage;
+        $("#food_main_context").load("/eatery/food.html", data = {
+            isSubPage: true,
+            sortName: sortName,
+            pageNum: pageNum
+        });
+    }
 
+    function onAdd(a) {
+        $("#addmodal_div").load("/eatery/foodAdd.html", function () {
+            $("#addModal").modal({keyboard: true});
+        });
+
+    }
+
+    function onDelete(id){
+        $.get("/food/remove?foodId="+id,function () {
+            pageChange(0);
+        } )
+    }
 </script>

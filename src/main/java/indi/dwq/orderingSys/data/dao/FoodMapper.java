@@ -30,5 +30,7 @@ public interface FoodMapper {
 
     int updateByPrimaryKey(Food record);
 
+    int  removeFood(Integer id);
+
     Integer selectCountByFoodId(Integer foodId);
 }

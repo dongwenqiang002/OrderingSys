@@ -1,22 +1,22 @@
 package indi.dwq.orderingSys.app.controller;
 
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import indi.dwq.orderingSys.app.service.EateryService;
 import indi.dwq.orderingSys.app.service.FoodService;
-import indi.dwq.orderingSys.data.dao.FoodMapper;
+import indi.dwq.orderingSys.app.service.OrderService;
 import indi.dwq.orderingSys.data.pojo.Eatery;
 import indi.dwq.orderingSys.data.pojo.Food;
 import indi.dwq.orderingSys.data.pojo.User;
 import indi.dwq.orderingSys.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 /**
  * 餐馆controller
@@ -30,6 +30,8 @@ public class EateryController {
     private EateryService eateryService;
     @Autowired
     private FoodService foodService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping("/list")
     public ModelAndView eateryList() {
@@ -64,30 +66,63 @@ public class EateryController {
     }
 
     @RequestMapping("/food.html")
-    public ModelAndView foodHtml(String sortName,Boolean isSubPage,Integer pageNum,HttpSession session ) {
+    public ModelAndView foodHtml(String sortName, Boolean isSubPage, Integer pageNum, HttpSession session) {
 
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
 
-        ModelAndView mv = new ModelAndView("/eatery/food"+((isSubPage!=null&&isSubPage)?" ::#main_table":""));
+        ModelAndView mv = new ModelAndView("/eatery/food" + ((isSubPage != null && isSubPage) ? " ::#main_table" : ""));
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
 
-        PageUtil.paging("foodList",mv,12,1,()->foodService.getSortFood(eatery.getId(),sortName));
+        PageUtil.paging("foodList", mv, 5, pageNum, () -> foodService.getSortFood(eatery.getId(), sortName));
 
         return mv;
     }
 
-
-
-
-    @RequestMapping("/order.html")
-    public ModelAndView orderHtml() {
-        ModelAndView mv = new ModelAndView("/eatery/order");
-
-        // mv.addObject();
+    /**
+     * 跳转商品模态框
+     */
+    @GetMapping("/foodAdd.html")
+    public ModelAndView toFoodModel(Integer foodId) {
+        ModelAndView mv = new ModelAndView("/eatery/foodAdd");
+        if (foodId == null) return mv;
+        Food food = foodService.getFood(foodId);
+        mv.addObject("food", food);
         return mv;
+    }
+
+    /**
+     * 查看订单列表
+     * <th>订单编号</th>
+     * <th>下单时间</th>
+     * <th>价格</th>
+     * <th>下单人姓名</th>
+     * <th>联系电话</th>
+     * <th>备注</th>
+     * <th>当前状态</th>
+     * <th>查看订单详情</th>  -> 订单内容展示
+     */
+    @RequestMapping("/order.html")
+    public ModelAndView orderHtml(HttpSession session) {
+        ModelAndView mv = new ModelAndView("/eatery/order");
+        User user = (User) session.getAttribute("user");
+        List orderList = eateryService.getOrderList(user.getId());
+        mv.addObject("orderList", orderList);
+        return mv;
+    }
+    /**
+     * 商家接单
+     * */
+    @RequestMapping("/orderUp")
+    @ResponseBody
+    public boolean orderHtml(Integer orderId) {
+        if(orderService.orderUp(orderId)){
+            return true;
+        }
+        return false ;
+
     }
 
     @RequestMapping("/sale.html")

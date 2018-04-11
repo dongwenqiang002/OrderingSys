@@ -30,4 +30,6 @@ public interface OrderMapper {
     int setOrderPrice(@Param("id") Integer orderId,@Param("price") Double price);
 
     List<Order> selectByUserIdAndOnWay(@Param("id") Integer userId, @Param("state") Integer onWay);
+
+    List<Order> selectByEateryId(Integer eateryId);
 }

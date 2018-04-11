@@ -6,14 +6,15 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"   />
         <result column="role"     jdbcType="VARCHAR" property="role"  />
+        <result column="detail_id" javaType="INTEGER" property="detailId"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    <![CDATA[ id, username, password ,role ]]>
+    <![CDATA[ id, detail_id,username, password ,role ]]>
   </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-       <![CDATA[ select id, username, password ,role  from user where id = #{id,jdbcType=INTEGER} ]]>
+       <![CDATA[ select *  from user where id = #{id,jdbcType=INTEGER} ]]>
     </select>
     <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
         <![CDATA[ SELECT *

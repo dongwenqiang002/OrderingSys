@@ -78,6 +78,7 @@ public class OrderService {
         return  orderMapper.selectByUserId(id);
     }
 
+
     /**
      * 查看当前正在途中的订单
      * */
@@ -92,4 +93,14 @@ public class OrderService {
         return foodMapper.selectFoodSalesByOrderID(orderId);
     }
 
+    /**
+     * 商家接单
+     * */
+    public boolean orderUp(Integer orderId) {
+        Order order = new Order();
+        order.setId(orderId);
+        order.setState(2);
+        orderMapper.updateByPrimaryKeySelective(order);
+        return true;
+    }
 }
