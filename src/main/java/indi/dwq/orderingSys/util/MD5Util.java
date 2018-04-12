@@ -42,7 +42,7 @@ public class MD5Util {
         String MD5_String;
         MD5_String = MD5("123");
         System.out.println(MD5_String);
-        MD5_String = MD5("dongwenaing");
+        MD5_String = MD5("dongwenqiang");
         System.out.println(MD5_String);
         MD5_String = MD5("dong19951018");
         System.out.println(MD5_String);

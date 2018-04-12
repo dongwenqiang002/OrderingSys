@@ -69,4 +69,42 @@ public class EmailService {
         return code.toString();
 
     }
+
+
+    public String repasswordCode(String mailAddress) {
+        if (mailAddress == null || mailAddress.isEmpty()){
+            return null;
+        }
+        int[] radi= {10,25,25};
+        char[] radc={'0','a','A'};
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            int n = random.nextInt(3);
+            code.append((char)(radc[n]+random.nextInt(radi[n])));
+        }
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(emailUsername);
+            message.setTo(mailAddress); //目标地址
+            message.setSubject("重置密码");
+            message.setText("您当前在执行重置密码操作," +
+                    "您的验证码是 " + code + "\n" +
+                    "请尽快完使用,谢谢!");
+            mailSender.send(message);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            return null;
+        }
+        return code.toString();
+
+    }
+
+    public static void main(String[] args) {
+        Random random = new Random(System.currentTimeMillis());
+        random.nextInt(9);
+        for (int i = 0; i < 100; i++) {
+            System.out.println(random.nextInt(10));
+        }
+
+    }
 }

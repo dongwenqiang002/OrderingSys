@@ -14,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*@Component
+//@Component
 //@ServletComponentScan
-@WebFilter(urlPatterns = "/eatery/*.html",filterName = "EateryFilter")*/
-public class EateryFilter implements Filter  {
+//@WebFilter(urlPatterns = "/eatery/*.html",filterName = "EateryFilter")
+public class EateryFilter implements Filter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterUrl.class);
-
 
 
     @Override
@@ -30,20 +29,25 @@ public class EateryFilter implements Filter  {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        LOGGER.info("商铺验证");
-        HttpServletRequest request= (HttpServletRequest) servletRequest;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         try {
             User user = (User) request.getSession().getAttribute("user");
-            if(user == null){
+            if (user == null) {
                 response.sendRedirect("/login.html");
             }
-            LOGGER.info(user.getRole());
-            if(user.getRole().equals("商铺"));
-            filterChain.doFilter(request,response);
-        }catch (Exception e){
+            LOGGER.info("当前用户为{},请求商铺访问登录",user.getRole());
+            if (user.getRole().equals("商铺")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        } catch (Exception e) {
             response.sendRedirect("/error/error");
+            return;
         }
+        response.setStatus(403);
+        response.sendRedirect("/error");
+        return;
         // LOGGER.info("{}:{} " ,request.getMethod() ,request.getRequestURL().toString());
 
 

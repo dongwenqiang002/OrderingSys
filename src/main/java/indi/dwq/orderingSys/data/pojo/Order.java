@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Order {
 
-    public static Integer OK = 1;
+    public static Integer OK = 3;
     public static Integer NO = 1;
-    public static Integer OnWay = 1;
+    public static Integer OnWay = 2;
 
     private Integer state = OK;
     //订单ID

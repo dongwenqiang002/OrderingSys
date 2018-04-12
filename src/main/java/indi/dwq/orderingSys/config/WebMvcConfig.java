@@ -23,6 +23,8 @@ public class WebMvcConfig implements WebMvcConfigurer /*WebMvcConfigurerAdapter*
             put("/", "/index");
             put("/index.html", "/index");
             put("/register.html", "/user/register");
+            put("/user/regPassword.html", "/user/regPassword");
+            put("/user/restPassword.html", "/user/restPassword");
             //put("/userHome.html", "/food/lookOrder");
         }
     };

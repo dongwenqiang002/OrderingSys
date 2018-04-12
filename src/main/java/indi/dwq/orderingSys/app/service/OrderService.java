@@ -83,7 +83,7 @@ public class OrderService {
      * 查看当前正在途中的订单
      * */
     public List<Order> onWayOrder(Integer userId){
-        return  orderMapper.selectByUserIdAndOnWay(userId,Order.OnWay);
+        return  orderMapper.selectByUserIdAndOnWay(userId);
     }
 
     /**

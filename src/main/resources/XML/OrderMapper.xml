@@ -42,7 +42,7 @@
         select
         <include refid="Base_Column_List"/>
         from food_order
-        where user_id = #{id,jdbcType=INTEGER} and state = #{state}
+        where user_id = #{id,jdbcType=INTEGER} and state in(1,2)
     </select>
 
 

@@ -22,9 +22,9 @@ public class FilterConfig {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new EateryFilter());
-        registration.addUrlPatterns("/eatery/**");
+        registration.addUrlPatterns("/eatery/*");
         registration.setName("eateryFilter");
-        registration.setOrder(1);
+        registration.setOrder(2);
         return registration;
     }
 
@@ -33,7 +33,7 @@ public class FilterConfig {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new AdminFilter());
-        registration.addUrlPatterns("/admin/**");
+        registration.addUrlPatterns("/admin/*");
         registration.setName("adminFilter");
         registration.setOrder(1);
         return registration;

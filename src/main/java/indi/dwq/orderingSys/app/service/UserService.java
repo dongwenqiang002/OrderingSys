@@ -4,6 +4,7 @@ import indi.dwq.orderingSys.data.dao.UserDetailMapper;
 import indi.dwq.orderingSys.data.dao.UserMapper;
 import indi.dwq.orderingSys.data.pojo.User;
 import indi.dwq.orderingSys.data.pojo.UserDetail;
+import indi.dwq.orderingSys.util.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,23 @@ public class UserService implements UserDetailsService {
 
     }
 
+    public UserDetail getDetail(Integer detailId) {
+        return userDetailMapper.selectByPrimaryKey(detailId);
+
+    }
+
+    public boolean updatePassword(User user) {
+        if (user == null || user.getId() == null || user.getPassword() == null) {
+            return false;
+        }
+        User newUser = new User();
+        String newPassword = MD5Util.MD5(user.getPassword());
+
+        newUser.setId(user.getId());
+        newUser.setPassword(newPassword);
+
+        return userDao.updateByPrimaryKeySelective(newUser) == 1;
+    }
 
     public User register(User user, UserDetail detail) throws Exception {
 
