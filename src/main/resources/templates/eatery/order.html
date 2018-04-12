@@ -32,8 +32,8 @@
         <tbody>
         <!--
         List-> map-> {id(订单ID) ,ps(订单备注) ,time(下单时间),price(当前订单价钱)
-     * state(订单状态) ,userName(下单人姓名) ,phone(下单人电话),
-     * food(订单详细信息):{count(数量),price(价钱),name(商品名)}}
+                      state(订单状态) ,userName(下单人姓名) ,phone(下单人电话),
+                      food(订单详细信息):{count(数量),price(价钱),name(商品名)}}
         -->
         <tr th:each="order : ${orderList}">
             <td th:text="${order.id}" >0001</td>

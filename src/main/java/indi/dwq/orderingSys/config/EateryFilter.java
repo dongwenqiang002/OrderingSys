@@ -1,15 +1,11 @@
 package indi.dwq.orderingSys.config;
 
 
-import indi.dwq.orderingSys.config.FilterUrl;
+
 import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.stereotype.Component;
-
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -42,13 +38,13 @@ public class EateryFilter implements Filter {
                 return;
             }
         } catch (Exception e) {
+            response.setStatus(403);
             response.sendRedirect("/error/error");
             return;
         }
-        response.setStatus(403);
+        ((HttpServletResponse) servletResponse).setStatus(403);
         response.sendRedirect("/error");
         return;
-        // LOGGER.info("{}:{} " ,request.getMethod() ,request.getRequestURL().toString());
 
 
     }

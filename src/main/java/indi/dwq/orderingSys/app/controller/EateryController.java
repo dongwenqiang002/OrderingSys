@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -33,13 +35,7 @@ public class EateryController {
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping("/list")
-    public ModelAndView eateryList() {
-        ModelAndView mv = new ModelAndView("/eatery/list");
 
-        // mv.addObject();
-        return null;
-    }
 
     @RequestMapping("/")
     public ModelAndView index() {
@@ -58,9 +54,21 @@ public class EateryController {
     }
 
     @RequestMapping("/home.html")
-    public ModelAndView homeHtml() {
+    public ModelAndView homeHtml(HttpSession session) {
         ModelAndView mv = new ModelAndView("/eatery/home");
-        Eatery eatery = eateryService.getEatery(3);
+        User user = (User)session.getAttribute("user");
+        //获取当前用户的商铺信息
+        Eatery eatery = eateryService.getEatery(user.getId());
+        //获取订单列表
+        List<Map> list = eateryService.getOrderList(user.getId());
+        mv.addObject("number",list.size());
+
+        //赋值操作不是线程安全的。若想不用锁来实现，可以用AtomicReference<V>这个类，实现对象引用的原子更新。
+        AtomicReference<Double> price = new AtomicReference<>(0.0d);
+        list.forEach(v->{
+            price.updateAndGet(v1 -> v1 + ((Double) v.get("price")));
+        });
+        mv.addObject("priceSum",price.get());
         mv.addObject("eatery", eatery);
         return mv;
     }

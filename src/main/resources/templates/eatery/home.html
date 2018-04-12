@@ -9,7 +9,7 @@
 
     <h3 th:inline="text">店铺名称:[[${eatery.eaterName}]]</h3>
     <h3 th:inline="text">店铺图片<img src="/img/u.png" th:src="'/file/img/'+${eatery.imgUrl}" style="width: 100px;height: 100px"></h3>
-    <h3 th:inline="text">月销量 [[${'999'}]]单</h3>
-    <h3 th:inline="text">销售额:[[${'999'}]]元</h3>
+    <h3 th:inline="text">月销量 [[${number}]]单</h3>
+    <h3 th:inline="text">销售额:[[${priceSum}]]元</h3>
 
 </div>
