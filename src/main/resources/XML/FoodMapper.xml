@@ -33,6 +33,11 @@
         FROM food_sales
         where  food_id=#{foodId}
     </select>
+    <select id="selectonOKWayByUserid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+         select fs.count count,f.id id, f.name name,fs.price price
+    FROM food_sales fs  JOIN food f ON fs.food_id=f.id
+    where  fs.order_id=#{id} and state !=1
+    </select>
 
     <select id="selectFoodSalesByOrderID" parameterType="java.lang.Integer" resultMap="OrderFood">
     select fs.count count,f.id id, f.name name,fs.price price

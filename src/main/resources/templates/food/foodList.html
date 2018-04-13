@@ -100,6 +100,7 @@
             console.log(count);
             console.log(price);
             sumpricemoney += parseInt(count) * parseFloat(price);
+            sumpricemoney = parseFloat(sumpricemoney).toFixed(2);
             console.log(sumpricemoney);
         });
         $("#sumpricemoney").text(sumpricemoney);

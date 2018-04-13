@@ -33,4 +33,6 @@ public interface FoodMapper {
     int  removeFood(Integer id);
 
     Integer selectCountByFoodId(Integer foodId);
+
+    Object selectonOKWayByUserid(Integer userId);
 }

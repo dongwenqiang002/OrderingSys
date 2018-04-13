@@ -103,4 +103,8 @@ public class OrderService {
         orderMapper.updateByPrimaryKeySelective(order);
         return true;
     }
+
+    public Object lookOkOrder(Integer userId) {
+        return foodMapper.selectonOKWayByUserid(userId);
+    }
 }

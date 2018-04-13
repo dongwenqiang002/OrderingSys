@@ -68,7 +68,8 @@ public class EateryController {
         list.forEach(v->{
             price.updateAndGet(v1 -> v1 + ((Double) v.get("price")));
         });
-        mv.addObject("priceSum",price.get());
+
+        mv.addObject("priceSum",new java.text.DecimalFormat("#.00").format(price.get()));
         mv.addObject("eatery", eatery);
         return mv;
     }

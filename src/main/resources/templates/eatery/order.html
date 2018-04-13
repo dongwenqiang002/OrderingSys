@@ -35,7 +35,7 @@
                       state(订单状态) ,userName(下单人姓名) ,phone(下单人电话),
                       food(订单详细信息):{count(数量),price(价钱),name(商品名)}}
         -->
-        <tr th:each="order : ${orderList}">
+        <tr th:each="order : ${orderList}" th:class="${order.state==1?'danger':'info'}">
             <td th:text="${order.id}" >0001</td>
             <td th:text="${#dates.format(order.time, 'MM月dd日hh时mm分')}">2018年12月5日</td>
             <td th:text="${order.price}+'元'">1565.元</td>
@@ -97,6 +97,9 @@
             if (message === true) {
                 alert("接单成功");
                 $("#foodInfo"+id).modal('hide');
+                var context = $("#订单管理");
+                //添加主体内容
+                context.load("/eatery/order.html");
             }else{
                 alert("遇到了错误,无法接单");
                 $("#foodInfo"+id).modal('hide');

@@ -146,7 +146,7 @@ public class FootController {
         if (user == null) throw new NullPointerException("用户未登录");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("onOrderList", orderService.onWayOrder(user.getId()));
-        modelAndView.addObject("OrderList", orderService.lookOrder(user.getId()));
+        modelAndView.addObject("OrderList", orderService.lookOkOrder(user.getId()));
         modelAndView.setViewName("/user/userHome");
         return modelAndView;
     }
