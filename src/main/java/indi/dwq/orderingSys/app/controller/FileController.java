@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.app.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +27,14 @@ import java.io.OutputStream;
 public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
-    private static String fileDir ;
+    @Value("${file.dir}")
+    private static String fileDir ="E:/Desktop/peoject/OrderingSys/file";
 
-    @PostConstruct
+   /* @PostConstruct
     public void init() {
         fileDir = "E:/Desktop/peoject/OrderingSys/file";
     }
-
+*/
     @GetMapping("/img/{name}.{type}")
     public void valicode(@PathVariable("name") String name, @PathVariable("type") String type,
                          HttpServletResponse response) throws Exception {

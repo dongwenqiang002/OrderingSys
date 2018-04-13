@@ -33,7 +33,7 @@ public class PageUtil {
             List foodList = selectList.run();
             if (pageNum > page.getPages()) {
                 pageNum = page.getPages();
-                page = PageHelper.startPage(pageNum, 12);
+                page = PageHelper.startPage(pageNum, pageSize);
                 foodList = selectList.run();
             }
             mv.addObject(resultName, foodList);

@@ -58,6 +58,19 @@ public class ErrorPageConfig implements ErrorController {
         }
     }
 
+    @RequestMapping(ERROR_PATH+"/s")
+    public String noRole(HttpServletResponse response, HttpServletRequest request, Exception e) {
+        int statusInt = response.getStatus();
+        LOGGER.error("页面出错,错误码:{}", statusInt);
+        if (errorName.contains(Integer.toString(statusInt))) {
+            if (statusInt == 404) {
+                //  LOGGER.error("{}", response.getHeaderNames());
+            }
+            return "/error/" + statusInt;
+        } else {
+            return "/error/error";
+        }
+    }
     @Override
     public String getErrorPath() {
         return ERROR_PATH;

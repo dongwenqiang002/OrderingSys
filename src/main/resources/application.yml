@@ -42,6 +42,7 @@ mydata:
   password: root
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
+file.dir: E:/Desktop/peoject/OrderingSys/file
 logging.level.indi.dwq.orderingSys.data.dao: debug
 
 #logging.level.org.springframework.security: info
