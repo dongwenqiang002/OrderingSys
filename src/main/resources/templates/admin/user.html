@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search">
+
+                    <div class="form-group">
+                        <span>排序 : </span>
+                        <select name="sort" class="form-control" onchange="reLoadTable(this)">
+                            <option>编号</option>
+                            <option>销量</option>
+                            <option>名字</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px">
+                            <i class="glyphicon glyphicon-search"></i>查询
+                        </button>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+                    <li>
+                        <div class="btn-group" style="margin-right: 20px">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                                <i class="glyphicon glyphicon-plus"></i>商品增加
+                            </button>
+                        </div>
+                        <div id="addmodal_div"></div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="food_main_context">
+        <table id="main_table" class="table table-hover table-striped table-bordered">
+
+            <thead>
+            <tr class="success">
+                <th>用户名</th>
+                <th>用户编号</th>
+                <th>用户权限</th>
+                <th>用户地址</th>
+                <th>email</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.username}">dwq</td>
+                <td th:text="${user.id}">12</td>
+                <td th:text="${user.role}">普通用户</td>
+                <td th:text="${user.address}">西安市</td>
+                <td th:text="${user.email}">826112946@qq.com</td>
+                <td>
+                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
+                    <button class="btn btn-xs btn-waring" th:onclick="'onRepassword('+${food.id}+')'">重置密码</button>
+                    <button class="btn btn-xs btn-info" th:onclick="'onUpdata('+${food.id}+')'">修改</button>
+                </td>
+            </tr>
+
+            </tbody>
+            <!--<script> $("#main_table >tbody>tr").each(function () {
+                var id = $(this).children("td:eq(0)").text();
+                if(isNaN(id))return;
+                var countTd = $(this).children("td:eq(3)");
+                $.get("/food/getCount?foodId=" + id, function (data) {
+                    countTd.html(data);
+                });
+            }); </script>-->
+            <tr>
+                <td colspan="6">
+                    <div class="text-center">
+
+                        <ul class="pager " style="text-align: right">
+                            <li><a href="javascript:pageChange(-999);"> <span
+                                    class="glyphicon glyphicon-fast-backward"></span></a></li>
+                            <li><a href="javascript:pageChange(-1);"><span
+                                    class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+                            <li>当前第<span id="span_pageNum" th:text="${pageNum}">1</span>页</li>
+                            <li><a href="javascript:pageChange(1);"><span
+                                    class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                            <li><a href="javascript:pageChange(999);"> <span
+                                    class="glyphicon glyphicon-fast-forward"></span></a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+<script>
+    function reLoadTable(sele) {
+        var pageNum = parseInt($("#span_pageNum").text());
+        var sortName = $(sele).val();
+        console.log(sortName);
+        $("#food_main_context").load("/admin/user.html", data = {
+            //isSubPage: true,
+            //sortName: sortName,
+            pageNum: pageNum
+        });
+    }
+
+    function pageChange(changePage) {
+        var pageNum = parseInt($("#span_pageNum").text());
+        var sortName = $("select[name='sort']").val();
+        pageNum += changePage;
+        $("#food_main_context").load("/eatery/food.html", data = {
+           // isSubPage: true,
+           // sortName: sortName,
+            pageNum: pageNum
+        });
+    }
+
+    function onAdd(a) {
+        $(a).parent().next().load("/eatery/foodAdd.html", function () {
+            $(a).parent().next().modal({keyboard: true});
+        });
+
+    }
+
+    function onDelete(id){
+        $.get("/food/remove?foodId="+id,function () {
+            pageChange(0);
+        } )
+    }
+    function onUpdata(id) {
+        
+    }
+    function onRepassword(id) {
+        
+    }
+</script>

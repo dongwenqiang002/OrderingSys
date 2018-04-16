@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 /**
  * @author 董文强
@@ -27,6 +28,8 @@ public class UserService implements UserDetailsService {
     private UserDetailMapper userDetailMapper;
 
 
+
+
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         User user = userDao.findByUserName(name);
@@ -35,6 +38,10 @@ public class UserService implements UserDetailsService {
         }
         return user;
 
+    }
+
+    public List<User> getAll(){
+        return userDao.All();
     }
 
     public UserDetail getDetail(Integer detailId) {

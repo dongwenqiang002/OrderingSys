@@ -4,6 +4,8 @@ import indi.dwq.orderingSys.data.pojo.User;
 import indi.dwq.orderingSys.data.pojo.UserDetail;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -20,4 +22,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User findByUserName(String username);
+
+    List<User> All();
 }

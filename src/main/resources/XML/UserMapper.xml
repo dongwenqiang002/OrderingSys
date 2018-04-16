@@ -4,26 +4,40 @@
     <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="password" jdbcType="VARCHAR" property="password"   />
-        <result column="role"     jdbcType="VARCHAR" property="role"  />
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
         <result column="detail_id" javaType="INTEGER" property="detailId"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    <![CDATA[ id, detail_id,username, password ,role ]]>
+    <![CDATA[
+         id, detail_id,username, password ,role
+        ]]>
   </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-       <![CDATA[ select *  from user where id = #{id,jdbcType=INTEGER} ]]>
+       <![CDATA[
+         select *  from user where id = #{id,jdbcType=INTEGER}
+        ]]>
     </select>
     <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
-        <![CDATA[ SELECT *
-        FROM USER  WHERE username = #{username} ]]>
+        <![CDATA[
+         SELECT *
+        FROM USER  WHERE username = #{username}
+        ]]>
     </select>
 
+    <select id="All" resultMap="BaseResultMap">
+        <![CDATA[
+         SELECT *
+        FROM USER
+        ]]>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        <![CDATA[ delete from user
-        where id = #{id,jdbcType=INTEGER} ]]>
+        <![CDATA[
+         delete from user
+        where id = #{id,jdbcType=INTEGER}
+        ]]>
   </delete>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.User">
     insert into user (detail_id, username, password

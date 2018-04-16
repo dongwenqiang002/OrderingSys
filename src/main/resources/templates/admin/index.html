@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <title>商家管理页面</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <script th:src="@{/js/jquery.min.js}" ></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"  />
+    <script th:src="@{/js/jquery.min.js}" > </script>
     <script th:src="@{/js/bootstrap.js}"></script>
     <script th:src="@{/js/jquery.form.js}"></script>
     <style type="text/css">
@@ -18,15 +18,9 @@
         <div class="col-md-2 col-sm-2 col-xs-2 left_nav" style="background: whitesmoke;border-radius: 12px;">
             <ul id="main_nav" class="nav nav-tabs nav-stacked">
                 <li>
-                    <a href="javascript:void(0);" onclick="onloada('home',this)" >
+                    <a href="javascript:void(0);" onclick="onloada('home',this)">
                         <i class="glyphicon glyphicon-home"></i>
                          首页
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" onclick="onloada('user',this)">
-                        <i class="glyphicon glyphicon-user"></i>
-                        用户管理
                     </a>
                 </li>
                 <li>
@@ -41,6 +35,13 @@
                         订单管理
                     </a>
                 </li>
+               <!-- <li>
+                    <a href="javascript:void(0);" onclick="onloada('sale',this)">
+                        <i class="glyphicon glyphicon-time"></i>
+                        销售记录
+                    </a>
+                </li>
+-->
             </ul>
         </div>
         <div class="col-md-10  col-sm-10 col-xs-10" style="height: 100%;padding: 4px;">
@@ -82,6 +83,7 @@
         li.children().append(sbtn);
         li.children().append(xbtn);
         $("#main_context_nav").find(">div >div >ul").append(li);
+
         //添加主体
         var context = $("<div id='" + name + "'></div>");
         //添加主体内容

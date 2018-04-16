@@ -35,8 +35,10 @@ public class AdminFilter implements Filter {
             if(user.getRole().equals("管理员"));
             chain.doFilter(request,response);
         }catch (Exception e){
-            resp.sendRedirect("/error/error");
+            ((HttpServletResponse) response).setStatus(111);
+            return;
         }
+        ((HttpServletResponse) response).setStatus(111);
     }
 
     @Override

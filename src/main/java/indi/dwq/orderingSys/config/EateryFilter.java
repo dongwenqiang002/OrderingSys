@@ -39,11 +39,11 @@ public class EateryFilter implements Filter {
             }
         } catch (Exception e) {
             response.setStatus(403);
-            response.sendRedirect("/error/error");
+           // response.sendRedirect("/error/error");
             return;
         }
         ((HttpServletResponse) servletResponse).setStatus(403);
-        response.sendRedirect("/error");
+        //response.sendRedirect("/error");
         return;
 
 
