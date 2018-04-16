@@ -7,6 +7,7 @@
         <result column="price" jdbcType="REAL" property="price"/>
         <result column="des" jdbcType="VARCHAR" property="des"/>
         <result column="eatery_id" jdbcType="INTEGER" property="eateryId"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
     </resultMap>
 
     <resultMap id="OrderFood" type="indi.dwq.orderingSys.data.pojo.Order$OrderFood">
@@ -16,7 +17,7 @@
         <result column="price" property="price"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, name, price, des, eatery_id
+        id, name, price, des, eatery_id,img
     </sql>
     <!-- /*创建 商品列表视图视图*/
      DROP VIEW IF EXISTS `food_view`;
@@ -35,7 +36,7 @@
     </select>
     <select id="selectonOKWayByUserid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
          select fs.count count,f.id id, f.name name,fs.price price
-    FROM food_sales fs  JOIN food f ON fs.food_id=f.id
+    FROM food_sales fs  JOIN food f ON fs.food_id = f.id
     where  fs.order_id=#{id} and state !=1
     </select>
 
@@ -134,5 +135,11 @@
         update food
         set state=2
         where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateFoodImg" >
+        update food
+        set img = #{img,jdbcType=VARCHAR}
+        where id = #{foodId,jdbcType=INTEGER}
     </update>
 </mapper>

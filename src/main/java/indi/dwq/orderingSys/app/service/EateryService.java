@@ -3,6 +3,8 @@ package indi.dwq.orderingSys.app.service;
 
 import indi.dwq.orderingSys.data.dao.*;
 import indi.dwq.orderingSys.data.pojo.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Service
 public class EateryService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(EateryService.class);
 
     @Autowired
     private EateryMapper eateryMapper;
@@ -34,10 +37,14 @@ public class EateryService {
      * state(订单状态) ,userName(下单人姓名) ,phone(下单人电话),
      * food(订单详细信息):{count(数量),price(价钱),name(商品名)}}
      */
-    public List getOrderList(Integer userId) {
-        Eatery eatery = eateryMapper.selectByUserId(userId);
-        if (eatery == null) return null;
-        List<Order> orderList = orderMapper.selectByEateryId(eatery.getId());
+    public List getOrderList(Integer eateryId) {
+        /*Eatery eatery = eateryMapper.selectByUserId(userId);
+        if (eatery == null) {
+            return null;
+        }
+*/
+        List<Order> orderList = orderMapper.selectByEateryId(eateryId);
+        LOGGER.info("查询到订单数据 {} 条",orderList.size());
         List<Object> list = new LinkedList<>();
 
         //将各个订单按行加入到list中,使用map进行键值对的存储
@@ -45,8 +52,8 @@ public class EateryService {
             Map<String, Object> map = new HashMap<>();
             list.add(map);
             map.put("id", v.getId());//订单ID
-           //订单备注
-            if(v.getPs() == null){
+            //订单备注
+            if (v.getPs() == null) {
                 v.setPs("无");
             }
             map.put("ps", v.getPs());
@@ -70,7 +77,7 @@ public class EateryService {
             AtomicReference<Double> price = new AtomicReference<>(0.0d);
             v.getFoods().forEach(f -> {
                 Food food = foodMapper.selectByPrimaryKey(f.getFoodid());
-                if (food.getEateryId().equals(eatery.getId())) {
+                if (food.getEateryId().equals(eateryId)) {
                     Map<String, Object> foodMap = new HashMap<>();
                     foods.add(foodMap);
                     foodMap.put("count", f.getCount());
@@ -79,7 +86,7 @@ public class EateryService {
                     foodMap.put("name", f.getFoodName());
                 }
             });
-            map.put("price",price.get());
+            map.put("price", price.get());
 
         });
         return list;

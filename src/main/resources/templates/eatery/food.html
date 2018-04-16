@@ -45,6 +45,7 @@
 
             <thead>
             <tr class="success">
+                <th>商品图</th>
                 <th>商品编号</th>
                 <th>商品名</th>
                 <th>单价</th>
@@ -121,8 +122,8 @@
     }
 
     function onAdd(a) {
-        $("#addmodal_div").load("/eatery/foodAdd.html", function () {
-            $("#addModal").modal({keyboard: true});
+        $(a).parent().next().load("/eatery/foodAdd.html", function () {
+            $(a).parent().next().modal({keyboard: true});
         });
 
     }

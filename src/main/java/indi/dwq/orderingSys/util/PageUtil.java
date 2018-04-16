@@ -17,26 +17,29 @@ public class PageUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(PageUtil.class);
 
 
-
     /**
      * 分页工具
-     * @param mv            需要被加入的modelandview
-     * @param pageNum       当前页
-     * @param pageSize      每页记录数
-     * @param resultName    存入model的名字
-     * @param selectList    查询语句
-     * @return              发生异常返回false ,其他:true
-     * */
+     *
+     * @param mv         需要被加入的modelandview
+     * @param pageNum    当前页
+     * @param pageSize   每页记录数
+     * @param resultName 存入model的名字
+     * @param selectList 查询语句
+     * @return 发生异常返回false ,其他:true
+     */
     public static Boolean paging(String resultName, ModelAndView mv, Integer pageSize, Integer pageNum, SelectList selectList) {
+        if (pageNum == null || pageNum <= 0) {
+            pageNum = 1;
+        }
         try {
             Page page = PageHelper.startPage(pageNum, pageSize);
-            List foodList = selectList.run();
+            List list = selectList.run();
             if (pageNum > page.getPages()) {
                 pageNum = page.getPages();
                 page = PageHelper.startPage(pageNum, pageSize);
-                foodList = selectList.run();
+                list = selectList.run();
             }
-            mv.addObject(resultName, foodList);
+            mv.addObject(resultName, list);
             mv.addObject("total", page.getTotal());
             mv.addObject("pages", page.getPages());
             mv.addObject("pageNum", pageNum);
@@ -45,6 +48,16 @@ public class PageUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static Boolean paging(String resultName, ModelAndView mv, Integer pageSize, String pageNum, SelectList selectList) {
+        Integer intPageNum;
+        try {
+            intPageNum = Integer.parseInt(pageNum);
+        } catch (Exception e) {
+            intPageNum = 1;
+        }
+        return paging(resultName, mv, pageSize, intPageNum, selectList);
     }
 
     public interface SelectList {

@@ -139,7 +139,6 @@ public class FootController {
      * 获取当前用户的订单列表
      */
     @GetMapping("/lookOrder")
-    //@ResponseBody
     public ModelAndView lookOrder(HttpSession session) {
         LOGGER.info("根据用户ID查订单");
         User user = (User) session.getAttribute("user");

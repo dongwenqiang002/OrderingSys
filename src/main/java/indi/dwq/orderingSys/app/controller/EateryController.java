@@ -8,6 +8,8 @@ import indi.dwq.orderingSys.data.pojo.Eatery;
 import indi.dwq.orderingSys.data.pojo.Food;
 import indi.dwq.orderingSys.data.pojo.User;
 import indi.dwq.orderingSys.util.PageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/eatery")
 public class EateryController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EateryController.class);
 
     @Autowired
     private EateryService eateryService;
@@ -114,11 +118,14 @@ public class EateryController {
      * <th>查看订单详情</th>  -> 订单内容展示
      */
     @RequestMapping("/order.html")
-    public ModelAndView orderHtml(HttpSession session) {
+    public ModelAndView orderHtml(String pageNum,HttpSession session) {
+        LOGGER.info("查询第 {} 页订单数据",pageNum);
         ModelAndView mv = new ModelAndView("/eatery/order");
         User user = (User) session.getAttribute("user");
-        List orderList = eateryService.getOrderList(user.getId());
-        mv.addObject("orderList", orderList);
+        Eatery eatery = eateryService.getEatery(user.getId());
+        PageUtil.paging("orderList", mv, 5, pageNum, () ->eateryService.getOrderList(eatery.getId()));
+       // List orderList = eateryService.getOrderList(user.getId());
+       // mv.addObject("orderList", orderList);
         return mv;
     }
     /**

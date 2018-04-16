@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface FoodMapper {
 
+    int updateFoodImg(@Param("foodId") String foodID,@Param("img") String img);
 
     List<Order.OrderFood> selectFoodSalesByOrderID(Integer id);
 

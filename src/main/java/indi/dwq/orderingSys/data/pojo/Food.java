@@ -11,6 +11,16 @@ public class Food {
 
     private Integer eateryId;
 
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public Integer getId() {
         return id;
     }
