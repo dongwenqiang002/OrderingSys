@@ -30,7 +30,6 @@ public class AdminFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         try {
             User user = (User) req.getSession().getAttribute("user");
-            LOGGER.info("当前用户为{},请求管理员访问登录",user.getRole());
             if(user == null){
                 resp.sendRedirect("/login.html");
                 return;

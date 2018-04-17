@@ -33,7 +33,6 @@ public class EateryFilter implements Filter {
                 response.sendRedirect("/login.html");
                 return;
             }
-            LOGGER.info("当前用户为{},请求商铺访问登录",user.getRole());
             if (user.getRole().equals("商铺")) {
                 filterChain.doFilter(request, response);
                 return;

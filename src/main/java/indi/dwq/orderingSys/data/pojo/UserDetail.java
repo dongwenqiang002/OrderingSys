@@ -15,6 +15,18 @@ public class UserDetail {
 
     private String email;
 
+    @Override
+    public String toString() {
+        return "UserDetail{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
     public String getEmail() {
         return email;

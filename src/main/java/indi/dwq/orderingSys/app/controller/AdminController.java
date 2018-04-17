@@ -27,6 +27,11 @@ public class AdminController {
         ModelAndView mv = new ModelAndView("/admin/index");
         return mv;
     }
+    @GetMapping("/home.html")
+    public ModelAndView home(){
+        ModelAndView mv = new ModelAndView("/admin/home");
+        return mv;
+    }
 
     @RequestMapping("/user.html")
     public ModelAndView lookUser(String pageNum){

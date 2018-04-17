@@ -55,6 +55,10 @@ public class UserService implements UserDetailsService {
             map.put("role", v.getRole());
             map.put("address", userDetail.getAddress());
             map.put("email", userDetail.getEmail());
+            map.put("age",userDetail.getAge());
+            map.put("sex",userDetail.getSex());
+            map.put("phone",userDetail.getPhone());
+            map.put("name",userDetail.getName());
         });
 
         return listMap;
@@ -94,4 +98,41 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public Map getUser(Integer userId) {
+
+        User v = userDao.selectByPrimaryKey(userId);
+        UserDetail userDetail = userDetailMapper.selectByPrimaryKey(v.getDetailId());
+        Map map = new HashMap();
+
+        map.put("id", v.getId());
+        map.put("username", v.getUsername());
+        map.put("role", v.getRole());
+        map.put("address", userDetail.getAddress());
+        map.put("email", userDetail.getEmail());
+        map.put("age",userDetail.getAge());
+        map.put("sex",userDetail.getSex());
+        map.put("phone",userDetail.getPhone());
+        map.put("name",userDetail.getName());
+        return  map;
+    }
+
+    public User updata(User user, UserDetail userDetail) {
+        if(user==null||user.getId()==null)return null;
+        try {
+            if(user.getId()==0){
+                return register(user,userDetail);
+            }
+            User resultUser = userDao.selectByPrimaryKey(user.getId());
+
+            userDao.updateByPrimaryKeySelective(user);
+
+            userDetail.setId(resultUser.getDetailId());
+
+            userDetailMapper.updateByPrimaryKeySelective(userDetail);
+
+        }catch (Exception e){
+            return null;
+        }
+        return userDao.selectByPrimaryKey(user.getId());
+    }
 }

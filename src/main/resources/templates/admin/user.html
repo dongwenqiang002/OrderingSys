@@ -11,26 +11,12 @@
             <div>
                 <form class="navbar-form navbar-left" role="search">
 
-                    <div class="form-group">
-                        <span>排序 : </span>
-                        <select name="sort" class="form-control" onchange="reLoadTable(this)">
-                            <option>编号</option>
-                            <option>销量</option>
-                            <option>名字</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px">
-                            <i class="glyphicon glyphicon-search"></i>查询
-                        </button>
-                    </div>
                 </form>
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 20px">
                             <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
-                                <i class="glyphicon glyphicon-plus"></i>商品增加
+                                <i class="glyphicon glyphicon-plus"></i>增加用户
                             </button>
                         </div>
                         <div id="addmodal_div"></div>
@@ -45,21 +31,31 @@
 
             <thead>
             <tr class="success">
-                <th>用户名</th>
                 <th>用户编号</th>
+                <th>用户名</th>
+                <th>年龄</th>
+                <th>性别</th>
+
                 <th>用户权限</th>
                 <th>用户地址</th>
                 <th>email</th>
+                <th>真实姓名</th>
+                <th>电话</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${userList}">
-                <td th:text="${user.username}">dwq</td>
                 <td th:text="${user.id}">12</td>
+                <td th:text="${user.username}">dwq</td>
+                <td th:text="${user.age}">21</td>
+                <td th:text="${user.sex}">男</td>
+
                 <td th:text="${user.role}">普通用户</td>
                 <td th:text="${user.address}">西安市</td>
                 <td th:text="${user.email}">826112946@qq.com</td>
+                <td th:text="${user.name}">特朗普</td>
+                <td th:text="${user.phone}">18892061129</td>
                 <td>
                     <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${user.id}+')'">删除</button>
                     <button class="btn btn-xs btn-waring" th:onclick="'onRepassword('+${user.id}+')'">重置密码</button>
@@ -68,16 +64,8 @@
             </tr>
 
             </tbody>
-            <!--<script> $("#main_table >tbody>tr").each(function () {
-                var id = $(this).children("td:eq(0)").text();
-                if(isNaN(id))return;
-                var countTd = $(this).children("td:eq(3)");
-                $.get("/food/getCount?foodId=" + id, function (data) {
-                    countTd.html(data);
-                });
-            }); </script>-->
             <tr>
-                <td colspan="6">
+                <td colspan="10">
                     <div class="text-center">
 
                         <ul class="pager " style="text-align: right">
@@ -95,8 +83,7 @@
                 </td>
             </tr>
         </table>
-
-
+        <div id="user_modal_div"></div>
     </div>
 </div>
 <script>
@@ -104,12 +91,13 @@
         var pageNum = parseInt($("#span_pageNum").text());
         var sortName = $(sele).val();
         console.log(sortName);
-        $("#food_main_context").load("/admin/user.html", data = {
+        $("#用户管理").load("/admin/user.html", data = {
             //isSubPage: true,
             //sortName: sortName,
             pageNum: pageNum
         });
     }
+
     function pageChange(changePage) {
         var pageNum = parseInt($("#span_pageNum").text());
         pageNum += changePage;
@@ -119,23 +107,26 @@
     }
 
 
-
     function onAdd(a) {
-        $(a).parent().next().load("/eatery/foodAdd.html", function () {
-            $(a).parent().next().modal({keyboard: true});
+        $("#user_modal_div").load("/admin/user/updata?userId=" + 0, function () {
+            $("#user_modal_div").children().modal({keyboard: true});
         });
 
     }
 
-    function onDelete(id){
-        $.get("/food/remove?foodId="+id,function () {
-            pageChange(0);
-        } )
+    function onDelete(id) {
+
+
     }
+
     function onUpdata(id) {
-        
+        $("#user_modal_div").load("/admin/userAddModal.html", function () {
+            $("#user_modal_div").children().modal({keyboard: true});
+        });
     }
+
     function onRepassword(id) {
-        
+
+
     }
 </script>

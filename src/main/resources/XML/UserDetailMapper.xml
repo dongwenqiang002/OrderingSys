@@ -81,6 +81,9 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="age != null">
+        name = #{age,jdbcType=VARCHAR},
+      </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=VARCHAR},
       </if>
