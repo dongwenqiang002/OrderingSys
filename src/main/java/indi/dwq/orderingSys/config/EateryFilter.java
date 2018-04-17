@@ -31,6 +31,7 @@ public class EateryFilter implements Filter {
             User user = (User) request.getSession().getAttribute("user");
             if (user == null) {
                 response.sendRedirect("/login.html");
+                return;
             }
             LOGGER.info("当前用户为{},请求商铺访问登录",user.getRole());
             if (user.getRole().equals("商铺")) {
@@ -38,12 +39,11 @@ public class EateryFilter implements Filter {
                 return;
             }
         } catch (Exception e) {
-            response.setStatus(403);
-           // response.sendRedirect("/error/error");
+            response.sendError(403);
             return;
         }
-        ((HttpServletResponse) servletResponse).setStatus(403);
-        //response.sendRedirect("/error");
+        LOGGER.error("无权限!");
+        response.sendError(403,"权限错误");
         return;
 
 

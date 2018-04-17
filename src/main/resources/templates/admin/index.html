@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>商家管理页面</title>
+    <title>管理员页面</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"  />
     <script th:src="@{/js/jquery.min.js}" > </script>
     <script th:src="@{/js/bootstrap.js}"></script>
@@ -24,24 +24,18 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" onclick="onloada('food',this)">
+                    <a href="javascript:void(0);" onclick="onloada('user',this)">
                         <i class="glyphicon glyphicon-calendar"></i>
-                        商品管理
+                        用户管理
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0);" onclick="onloada('order',this)">
                         <i class="glyphicon glyphicon-list"></i>
-                        订单管理
+                        销售管理
                     </a>
                 </li>
-               <!-- <li>
-                    <a href="javascript:void(0);" onclick="onloada('sale',this)">
-                        <i class="glyphicon glyphicon-time"></i>
-                        销售记录
-                    </a>
-                </li>
--->
+
             </ul>
         </div>
         <div class="col-md-10  col-sm-10 col-xs-10" style="height: 100%;padding: 4px;">
@@ -87,7 +81,7 @@
         //添加主体
         var context = $("<div id='" + name + "'></div>");
         //添加主体内容
-        context.load("/eatery/"+t+".html");
+        context.load("/admin/"+t+".html");
         $("#main_context").append(context);
         showTable(name);
     }

@@ -12,7 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 董文强
@@ -28,8 +32,6 @@ public class UserService implements UserDetailsService {
     private UserDetailMapper userDetailMapper;
 
 
-
-
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         User user = userDao.findByUserName(name);
@@ -40,8 +42,22 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public List<User> getAll(){
-        return userDao.All();
+    public List<Map<String, Object>> getAll() {
+        //return userDao.All();
+        List<Map<String, Object>> listMap = new LinkedList<>();
+        List<User> list = userDao.All();
+        list.forEach(v -> {
+            UserDetail userDetail = userDetailMapper.selectByPrimaryKey(v.getDetailId());
+            Map map = new HashMap();
+            listMap.add(map);
+            map.put("id", v.getId());
+            map.put("username", v.getUsername());
+            map.put("role", v.getRole());
+            map.put("address", userDetail.getAddress());
+            map.put("email", userDetail.getEmail());
+        });
+
+        return listMap;
     }
 
     public UserDetail getDetail(Integer detailId) {

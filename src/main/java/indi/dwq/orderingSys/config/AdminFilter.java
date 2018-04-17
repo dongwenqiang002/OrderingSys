@@ -33,20 +33,20 @@ public class AdminFilter implements Filter {
             LOGGER.info("当前用户为{},请求管理员访问登录",user.getRole());
             if(user == null){
                 resp.sendRedirect("/login.html");
+                return;
             }
             if(user.getRole().equals("管理员")) {
                 chain.doFilter(request, response);
+                return;
             }
         }catch (Exception e){
-
-            //((HttpServletResponse) response).setStatus(111);
-            ((HttpServletResponse) response).sendError(111);
-            ((HttpServletResponse) response).sendRedirect("/error");
+            LOGGER.error("管理员验证ERROR!");
+            LOGGER.error(e.getMessage());
+            ((HttpServletResponse) response).sendError(403);
             return;
         }
-       // ((HttpServletResponse) response).setStatus(111);
-        ((HttpServletResponse) response).sendError(111);
-        ((HttpServletResponse) response).sendRedirect("/error");
+        LOGGER.error("无权限!");
+        ((HttpServletResponse) response).sendError(403,"权限错误");
         return;
     }
 

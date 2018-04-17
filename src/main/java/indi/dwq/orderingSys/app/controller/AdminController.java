@@ -1,6 +1,7 @@
 package indi.dwq.orderingSys.app.controller;
 
 import indi.dwq.orderingSys.app.service.UserService;
+import indi.dwq.orderingSys.util.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,15 @@ public class AdminController {
     @GetMapping("/index.html")
     public ModelAndView index(){
         ModelAndView mv = new ModelAndView("/admin/index");
-        mv.addObject("userList",userService.getAll());
         return mv;
     }
 
     @RequestMapping("/user.html")
-    public ModelAndView lookUser(){
+    public ModelAndView lookUser(String pageNum){
         ModelAndView mv = new ModelAndView("/admin/user");
-        mv.addObject("userList",userService.getAll());
+        PageUtil.paging("userList",mv,5,pageNum,()->userService.getAll());
         return mv;
-    }
+     }
 
 
 }

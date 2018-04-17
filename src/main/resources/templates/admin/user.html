@@ -61,9 +61,9 @@
                 <td th:text="${user.address}">西安市</td>
                 <td th:text="${user.email}">826112946@qq.com</td>
                 <td>
-                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
-                    <button class="btn btn-xs btn-waring" th:onclick="'onRepassword('+${food.id}+')'">重置密码</button>
-                    <button class="btn btn-xs btn-info" th:onclick="'onUpdata('+${food.id}+')'">修改</button>
+                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${user.id}+')'">删除</button>
+                    <button class="btn btn-xs btn-waring" th:onclick="'onRepassword('+${user.id}+')'">重置密码</button>
+                    <button class="btn btn-xs btn-info" th:onclick="'onUpdata('+${user.id}+')'">修改</button>
                 </td>
             </tr>
 
@@ -85,7 +85,7 @@
                                     class="glyphicon glyphicon-fast-backward"></span></a></li>
                             <li><a href="javascript:pageChange(-1);"><span
                                     class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
-                            <li>当前第<span id="span_pageNum" th:text="${pageNum}">1</span>页</li>
+                            <li>当前第<span id="span_pageNum" th:text="${pageNum}">3</span>页</li>
                             <li><a href="javascript:pageChange(1);"><span
                                     class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
                             <li><a href="javascript:pageChange(999);"> <span
@@ -110,17 +110,15 @@
             pageNum: pageNum
         });
     }
-
     function pageChange(changePage) {
         var pageNum = parseInt($("#span_pageNum").text());
-        var sortName = $("select[name='sort']").val();
         pageNum += changePage;
-        $("#food_main_context").load("/eatery/food.html", data = {
-           // isSubPage: true,
-           // sortName: sortName,
+        $("#用户管理").load("/admin/user.html", data = {
             pageNum: pageNum
         });
     }
+
+
 
     function onAdd(a) {
         $(a).parent().next().load("/eatery/foodAdd.html", function () {
