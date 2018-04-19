@@ -17,6 +17,7 @@ public interface OrderMapper {
     int deleteByPrimaryKey(Integer id);
 
     List<Order> selectByUserId(Integer id);
+
     int insert(Order record);
 
     int insertOrder(Order record);
@@ -30,6 +31,7 @@ public interface OrderMapper {
     int setOrderPrice(@Param("id") Integer orderId,@Param("price") Double price);
 
     List<Order> selectByUserIdAndOnWay(@Param("id") Integer userId);
+
 
     List<Order> selectByEateryId(Integer eateryId);
 }

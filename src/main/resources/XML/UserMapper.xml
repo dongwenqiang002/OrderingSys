@@ -30,7 +30,7 @@
     <select id="All" resultMap="BaseResultMap">
         <![CDATA[
          SELECT *
-        FROM user ;
+        FROM user
         ]]>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

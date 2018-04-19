@@ -42,7 +42,7 @@ public class FileService {
         return name;
     }
 
-
+    /**生成验证码文件*/
     public String verCode(BufferedImage bufimg)  {
         int width = 80;
         int height = 40;

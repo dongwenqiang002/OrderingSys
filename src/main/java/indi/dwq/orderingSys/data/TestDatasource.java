@@ -27,7 +27,7 @@ import java.sql.SQLFeatureNotSupportedException;
 @Configuration
 //设置mybatis接口的包
 @MapperScan("indi.dwq.orderingSys.data.dao")
-//开启事务 因为使用了 pagehelper 分页插件，mybatissession工厂被代理了所以设置 proxyTargetClass = true
+//开启事务 因为使用了 pagehelper 分页插件，所以设置 proxyTargetClass = true
 @EnableTransactionManagement(proxyTargetClass = true)
 @Component("DataSource")
 public class TestDatasource implements DataSource {

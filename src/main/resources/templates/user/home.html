@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户订单中心</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+
+</head>
+<body>
+<div th:include="/index ::#header"></div>
+<main>
+    <div class="container">
+        <div class="col-md-8">
+            <div class="panel panel-danger ">
+                <div class="panel-heading">
+                    <h4 class="panel-title ">
+                        <a data-toggle="collapse"
+                           href="#collapseNo">
+                            未被商家接单的订单
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseNo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div id="noOrder" class="panel-group " th:if="${orderMap[1] != null}"
+                             th:each="order,i :${orderMap[1]}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#noOrder"
+                                           href="#collapseccc" th:href="${'#collapseO'+i.count}" th:inline="text">
+                                            下单时间 [[${#dates.format(order.time, 'yyyy1年MM月dd日
+                                            hh点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseccc" th:id="${'collapseO'+i.count}" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>商品名</th>
+                                                <th>数量</th>
+                                                <th>价钱</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody th:remove="all-but-first">
+                                            <tr th:each="food : ${order.getFoods()}">
+                                                <td th:text="${food.getFoodName()}">肉夹馍</td>
+                                                <td th:text="${food.getCount()+' 个'}">3</td>
+                                                <td th:text="${food.getPrice()+'元'}">12.5元</td>
+                                            </tr>
+                                            <tr>
+                                                <td>肉夹馍</td>
+                                                <td>3</td>
+                                                <td>12.5元</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-group ">
+                <div class="panel panel-success ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title ">
+                            <a data-toggle="collapse"
+                               href="#collapseOne">
+                                正在派送途中的外卖
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div id="onwayOrder" class="panel-group " th:if="${orderMap[2] != null}"
+                                 th:each="order,i :${orderMap[2]}">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#onwayOrder"
+                                               href="#collapseABC" th:href="${'#collapse'+i.count}" th:inline="text">
+                                                下单时间 [[${#dates.format(order.time, 'yyyy1年MM月dd日
+                                                hh点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseABC" th:id="${'collapse'+i.count}"
+                                         class="panel-collapse collapse ">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>商品名</th>
+                                                    <th>数量</th>
+                                                    <th>价钱</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody th:remove="all-but-first">
+                                                <tr th:each="food : ${order.getFoods()}">
+                                                    <td th:text="${food.getFoodName()}">肉夹馍</td>
+                                                    <td th:text="${food.getCount()+' 个'}">3</td>
+                                                    <td th:text="${food.getPrice()+'元'}">12.5元</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>肉夹馍</td>
+                                                    <td>3</td>
+                                                    <td>12.5元</td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td colspan="3"><button class="btn btn-success btn-block" th:onclick="${'orderOK('+order.id+')'}">已收到</button></td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-warning ">
+                <div class="panel-heading">
+                    <h4 class="panel-title ">
+                        <a data-toggle="collapse"
+                           href="#collapseTwo">
+                            已完成的订单
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div id="Order" class="panel-group " th:if="${orderMap[3] != null}"
+                             th:each="order,i :${orderMap[3]}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#onwayOrder"
+                                           href="#collapseccc" th:href="${'#collapseO'+i.count}" th:inline="text">
+                                            下单时间 [[${#dates.format(order.time, 'yyyy1年MM月dd日
+                                            hh点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseccc" th:id="${'collapseO'+i.count}" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>商品名</th>
+                                                <th>数量</th>
+                                                <th>价钱</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody th:remove="all-but-first">
+                                            <tr th:each="food : ${order.getFoods()}">
+                                                <td th:text="${food.getFoodName()}">肉夹馍</td>
+                                                <td th:text="${food.getCount()+' 个'}">3</td>
+                                                <td th:text="${food.getPrice()+'元'}">12.5元</td>
+                                            </tr>
+                                            <tr>
+                                                <td>肉夹馍</td>
+                                                <td>3</td>
+                                                <td>12.5元</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+<div th:include="/index ::#footer"></div>
+</body>
+<script>
+    function orderOK(orderid) {
+        if(confirm("您确定收到饭了么?")) {
+            $.get("/user/orderOK", data = {orderid: orderid}, function (msg) {
+                if (msg) {
+                } else {
+                    alert("发生了未知的错误!");
+                }
+                window.location.reload();
+            });
+        }
+    }
+    
+</script>
+</html>

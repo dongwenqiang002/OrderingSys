@@ -1,5 +1,5 @@
 $(function () {
-
+/** 设置样式 */
     $(".regForm  >div").addClass("form-group ");
 
     $(".regForm  >div >div >input").attr({
@@ -20,8 +20,14 @@ $(function () {
     });
    // $('.regForm  div  input:even').tooltip('show');
 
+    /** 点击下一步后*/
     $("#regsub").click(function () {
-
+        if(!eamilReg()){
+            return;
+        }
+        if(!sendCode()){
+            return;
+        }
 
         $("#div1").animate({right: '800px'}, 1000, function () {
             $(this).hide();

@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<Map<String, Object>> getAll() {
-        //return userDao.All();
+
         List<Map<String, Object>> listMap = new LinkedList<>();
         List<User> list = userDao.All();
         list.forEach(v -> {

@@ -135,18 +135,5 @@ public class FootController {
     }
 
 
-    /**
-     * 获取当前用户的订单列表
-     */
-    @GetMapping("/lookOrder")
-    public ModelAndView lookOrder(HttpSession session) {
-        LOGGER.info("根据用户ID查订单");
-        User user = (User) session.getAttribute("user");
-        if (user == null) throw new NullPointerException("用户未登录");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("onOrderList", orderService.onWayOrder(user.getId()));
-        modelAndView.addObject("OrderList", orderService.lookOkOrder(user.getId()));
-        modelAndView.setViewName("/user/userHome");
-        return modelAndView;
-    }
+
 }

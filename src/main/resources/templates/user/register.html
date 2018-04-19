@@ -57,19 +57,19 @@
                         <div>
                             <span>用户名</span>
                             <div class="input-group" t="glyphicon-user">
-                                <input name="username" type="text" placeholder="用户名"  title="用户名已存在或用户名不合法">
+                                <input name="username" type="text" placeholder="用户名" title="用户名已存在或用户名不合法">
                             </div>
                         </div>
                         <script>
                             $("input[name='username']").blur(function () {
                                 var name = $(this).val();
                                 var input = this;
-                                if(name.length <2 )return;
-                                $.get("/user/regFindName?name="+name,function (data) {
+                                if (name.length < 2) return;
+                                $.get("/user/regFindName?name=" + name, function (data) {
                                     console.log(data);
-                                    if(data === 'true'){
+                                    if (data === 'true') {
                                         $(input).tooltip("show")
-                                    }else{
+                                    } else {
                                         $(input).tooltip("hide")
                                     }
                                 })
@@ -79,31 +79,33 @@
                         <div>
                             <span>电子邮箱</span>
                             <div class="input-group" t="glyphicon-envelope">
-                                <input name="email" type="text" placeholder="请输入email" title="底部的 Tooltip"/>
+                                <input name="email" onblur="eamilReg()" type="text" placeholder="请输入email"
+                                       title="底部的 Tooltip"/>
                             </div>
                         </div>
                         <div>
                             <div class="input-group" t="glyphicon-forward">
-                                <input class="form-control " name="code" type="text" placeholder="邮箱验证码" title="邮箱验证码有误"/>
+                                <input class="form-control " name="code" type="text" placeholder="邮箱验证码"
+                                       title="邮箱验证码有误"/>
                                 <div class="input-group-btn">
                                     <button onclick="sendCode()" class="btn btn-default" type="button">发送</button>
                                 </div>
                             </div>
-                        <script>
-                        $("input[name='code']").blur(function () {
-                            var code = $("input[name='code']").val();
-                            var input = this;
-                            if(code.length <2 )return;
-                            $.get("/user/regCodeVer?code="+code,function (data) {
-                                console.log(data);
-                                if(data === true){
-                                    $(input).tooltip("hide")
-                                }else{
-                                    $(input).tooltip("show")
-                                }
-                            })
-                        });
-                        </script>
+                            <script>
+                                $("input[name='code']").blur(function () {
+                                    var code = $("input[name='code']").val();
+                                    var input = this;
+                                    if (code.length < 2) return;
+                                    $.get("/user/regCodeVer?code=" + code, function (data) {
+                                        console.log(data);
+                                        if (data === true) {
+                                            $(input).tooltip("hide")
+                                        } else {
+                                            $(input).tooltip("show")
+                                        }
+                                    })
+                                });
+                            </script>
                         </div>
                         <div>
                             <span>密码</span>
@@ -179,15 +181,27 @@
 
 </main>
 <script>
+    function eamilReg() {
+        var emailaddresss = $("input[name='email']").val();
+        if (/\w@([A-Za-z0-9]{2,}\.)+[A-Za-z]{2,14}/.test(emailaddresss)) {
+            $("input[name='email']").parent().parent().children("span").html("电子邮箱");
+            return true;
+        } else {
+            $("input[name='email']").parent().parent().children("span").html("<span style='color: red'>邮箱格式不正确</span>");
+            return false;
+        }
+    }
+
     function sendCode() {
         var emailaddresss = $("input[name='email']").val();
-        $.get("/user/regCode?emailAddress="+emailaddresss,function (result) {
-            if(result === true){
+        $.get("/user/regCode?emailAddress=" + emailaddresss, function (result) {
+            if (result === true) {
                 $("input[name='email']").parent().parent().children("span").html("电子邮箱")
                 $("input[name='code']").next().find("button").addClass("btn-primary");
-            }else {
+            } else {
                 $("input[name='email']").parent().parent().children("span").html("<span style='color: red'>邮箱不正确</span>")
             }
+            return result;
         })
     }
 </script>

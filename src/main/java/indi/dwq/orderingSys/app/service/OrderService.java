@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -28,12 +29,15 @@ public class OrderService {
     @Autowired
     OrderMapper orderMapper;
 
+
     /**
      * 下单
+     *
      * @param order [{商品ID:数量}{商品ID:数量}]
      * @param user  下单人, id 不能为空
      * @return 订单金额
      */
+    //开启事务
     @Transactional
     public Double orderDown(String order, User user) {
 
@@ -56,46 +60,46 @@ public class OrderService {
         //将商品加入到订单下
         o.getFoods().forEach(v -> {
             Double price = Double.valueOf(foodMapper.selectByPrimaryKey(v.getFoodid()).getPrice());
-            price = price*v.getCount();
+            price = price * v.getCount();
             //price.s
-            price =  new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
+            price = new BigDecimal(price).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
             o.setPrice(o.getPrice() + price);
-            orderMapper.insertOrderFood(v,orderId,price);
+            orderMapper.insertOrderFood(v, orderId, price);
         });
         //throw  new NullPointerException("aa");
-        LOGGER.info("id:{}   price:{}",orderId,o.getPrice());
+        LOGGER.info("id:{}   price:{}", orderId, o.getPrice());
         //设置订单的金额
-        Double price =  new BigDecimal(o.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
-        orderMapper.setOrderPrice(orderId,price);
+        Double price = new BigDecimal(o.getPrice()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();//四舍五入保留2位有效数字
+        orderMapper.setOrderPrice(orderId, price);
 
         return o.getPrice();
     }
 
     /**
      * 查看订单
-     * */
-    public List<Order> lookOrder(Integer id){
-        return  orderMapper.selectByUserId(id);
+     */
+    public List<Order> lookOrder(Integer userid) {
+        return orderMapper.selectByUserId(userid);
     }
 
 
     /**
      * 查看当前正在途中的订单
-     * */
-    public List<Order> onWayOrder(Integer userId){
-        return  orderMapper.selectByUserIdAndOnWay(userId);
+     */
+    public List<Order> onWayOrder(Integer userId) {
+        return orderMapper.selectByUserIdAndOnWay(userId);
     }
 
     /**
      * 查看对应订单的内容
-     * */
-    public List<Order.OrderFood> OrderFood(Integer orderId){
+     */
+    public List<Order.OrderFood> OrderFood(Integer orderId) {
         return foodMapper.selectFoodSalesByOrderID(orderId);
     }
 
     /**
      * 商家接单
-     * */
+     */
     public boolean orderUp(Integer orderId) {
         Order order = new Order();
         order.setId(orderId);
@@ -104,7 +108,20 @@ public class OrderService {
         return true;
     }
 
-    public Object lookOkOrder(Integer userId) {
-        return foodMapper.selectonOKWayByUserid(userId);
+
+    /**
+     * 用户确认订单
+     */
+    public boolean orderOK(Integer orderid, Integer id) {
+        Order order = orderMapper.selectByPrimaryKey(orderid);
+        if(order == null || id==null)return false;
+        if (order.getUserId().equals(id)) {
+            order.setState(3);
+            orderMapper.updateByPrimaryKeySelective(order);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

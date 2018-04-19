@@ -36,10 +36,7 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-   /* @PostConstruct
-    public void init() {
-        fileDir = "E:/Desktop/peoject/OrderingSys/file";
-    }*/
+
 
     @GetMapping("/img/{name}.{type}")
     public void valicode(@PathVariable("name") String name, @PathVariable("type") String type,

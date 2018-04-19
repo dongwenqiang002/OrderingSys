@@ -124,8 +124,6 @@ public class EateryController {
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
         PageUtil.paging("orderList", mv, 5, pageNum, () ->eateryService.getOrderList(eatery.getId()));
-       // List orderList = eateryService.getOrderList(user.getId());
-       // mv.addObject("orderList", orderList);
         return mv;
     }
     /**

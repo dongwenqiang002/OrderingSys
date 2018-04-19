@@ -34,6 +34,7 @@ public class AdminUserController {
         mv.addObject("user", userService.getUser(userId));
         return mv;
     }
+
     @GetMapping("/add")
     public ModelAndView addUser() {
         ModelAndView mv = new ModelAndView("/admin/userAddModal");

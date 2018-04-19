@@ -2,6 +2,8 @@ package indi.dwq.orderingSys.app.controller;
 
 
 import indi.dwq.orderingSys.app.service.EmailService;
+import indi.dwq.orderingSys.app.service.OrderService;
+import indi.dwq.orderingSys.data.pojo.Order;
 import indi.dwq.orderingSys.data.pojo.User;
 import indi.dwq.orderingSys.data.pojo.UserDetail;
 import indi.dwq.orderingSys.app.service.UserService;
@@ -11,9 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @Controller
@@ -29,7 +35,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private OrderService orderService;
     /**
      * 用户名效验
      */
@@ -134,7 +141,7 @@ public class UserController {
     @GetMapping("/regPasswordCode")
     public boolean regPasswordCode(String emailAddress,String username ,HttpSession session) {
         if(emailAddress==null|| emailAddress.isEmpty())return false;
-        User user = null;
+        User user ;
         try {
             user = (User) userService.loadUserByUsername(username);
         }catch (Exception e){
@@ -156,7 +163,7 @@ public class UserController {
      */
     @PostMapping("/regPassword")
     public boolean r(String emailAddress, String username, String name,String code, HttpSession session) {
-        User user = null;
+        User user ;
         try {
             user = (User) userService.loadUserByUsername(username);
         } catch (Exception e) {
@@ -171,7 +178,6 @@ public class UserController {
                 return code.equals(session.getAttribute("regPasswordCode"));
             }
         }
-
         return false;
     }
     /**
@@ -179,7 +185,7 @@ public class UserController {
      */
     @PostMapping("/regPasswordSub")
     public boolean regPassword(String emailAddress, String username, String name,String code,String password, HttpSession session) {
-        User user = null;
+        User user ;
         try {
             user = (User) userService.loadUserByUsername(username);
         } catch (Exception e) {
@@ -188,16 +194,8 @@ public class UserController {
         if (user == null) {
             return false;
         }
-        LOGGER.info("emailAddress :{}",emailAddress);
-        LOGGER.info("username :{}",username);
-        LOGGER.info("name :{}",name);
-        LOGGER.info("code :{}",code);
-        LOGGER.info("password :{}",password);
         if (user.getUsername().equals(username)&&code.equals(session.getAttribute("regPasswordCode"))) {
             UserDetail userDetail = userService.getDetail(user.getDetailId());
-            LOGGER.info("userDetail name : {}",userDetail.getName());
-            LOGGER.info("userDetail emailAddress:{}",userDetail.getEmail());
-            LOGGER.info("regPasswordCode :{}",session.getAttribute("regPasswordCode"));
             if (userDetail.getEmail().equals(emailAddress) && userDetail.getName().equals(name)) {
                 user.setPassword(password);
                 session.removeAttribute("regPasswordCode");
@@ -205,7 +203,31 @@ public class UserController {
 
             }
         }
-
         return false;
+    }
+
+
+    @GetMapping("/home.html")
+    public ModelAndView lookOrder(HttpSession session) {
+        LOGGER.info("根据用户ID查订单");
+        User user = (User) session.getAttribute("user");
+        if (user == null) throw new NullPointerException("用户未登录");
+        ModelAndView modelAndView = new ModelAndView();
+        List<Order> list = orderService.lookOrder(user.getId());
+        //根据Order中的state分组
+        Map<Integer, List<Order>> orderMap  = list.stream().collect(Collectors.groupingBy(Order::getState));
+        modelAndView.addObject("orderMap", orderMap);
+        modelAndView.setViewName("/user/home");
+        return modelAndView;
+    }
+
+    @GetMapping("/orderOK")
+    @ResponseBody
+    public boolean orderOK(Integer orderid,HttpSession session) {
+       LOGGER.info("用户确认订单");
+        User user = (User) session.getAttribute("user");
+        if (user == null) throw new NullPointerException("用户未登录");
+        return orderService.orderOK(orderid, user.getId());
+
     }
 }

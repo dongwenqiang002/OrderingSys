@@ -35,5 +35,5 @@ public interface FoodMapper {
 
     Integer selectCountByFoodId(Integer foodId);
 
-    Object selectonOKWayByUserid(Integer userId);
+    Order selectonOKWayByUserid(Integer userId);
 }
