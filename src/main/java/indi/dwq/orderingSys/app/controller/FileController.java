@@ -55,7 +55,7 @@ public class FileController {
     /**
      * 文件上传
      * */
-    @PostMapping("/upload")
+   /* @PostMapping("/upload")
     @ResponseBody
     public boolean upload(CommonsMultipartFile file) {
         String name = fileService.upload(file);
@@ -65,7 +65,7 @@ public class FileController {
         return name != null;
 
     }
-
+*/
     /**
      * 验证码获取
      * */

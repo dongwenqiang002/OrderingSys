@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.app.controller;
 
 
 import indi.dwq.orderingSys.app.service.EateryService;
+import indi.dwq.orderingSys.app.service.FileService;
 import indi.dwq.orderingSys.app.service.FoodService;
 import indi.dwq.orderingSys.app.service.OrderService;
 import indi.dwq.orderingSys.data.pojo.Eatery;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -38,7 +41,8 @@ public class EateryController {
     private FoodService foodService;
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private FileService fileService;
 
 
     @RequestMapping("/")
@@ -60,20 +64,20 @@ public class EateryController {
     @RequestMapping("/home.html")
     public ModelAndView homeHtml(HttpSession session) {
         ModelAndView mv = new ModelAndView("/eatery/home");
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         //获取当前用户的商铺信息
         Eatery eatery = eateryService.getEatery(user.getId());
         //获取订单列表
         List<Map> list = eateryService.getOrderList(user.getId());
-        mv.addObject("number",list.size());
+        mv.addObject("number", list.size());
 
         //赋值操作不是线程安全的。若想不用锁来实现，可以用AtomicReference<V>这个类，实现对象引用的原子更新。
         AtomicReference<Double> price = new AtomicReference<>(0.0d);
-        list.forEach(v->{
+        list.forEach(v -> {
             price.updateAndGet(v1 -> v1 + ((Double) v.get("price")));
         });
 
-        mv.addObject("priceSum",new java.text.DecimalFormat("#.00").format(price.get()));
+        mv.addObject("priceSum", new java.text.DecimalFormat("#.00").format(price.get()));
         mv.addObject("eatery", eatery);
         return mv;
     }
@@ -118,24 +122,25 @@ public class EateryController {
      * <th>查看订单详情</th>  -> 订单内容展示
      */
     @RequestMapping("/order.html")
-    public ModelAndView orderHtml(String pageNum,HttpSession session) {
-        LOGGER.info("查询第 {} 页订单数据",pageNum);
+    public ModelAndView orderHtml(String pageNum, HttpSession session) {
+        LOGGER.info("查询第 {} 页订单数据", pageNum);
         ModelAndView mv = new ModelAndView("/eatery/order");
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
-        PageUtil.paging("orderList", mv, 5, pageNum, () ->eateryService.getOrderList(eatery.getId()));
+        PageUtil.paging("orderList", mv, 5, pageNum, () -> eateryService.getOrderList(eatery.getId()));
         return mv;
     }
+
     /**
      * 商家接单
-     * */
+     */
     @RequestMapping("/orderUp")
     @ResponseBody
     public boolean orderHtml(Integer orderId) {
-        if(orderService.orderUp(orderId)){
+        if (orderService.orderUp(orderId)) {
             return true;
         }
-        return false ;
+        return false;
 
     }
 
@@ -155,4 +160,18 @@ public class EateryController {
         return mv;
     }
 
+    @RequestMapping("/reEateryPic")
+    public ModelAndView reEateryPic(MultipartFile pic, HttpSession session) {
+        String name = fileService.uploadImg(pic);
+        User user = (User) session.getAttribute("user");
+        Eatery eatery = eateryService.getEatery(user.getId());
+        eatery.setImgUrl(name);
+        if (eateryService.rePic(name, eatery.getId())) {
+            ModelAndView mv = new ModelAndView("redirect:/eatery/");
+            // mv.addObject();
+            return mv;
+        }else {
+            return new ModelAndView("/error/error");
+        }
+    }
 }

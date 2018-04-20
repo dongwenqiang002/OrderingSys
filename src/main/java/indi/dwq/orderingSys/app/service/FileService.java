@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.imageio.ImageIO;
@@ -29,10 +30,11 @@ public class FileService {
     private static String fileDir = "E:/Desktop/peoject/OrderingSys/file";
     private Random random = new Random(System.currentTimeMillis());
 
-    public String upload(CommonsMultipartFile file) {
-        String name = System.currentTimeMillis() + file.getName() + random.nextLong();
+
+    public String uploadImg(MultipartFile file) {
+        String name = System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
         try {
-            FileCopyUtils.copy(file.getBytes(), new File(fileDir + "/" + name));
+            FileCopyUtils.copy(file.getBytes(), new File(fileDir + "/img/" + name));
         } catch (IOException ioe) {
             LOGGER.error(ioe.getMessage());
             return null;
@@ -42,12 +44,14 @@ public class FileService {
         return name;
     }
 
-    /**生成验证码文件*/
-    public String verCode(BufferedImage bufimg)  {
+    /**
+     * 生成验证码图片文件
+     */
+    public String verCode(BufferedImage bufimg) {
         int width = 80;
         int height = 40;
         int lines = 10;
-        String code ="";
+        String code = "";
         BufferedImage img = bufimg;//new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = img.getGraphics();
@@ -66,7 +70,7 @@ public class FileService {
         Random r = new Random(d.getTime());
         for (int i = 0; i < 4; i++) {
             int a = r.nextInt(10);//取10以内的整数[0，9]
-            code+=a;
+            code += a;
             int y = 10 + r.nextInt(20); //10~30范围内的一个整数，作为y坐标
             Color c = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255));
             g.setColor(c);
@@ -84,5 +88,6 @@ public class FileService {
         //return img;
         return code;
     }
+
 
 }

@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="indi.dwq.orderingSys.data.pojo.UserDetail">
     insert into user_detail (address,phone,name,age,sex,email)
     values (#{address},#{phone}, #{name}, #{age}, #{sex},#{email})
   </insert>
@@ -82,7 +82,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="age != null">
-        name = #{age,jdbcType=VARCHAR},
+        age = #{age,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=VARCHAR},

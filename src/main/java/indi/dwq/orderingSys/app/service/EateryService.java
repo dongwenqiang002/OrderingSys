@@ -102,7 +102,12 @@ public class EateryService {
 
         return eateryMapper.selectByUserId(userId);
     }
-
+    public Boolean rePic(String name,Integer eateryId) {
+        Eatery eatery = new Eatery();
+        eatery.setImgUrl(name);
+        eatery.setId(eateryId);
+        return eateryMapper.updateByPrimaryKeySelective(eatery)==1;
+    }
     /**
      * 分行算法
      */

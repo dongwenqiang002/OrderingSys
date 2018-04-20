@@ -26,8 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter /*WebSecurit
         http.authorizeRequests()
                 .antMatchers(
                         /*不拦截的页面*/
-                        "/img/**", "/fonts/**.**", "error/**", "/css/**", "/js/**"
-                        , "/", "/register.html", "index.html", "/map/**", "/user/reg**", "/favicon.ico"
+                        "/img/**", "/fonts/**.**", "error/**",
+                        "/css/**", "/js/**",
+                        "/", "/register.html", "index.html", "/map/**",
+                        "/user/reg**", "/favicon.ico"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login.html")

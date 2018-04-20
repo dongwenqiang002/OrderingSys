@@ -38,7 +38,8 @@ public class EateryFilter implements Filter {
                 return;
             }
         } catch (Exception e) {
-            response.sendError(403);
+            e.printStackTrace();
+            response.sendError(444);
             return;
         }
         LOGGER.error("无权限!");

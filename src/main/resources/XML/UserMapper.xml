@@ -23,14 +23,14 @@
     <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
         <![CDATA[
          SELECT *
-        FROM USER  WHERE username = #{username}
+        FROM USER  WHERE username = #{username} and state=1
         ]]>
     </select>
 
     <select id="All" resultMap="BaseResultMap">
         <![CDATA[
          SELECT *
-        FROM user
+        FROM user WHERE state=1
         ]]>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -40,9 +40,9 @@
         ]]>
   </delete>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.User">
-    insert into user (detail_id, username, password
+    insert into user (detail_id, username, password,role
       )
-    values (#{detailId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{detailId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{role}
       )
   </insert>
 
@@ -93,5 +93,10 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <update id="updateStateByUserId" >
+        update user
+        set state = #{state}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
 </mapper>

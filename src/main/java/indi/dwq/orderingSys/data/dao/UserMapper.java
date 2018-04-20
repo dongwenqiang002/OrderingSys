@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.data.dao;
 
 import indi.dwq.orderingSys.data.pojo.User;
 import indi.dwq.orderingSys.data.pojo.UserDetail;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface UserMapper {
     User findByUserName(String username);
 
     List<User> All();
+
+    boolean updateStateByUserId(@Param("id") Integer userId,@Param("state") Integer state);
 }

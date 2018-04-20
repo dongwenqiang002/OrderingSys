@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="cn" >
+<head>
+    <meta charset="UTF-8">
+    <title>有天大的问题</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+<div th:include="/index ::#header"></div>
+
+<main class="text-center">
+    <h1 >发生了某种只有程序员知道的错误</h1>
+    <a href="/"> <button class="btn btn-default btn-lg btn-bloc" >点击返回主页</button></a>
+</main>
+
+<div th:include="/index ::#footer"></div>
+</body>
+</html>

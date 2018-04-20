@@ -37,7 +37,7 @@
         -->
         <tr th:each="order : ${orderList}" th:class="${order.state==1?'danger':'info'}">
             <td th:text="${order.id}" >0001</td>
-            <td th:text="${#dates.format(order.time, 'MM月dd日hh时mm分')}">2018年12月5日</td>
+            <td th:text="${#dates.format(order.time, 'MM月dd日HH时mm分')}">2018年12月5日</td>
             <td th:text="${order.price}+'元'">1565.元</td>
             <td th:text="${order.userName}">王先生</td>
             <td th:text="${order.phone}">1001201545</td>

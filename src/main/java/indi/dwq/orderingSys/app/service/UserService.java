@@ -93,15 +93,22 @@ public class UserService implements UserDetailsService {
         if (detail.getPhone() == null || user.getPassword().isEmpty()) throw new Exception("电话为空!");
         if (detail.getSex() == null || user.getPassword().isEmpty()) throw new Exception("性别为空!");
         int id = userDetailMapper.insert(detail);
-        user.setDetailId(id);
+        user.setDetailId(detail.getId());
         userDao.insert(user);
         return user;
     }
 
     public Map getUser(Integer userId) {
-
-        User v = userDao.selectByPrimaryKey(userId);
-        UserDetail userDetail = userDetailMapper.selectByPrimaryKey(v.getDetailId());
+        User v ;
+        UserDetail userDetail;
+        if(userId !=null && userId==0){
+            v = new User();
+            v.setId(0);
+            userDetail = new UserDetail();
+        }else {
+           v = userDao.selectByPrimaryKey(userId);
+           userDetail = userDetailMapper.selectByPrimaryKey(v.getDetailId());
+        }
         Map map = new HashMap();
 
         map.put("id", v.getId());
@@ -113,6 +120,9 @@ public class UserService implements UserDetailsService {
         map.put("sex",userDetail.getSex());
         map.put("phone",userDetail.getPhone());
         map.put("name",userDetail.getName());
+        map.forEach((k,val)->{
+        if(val==null)map.put(k,"");
+        });
         return  map;
     }
 
@@ -120,6 +130,7 @@ public class UserService implements UserDetailsService {
         if(user==null||user.getId()==null)return null;
         try {
             if(user.getId()==0){
+                user.setPassword(MD5Util.MD5("123456"));
                 return register(user,userDetail);
             }
             User resultUser = userDao.selectByPrimaryKey(user.getId());
@@ -135,4 +146,10 @@ public class UserService implements UserDetailsService {
         }
         return userDao.selectByPrimaryKey(user.getId());
     }
+
+    public boolean removeUser(Integer userId) {
+        return  userDao.updateStateByUserId(userId,0);
+    }
+
+
 }

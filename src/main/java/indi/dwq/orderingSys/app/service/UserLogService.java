@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 董文强
@@ -23,7 +24,9 @@ public class UserLogService {
     @Autowired
     private UserMapper userMapper;
 
-
+    /**
+     * 记录登录
+     */
     public void loginInfo(Integer userId) {
         UserLog userLog = new UserLog();
         userLog.setTime(new Date());
@@ -33,6 +36,9 @@ public class UserLogService {
 
     }
 
+    /**
+     * 记录退出
+     */
     public void logoutInfo(Integer userId) {
         UserLog userLog = new UserLog();
         userLog.setTime(new Date());
@@ -41,6 +47,9 @@ public class UserLogService {
         userLogMapper.insert(userLog);
     }
 
+    /**
+     * 记录密码修改
+     */
     public void restPasswordInfo(User user) {
         LOGGER.info("修改密码记录");
 
@@ -56,4 +65,32 @@ public class UserLogService {
         userLog.setUserId(user.getId());
         userLogMapper.insert(userLog);
     }
+
+    /**
+     * 查看莫一用户记录
+     */
+    public List<UserLog> getLog(Integer userId) {
+        UserLog userLog = new UserLog();
+        userLog.setUserId(userId);
+        List<UserLog> list = userLogMapper.selectByUserId(userId);
+        return list;
+    }
+    /**
+     * 查看用户最后一次登录时间
+     */
+    public UserLog getLastLogin(Integer userId) {
+
+        UserLog userLog = userLogMapper.selectLastTimeByUserId(userId,"登录");
+        return userLog;
+    }
+    /**
+     * 查看所有用户最后一次登录
+     */
+    public List<UserLog> getAllLastLogin() {
+        UserLog userLog = new UserLog();
+       /* userLog.setUserId(userId);
+        List<UserLog> list = userLogMapper.selectByUserId(userId);*/
+        return userLogMapper.selectLast("登录");
+    }
+
 }

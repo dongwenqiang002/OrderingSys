@@ -16,12 +16,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.thymeleaf.expression.Dates;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -32,7 +31,7 @@ import java.util.Arrays;
 @Aspect
 @Configuration
 @WebListener
-public class UserLogInfoAspect implements LogoutHandler {
+public class UserLogInfoAspect implements LogoutHandler,HttpSessionListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserLogInfoAspect.class);
 
     @Autowired
@@ -91,6 +90,27 @@ public class UserLogInfoAspect implements LogoutHandler {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return;
+        }
+        LOGGER.info(user.toString());
+        userLogService.logoutInfo(user.getId());
+        session.removeAttribute("user");
+    }
+
+    @Override
+    public void sessionCreated(HttpSessionEvent se) {
+
+    }
+
+
+    /**
+     * session 销毁时
+     * */
+    @Override
+    public void sessionDestroyed(HttpSessionEvent se) {
+        LOGGER.info("退出拦截");
+        User user = (User) se.getSession().getAttribute("user");
         if (user == null) {
             return;
         }

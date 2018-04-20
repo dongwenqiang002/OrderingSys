@@ -1,11 +1,14 @@
 package indi.dwq.orderingSys.config;
 
+import org.apache.catalina.Session;
+import org.apache.catalina.SessionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +35,6 @@ public class WebMvcConfig implements WebMvcConfigurer /*WebMvcConfigurerAdapter*
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/userHome.html","/food/lookOrder");
-
         map.forEach((k, v) -> registry.addViewController(k).setViewName(v));
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <style>
     .main_table {
         background: whitesmoke;
@@ -7,9 +7,17 @@
 </style>
 <div class="main_table">
 
-    <h3 th:inline="text">店铺名称:[[${eatery.eaterName}]]</h3>
-    <h3 th:inline="text">店铺图片<img src="/img/u.png" th:src="'/file/img/'+${eatery.imgUrl}" style="width: 100px;height: 100px"></h3>
+    <h3 th:inline="text">店铺名称:[[${eatery.eaterName}]]
+
+    </h3>
+    <h3 th:inline="text">店铺图片<img src="/img/u.png" th:src="'/file/img/'+${eatery.imgUrl}"
+                                  style="width: 100px;height: 100px"> <form id="eatery_repic" method="post" enctype="multipart/form-data" action="/eatery/reEateryPic">
+        <input onchange="reEateryPic()" name="pic" type="file" placeholder="更换店铺图片"/></form></h3>
     <h3 th:inline="text">月销量 [[${number}]]单</h3>
     <h3 th:inline="text">销售额:[[${priceSum}]]元</h3>
 
+    <script>function reEateryPic() {
+        $("#eatery_repic").submit();
+
+    }</script>
 </div>

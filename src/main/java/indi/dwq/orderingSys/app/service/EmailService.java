@@ -24,13 +24,13 @@ public class EmailService {
     @Value("${spring.mail.username}")
     String emailUsername;
 
-    private Random random = new Random(System.currentTimeMillis());
+    private static Random random = new Random(System.currentTimeMillis());
 
     public boolean sendMail(String mailAddress) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(emailUsername);
-            message.setTo(mailAddress+";"+"1136859952@qq.com"); //目标地址
+            message.setTo(mailAddress + ";" + "1136859952@qq.com"); //目标地址
             message.setSubject("主题：简单邮件");
             message.setText("\n" +
                     "server:\n" +
@@ -46,10 +46,10 @@ public class EmailService {
 
 
     public String regCode(String mailAddress) {
-        if (mailAddress == null || mailAddress.isEmpty()){
+        if (mailAddress == null || mailAddress.isEmpty()) {
             return null;
         }
-            StringBuilder code = new StringBuilder();
+        StringBuilder code = new StringBuilder();
         for (int i = 0; i < 6; i++) {
             code.append(Integer.valueOf(random.nextInt(9)).toString());
         }
@@ -72,22 +72,22 @@ public class EmailService {
 
 
     public String repasswordCode(String mailAddress) {
-        if (mailAddress == null || mailAddress.isEmpty()){
+        if (mailAddress == null || mailAddress.isEmpty()) {
             return null;
         }
-        int[] radi= {10,25,25};
-        char[] radc={'0','a','A'};
+        int[] radi = {10, 25, 25};
+        char[] radc = {'0', 'a', 'A'};
         StringBuilder code = new StringBuilder();
         for (int i = 0; i < 8; i++) {
             int n = random.nextInt(3);
-            code.append((char)(radc[n]+random.nextInt(radi[n])));
+            code.append((char) (radc[n] + random.nextInt(radi[n])));
         }
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(emailUsername);
             message.setTo(mailAddress); //目标地址
             message.setSubject("重置密码");
-            message.setText("您当前在执行重置密码操作," +
+            message.setText("您当前在执行找回操作," +
                     "您的验证码是 " + code + "\n" +
                     "请尽快完使用,谢谢!");
             mailSender.send(message);
@@ -97,6 +97,37 @@ public class EmailService {
         }
         return code.toString();
 
+    }
+
+    public String sendPasswordMail(String mailAddress) {
+        String password = randStr(11);
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(emailUsername);
+            message.setTo(mailAddress); //目标地址
+            message.setSubject("网上订餐系统管理员信息");
+
+            message.setText("您好,的密码已被管理员在后台重置,您当前用户的新密码为 " + password +
+                    "\n " +
+                    "请您尽快登录修改密码,谢谢.");
+            mailSender.send(message);
+        } catch (Exception e) {
+            LOGGER.info(e.getMessage());
+            password =null;
+        }
+        return password;
+
+    }
+
+    public static String randStr(int len) {
+        int[] radi = {10, 25, 25};
+        char[] radc = {'0', 'a', 'A'};
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            int n = random.nextInt(3);
+            code.append((char) (radc[n] + random.nextInt(radi[n])));
+        }
+        return code.toString();
     }
 
     public static void main(String[] args) {

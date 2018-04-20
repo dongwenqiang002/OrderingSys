@@ -2,6 +2,8 @@ package indi.dwq.orderingSys.util;
 
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author 董文强
@@ -46,6 +48,8 @@ public class MD5Util {
         System.out.println(MD5_String);
         MD5_String = MD5("dong19951018");
         System.out.println(MD5_String);
+        SimpleDateFormat ff = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.");
+        System.out.println(ff.format(new Date()));
     }
 
 }

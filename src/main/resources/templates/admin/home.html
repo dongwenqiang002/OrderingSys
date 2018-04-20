@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search">
 
-</body>
-</html>
+                </form>
+                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+                    <li>
+                        <div class="btn-group" style="margin-right: 20px">
+
+                        </div>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="food_main_context">
+
+        <h1>欢迎您,[[${session.user.username}]]</h1>
+        <h2>上次登录,[[${#dates.format(userLog.time, "MM月dd日HH时mm分")}]]</h2>
+    </div>
+</div>
