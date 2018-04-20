@@ -31,35 +31,31 @@
 
             <thead>
             <tr class="success">
-                <th>用户编号</th>
-                <th>用户名</th>
-                <th>年龄</th>
-                <th>性别</th>
-
-                <th>用户权限</th>
-                <th>用户地址</th>
-                <th>email</th>
-                <th>真实姓名</th>
-                <th>电话</th>
+                <th>商铺图片</th>
+                <th>编号</th>
+                <th>商铺名</th>
+                <th>地址</th>
+                <th>描述</th>
+                <th>店长姓名</th>
+                <th>店长电话</th>
+                <th>店长email</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="user : ${userList}">
-                <td th:text="${user.id}">12</td>
-                <td th:text="${user.username}">dwq</td>
-                <td th:text="${user.age}">21</td>
-                <td th:text="${user.sex}">男</td>
+            <tr th:each="eatery : ${eateryList}">
+                <td class="thumbnail"> <img th:src="${'/file/img/'+eatery.imgUrl}"></td>
+                <td th:text="${eatery.id}">12</td>
+                <td th:text="${eatery.eaterName}">海底捞</td>
+                <td th:text="${eatery.address}">西安市</td>
+                <td th:text="${eatery.des}">不好吃</td>
 
-                <td th:text="${user.role}">普通用户</td>
-                <td th:text="${user.address}">西安市</td>
-                <td th:text="${user.email}">826112946@qq.com</td>
-                <td th:text="${user.name}">特朗普</td>
-                <td th:text="${user.phone}">18892061129</td>
+                <td th:text="${eatery.name}">王大锤</td>
+                <td th:text="${eatery.iphone}">5454654</td>
+                <td th:text="${eatery.email}">826112946@qq.com</td>
                 <td>
-                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${user.id}+')'">删除</button>
-                    <button class="btn btn-xs btn-waring" th:onclick="'onRepassword('+${user.id}+')'">重置密码</button>
-                    <button class="btn btn-xs btn-info" th:onclick="'onAdd('+${user.id}+')'">修改</button>
+                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${eatery.id}+')'">删除</button>
+                    <button class="btn btn-xs btn-info" th:onclick="'onAdd('+${eatery.id}+')'">修改</button>
                 </td>
             </tr>
 
@@ -88,9 +84,7 @@
 <script>
     function reLoadTable(sele) {
         var pageNum = parseInt($("#span_pageNum").text());
-        var sortName = $(sele).val();
-        console.log(sortName);
-        $("#用户管理").load("/admin/user.html", data = {
+        $("#商家管理").load("/admin/eatery.html", data = {
             //isSubPage: true,
             //sortName: sortName,
             pageNum: pageNum
@@ -100,7 +94,7 @@
     function pageChange(changePage) {
         var pageNum = parseInt($("#span_pageNum").text());
         pageNum += changePage;
-        $("#用户管理").load("/admin/user.html", data = {
+        $("#商家管理").load("/admin/eatery.html", data = {
             pageNum: pageNum
         });
     }
@@ -113,26 +107,7 @@
 
     }
 
-    function onDelete(id) {
-        if(confirm("确定要删除该用户吗?")) {
-            $.post("/admin/user/delete?userId=" + id, function (msg) {
-                if (msg) {
-                    alert("删除成功");
-                    pageChange(0);
-                }
-            })
-        }
-    }
 
 
 
-    function onRepassword(id) {
-        $.post("/admin/user/rePassword?userId=" + id, function (msg) {
-            if (msg) {
-                alert("重置成功,新密码已发送至用户邮箱中");
-            }else {
-                alert("重置失败")
-            }
-        })
-    }
 </script>

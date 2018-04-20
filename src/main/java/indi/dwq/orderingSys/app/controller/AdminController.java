@@ -17,6 +17,8 @@ import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author 董文强
@@ -53,12 +55,13 @@ public class AdminController {
         ModelAndView mv = new ModelAndView("/admin/user");
         PageUtil.paging("userList",mv,5,pageNum,()->userService.getAll());
         return mv;
-     }
+    }
     @RequestMapping("/eatery.html")
     public ModelAndView lookEatery(String pageNum){
         ModelAndView mv = new ModelAndView("/admin/eatery");
-        eateryService.getAll();
-        PageUtil.paging("eateryList",mv,5,pageNum,()->userService.getAll());
+
+        PageUtil.paging("eateryList",mv,5,pageNum,()-> eateryService.getEattery());
+
         return mv;
     }
 

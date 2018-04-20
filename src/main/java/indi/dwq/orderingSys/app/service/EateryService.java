@@ -97,7 +97,32 @@ public class EateryService {
         //分行
         return branch(list, 4);
     }
+    public List<Map<String,Object>> getEattery() {
+        List<Eatery> eateryList = eateryMapper.getAll();
+        List<Map<String,Object>> list = new LinkedList();
+        eateryList.forEach(v->{
+            Map map = new HashMap();
+            list.add(map);
+            map.put("imgUrl",v.getImgUrl());
+            map.put("id",v.getId());
+            map.put("eaterName",v.getEaterName());
+            map.put("address",v.getAddress());
+            map.put("des",v.getDes());
+            map.put("name","无");
+            map.put("email","无");
+            map.put("iphone","无");
+            User user = userMapper.selectByPrimaryKey(v.getUserId());
+            if(user ==null) return;
+            UserDetail userDetail = userDetailMapper.selectByPrimaryKey(user.getDetailId());
+            if(userDetail ==null) return;
+            map.put("name",userDetail.getName());
+            map.put("email",userDetail.getEmail());
+            map.put("iphone",userDetail.getPhone());
 
+
+        });
+        return list;
+    }
     public Eatery getEatery(Integer userId) {
 
         return eateryMapper.selectByUserId(userId);

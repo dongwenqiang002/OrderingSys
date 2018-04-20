@@ -33,7 +33,7 @@
                                 <i class="glyphicon glyphicon-plus"></i>商品增加
                             </button>
                         </div>
-                        <div id="addmodal_div"></div>
+                        <div id="food_addmodal_div"></div>
                     </li>
 
                 </ul>
@@ -56,6 +56,8 @@
             </thead>
             <tbody>
             <tr th:each="food : ${foodList}">
+                <td class="thumbnail"><img th:src="${'/file/img/'+food.img}"
+                                           alt="通用的占位符缩略图"></td>
                 <td th:text="${food.id}">00001111</td>
                 <td th:text="${food.name}">米饭</td>
                 <td th:text="${food.price}+'元'">一元</td>
@@ -63,14 +65,15 @@
                 <td th:text="${food.des}">巨难吃</td>
                 <td>
                     <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
+                    <button class="btn btn-xs btn-waring" th:onclick="'onUpdate('+${food.id}+')'">修改</button>
                 </td>
             </tr>
 
             </tbody>
             <script> $("#main_table >tbody>tr").each(function () {
-                var id = $(this).children("td:eq(0)").text();
-                if(isNaN(id))return;
-                var countTd = $(this).children("td:eq(3)");
+                var id = $(this).children("td:eq(1)").text();
+                if (isNaN(id)) return;
+                var countTd = $(this).children("td:eq(4)");
                 $.get("/food/getCount?foodId=" + id, function (data) {
                     countTd.html(data);
                 });
@@ -123,14 +126,21 @@
 
     function onAdd(a) {
         $(a).parent().next().load("/eatery/foodAdd.html", function () {
-            $(a).parent().next().modal({keyboard: true});
+            $(a).parent().next().find("#addModal").modal({keyboard: true});
         });
 
     }
 
-    function onDelete(id){
-        $.get("/food/remove?foodId="+id,function () {
+    function onUpdate(id) {
+        $("#food_addmodal_div").load("/eatery/foodAdd.html", function () {
+
             pageChange(0);
-        } )
+        })
+    }
+
+    function onDelete(id) {
+        $.get("/food/remove?foodId=" + id, function () {
+            pageChange(0);
+        })
     }
 </script>

@@ -51,6 +51,24 @@ public class FootController {
     }
 
     /**
+     * 修改
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public Boolean updateFood(Food food, HttpSession session) {
+        if (food == null) return false;
+        User user = (User) session.getAttribute("user");
+        Eatery eatery = eateryService.getEatery(user.getId());
+        if (eatery == null) return false;
+        food.setEateryId(eatery.getId());
+        if(foodService.addFood(food)){
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * 删除
      */
     @GetMapping("/remove")
@@ -128,6 +146,7 @@ public class FootController {
     @GetMapping("/getCount")
     @ResponseBody
     public String getCount(Integer foodId) {
+        if(foodId == null) return "";
         LOGGER.info("查看商品 {} 的销量", foodId);
         Integer count = foodService.getCount(foodId);
         if (count == null) count = 0;

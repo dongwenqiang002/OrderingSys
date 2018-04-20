@@ -7,9 +7,10 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="des" jdbcType="VARCHAR" property="des" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, eater_name, address, des ,img_url
+    id, eater_name, address, des ,img_url ,user_id
   </sql>
 
   <select id="selectByUserId" resultMap="BaseResultMap">

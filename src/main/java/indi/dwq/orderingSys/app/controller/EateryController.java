@@ -68,7 +68,7 @@ public class EateryController {
         //获取当前用户的商铺信息
         Eatery eatery = eateryService.getEatery(user.getId());
         //获取订单列表
-        List<Map> list = eateryService.getOrderList(user.getId());
+        List<Map> list = eateryService.getOrderList(eatery.getId());
         mv.addObject("number", list.size());
 
         //赋值操作不是线程安全的。若想不用锁来实现，可以用AtomicReference<V>这个类，实现对象引用的原子更新。
@@ -127,6 +127,7 @@ public class EateryController {
         ModelAndView mv = new ModelAndView("/eatery/order");
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
+
         PageUtil.paging("orderList", mv, 5, pageNum, () -> eateryService.getOrderList(eatery.getId()));
         return mv;
     }
