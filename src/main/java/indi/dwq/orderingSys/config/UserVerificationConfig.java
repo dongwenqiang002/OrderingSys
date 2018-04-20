@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
@@ -36,9 +37,12 @@ public class UserVerificationConfig implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
-
-        UserDetails userDetials = userService.loadUserByUsername(username);
-
+        UserDetails userDetials;
+        try {
+            userDetials = userService.loadUserByUsername(username);
+        }catch (UsernameNotFoundException e){
+            return null;
+        }
         //获取用户权限列表
         Collection<? extends GrantedAuthority> authorities = userDetials.getAuthorities();
 

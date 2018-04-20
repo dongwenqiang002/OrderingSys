@@ -120,9 +120,7 @@ public class UserController {
      */
     @PostMapping("/repassword")
     public boolean repassword(String password,String code ,HttpSession session) {
-        LOGGER.info("新密码: {}",password);
-        LOGGER.info("code: {}",code);
-        LOGGER.info("repasswordCode: {}",session.getAttribute("repasswordCode"));
+
         if (password == null || password.isEmpty() || password.length() < 3) return false;
         if(!code.equals(session.getAttribute("repasswordCode")))return  false;
 
@@ -162,7 +160,7 @@ public class UserController {
      * 忘记密码时的验证
      */
     @PostMapping("/regPassword")
-    public boolean r(String emailAddress, String username, String name,String code, HttpSession session) {
+    public boolean r(String email, String username, String name,String code, HttpSession session) {
         User user ;
         try {
             user = (User) userService.loadUserByUsername(username);
@@ -174,7 +172,7 @@ public class UserController {
         }
         if (user.getUsername().equals(username)) {
             UserDetail userDetail = userService.getDetail(user.getDetailId());
-            if (userDetail.getEmail().equals(emailAddress) && userDetail.getName().equals(name)) {
+            if (userDetail.getEmail().equals(email) && userDetail.getName().equals(name)) {
                 return code.equals(session.getAttribute("regPasswordCode"));
             }
         }
@@ -184,7 +182,7 @@ public class UserController {
      * 忘记密码时的二次验证,提交新密码
      */
     @PostMapping("/regPasswordSub")
-    public boolean regPassword(String emailAddress, String username, String name,String code,String password, HttpSession session) {
+    public boolean repassword(String email, String username, String name,String code,String password, HttpSession session) {
         User user ;
         try {
             user = (User) userService.loadUserByUsername(username);
@@ -196,7 +194,7 @@ public class UserController {
         }
         if (user.getUsername().equals(username)&&code.equals(session.getAttribute("regPasswordCode"))) {
             UserDetail userDetail = userService.getDetail(user.getDetailId());
-            if (userDetail.getEmail().equals(emailAddress) && userDetail.getName().equals(name)) {
+            if (userDetail.getEmail().equals(email) && userDetail.getName().equals(name)) {
                 user.setPassword(password);
                 session.removeAttribute("regPasswordCode");
                 return  userService.updatePassword(user);

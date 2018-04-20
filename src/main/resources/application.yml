@@ -1,24 +1,19 @@
 
 server:
   port: 8081 #配置服务器端口，默认为8080
- # session:
-    #timeout: 1000000 #用户回话session过期时间，以秒为单位
   tomcat:
     uri-encoding: UTF-8
-
+  servlet:
+    session:
+      timeout: 200 #用户回话session过期时间，以秒为单位
 spring:
   application:
     name: eureka-ording
   thymeleaf:
       mode: LEGACYHTML5
       encoding: UTF-8
-     # content-type: text/html
       cache: false #开发时关闭缓存,不然没法看到实时页面
       prefix: classpath:/templates
-#  http:
-#    multipart:
-#       max-file-size: 100MB
-#       max-request-size: 100MB
   mvc:
     throw-exception-if-no-handler-found: false
 # JavaMailSender 邮件发送的配置 https://blog.csdn.net/u011244202/article/details/54809696
@@ -34,16 +29,24 @@ spring:
             enable: false
             required: false
     protocol: smtp
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 #  aop:
 #    auto: true
+#数据配置
 mydata:
   db-url: jdbc:mysql://localhost:3306/ordering?characterEncoding=utf8
   username: root
   password: root
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
+#文件上传下载路径
 file.dir: E:/Desktop/peoject/OrderingSys/file
+#SQL执行日志
 logging.level.indi.dwq.orderingSys.data.dao: debug
+
 
 #logging.level.org.springframework.security: info
 #mybatis:

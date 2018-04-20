@@ -1,8 +1,13 @@
 package indi.dwq.orderingSys.data.pojo;
 
+import org.apache.catalina.SessionEvent;
+import org.apache.catalina.SessionListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collection;
