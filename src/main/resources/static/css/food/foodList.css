@@ -6,7 +6,7 @@
 .footList > div > div {
     height: 100px;
     padding: 0;
-    background: #2e6da4;
+    ;
 }
 
 .footInfo {
@@ -60,7 +60,7 @@
     margin: auto;
     width: 15%;
     height: 80%;
-    background: #0d0d0d;
+
 }
 
 #shoppingCart > li > div > span:nth-child(2) >input{

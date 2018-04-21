@@ -26,4 +26,5 @@ public interface UserLogMapper {
 
     List<UserLog> selectLast(String type);
 
+    List<UserLog> getAll();
 }

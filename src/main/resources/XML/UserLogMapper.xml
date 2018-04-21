@@ -29,10 +29,13 @@
     </select>
 
     <select id="selectLast" parameterType="java.lang.String" resultMap="BaseResultMap">
-   SELECT a.* FROM user_log_info aINNER JOIN
+   SELECT a.* FROM user_log_info a INNER JOIN
    (SELECT user_id,MAX(TIME) TIME FROM user_log_info WHERE  TYPE=#{type} GROUP BY user_id)b
-   ON a.user_id=b.user_id AND a.time=b.time AND TYPE=#{type} ORDER BY a.user_id;
+   ON a.user_id=b.user_id AND a.time=b.time AND TYPE=#{type} ORDER BY a.user_id
   </select>
+    <select id="getAll"  resultMap="BaseResultMap">
+        SELECT * FROM  user_log_info
+    </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

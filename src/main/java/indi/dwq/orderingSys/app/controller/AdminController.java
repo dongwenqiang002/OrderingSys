@@ -59,10 +59,20 @@ public class AdminController {
     @RequestMapping("/eatery.html")
     public ModelAndView lookEatery(String pageNum){
         ModelAndView mv = new ModelAndView("/admin/eatery");
-
+        LOGGER.info("商铺第{}页",pageNum);
         PageUtil.paging("eateryList",mv,5,pageNum,()-> eateryService.getEattery());
 
         return mv;
     }
+
+    @RequestMapping("/userlog.html")
+    public ModelAndView userLog(String pageNum){
+        ModelAndView mv = new ModelAndView("/admin/userlog");
+        PageUtil.paging("userlogList",mv,13,pageNum ,()->userLogService.getAll());
+        //PageUtil.paging("userList",mv,5,pageNum,()->userService.getAll());
+        return mv;
+    }
+
+
 
 }

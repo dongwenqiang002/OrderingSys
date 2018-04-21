@@ -25,16 +25,26 @@ $(function () {
         if(!eamilReg()){
             return;
         }
-        if(!sendCode()){
-            return;
-        }
-
+        var a =false;
+        $.get({url:"/user/regCodeVer?code="+$("input[name='code']").val(),async:false},function (result) {
+            a=result;});
+        if(!a){
+            alert("验证码不正确");
+            return;}
         $("#div1").animate({right: '800px'}, 1000, function () {
             $(this).hide();
             $("#div2").fadeIn(1900);
         });
+    });
 
-
+    $("#the_last_step").click(function () {
+        $("#div2").animate({right: '800px'}, 1000, function () {
+            $(this).hide();
+            $("#div1").show();
+            $("#div1").animate({right: '0px'});
+            $("#div2").animate({right: '0px'});
+            //$("#div1").fadeIn(1900);
+        });
     });
 
     var height = $(window).height() - 50;//$("header").height()//-$("footer").height();
@@ -55,6 +65,8 @@ $(function () {
             if(d === 'index'){
                 alert("注册成功");
                 location.href="/index";
+            }else{
+                alert("信息有误")
             }
         });
         //$("#all_form").submit();

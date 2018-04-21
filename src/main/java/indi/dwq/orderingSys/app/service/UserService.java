@@ -85,6 +85,7 @@ public class UserService implements UserDetailsService {
     public User register(User user, UserDetail detail) throws Exception {
 
         if (user.getPassword() == null || user.getPassword().isEmpty()) throw new Exception("密码为!");
+        user.setPassword(MD5Util.MD5(user.getPassword()));
         if (user.getUsername() == null || user.getUsername().isEmpty()) throw new Exception("用户名为空!");
 
         if (detail.getAddress() == null || user.getPassword().isEmpty()) throw new Exception("地址为空!");

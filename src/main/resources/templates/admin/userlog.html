@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search">
+
+                </form>
+                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+                    <li>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="userlog_main_context">
+        <table id="main_table" class="table table-hover table-striped table-bordered">
+
+            <thead>
+            <tr class="success">
+                <th>用户ID</th>
+                <th>用户姓名</th>
+                <th>用户名</th>
+                <th>操作时间</th>
+                <th>具体操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userlog : ${userlogList}">
+                <td th:text="${userlog.userId}">12</td>
+                <td id="user_log_name">王大锤</td>
+                <td id="user_log_userName">wdc0015</td>
+                <td th:text="${#dates.format(userlog.time,'MM月dd日HH时mm分')}">2017/05/03 15:54</td>
+                <td th:text="${userlog.type}">登录</td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="10">
+                    <div class="text-center">
+
+                        <ul class="pager " style="text-align: right">
+                            <li><a href="javascript:pageChange(-999);"> <span
+                                    class="glyphicon glyphicon-fast-backward"></span></a></li>
+                            <li><a href="javascript:pageChange(-1);"><span
+                                    class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+                            <li>当前第<span id="userlog_span_pageNum" th:text="${pageNum}">3</span>页</li>
+                            <li><a href="javascript:pageChange(1);"><span
+                                    class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                            <li><a href="javascript:pageChange(999);"> <span
+                                    class="glyphicon glyphicon-fast-forward"></span></a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+<script>
+    function reLoadTable(sele) {
+        var pageNum = parseInt($("#userlog_span_pageNum").text());
+        $("#用户日志").load("/admin/userlog.html", data = {
+            //isSubPage: true,
+            //sortName: sortName,
+            pageNum: pageNum
+        });
+    }
+
+    function pageChange(changePage) {
+        var pageNum = parseInt($("#userlog_span_pageNum").text());
+        pageNum += changePage;
+        $("#用户日志").load("/admin/userlog.html", data = {
+            pageNum: pageNum
+        });
+    }
+
+    $(function () {
+        $("#userlog_main_context table > tbody >tr").each(function () {
+            var id = $(this).children("td:eq(0)").text();
+            $.get("/admin/user/find?userId=" + id, function (result) {
+                $(this).find("#user_log_name").text(result.name);
+                $(this).find("#user_log_userName").text(result.username);
+            });
+
+            //user_log_name">王大
+            //user_log_userName
+        })
+    })
+
+
+</script>

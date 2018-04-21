@@ -92,5 +92,13 @@ public class UserLogService {
         List<UserLog> list = userLogMapper.selectByUserId(userId);*/
         return userLogMapper.selectLast("登录");
     }
-
+    /**
+     * 查看所有日志
+     */
+    public List<UserLog> getAll() {
+        UserLog userLog = new UserLog();
+       /* userLog.setUserId(userId);
+        List<UserLog> list = userLogMapper.selectByUserId(userId);*/
+        return userLogMapper.getAll();
+    }
 }
