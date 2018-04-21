@@ -62,11 +62,12 @@
                 <td th:text="${food.name}">米饭</td>
                 <td th:text="${food.price}+'元'">一元</td>
                 <td></td>
-                <td th:text="${food.des}">巨难吃</td>
+
                 <td>
                     <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
                     <button class="btn btn-xs btn-waring" th:onclick="'onUpdate('+${food.id}+')'">修改</button>
                 </td>
+                <td th:text="${food.des}">巨难吃</td>
             </tr>
 
             </tbody>
@@ -79,7 +80,7 @@
                 });
             }); </script>
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <div class="text-center">
 
                         <ul class="pager " style="text-align: right">
