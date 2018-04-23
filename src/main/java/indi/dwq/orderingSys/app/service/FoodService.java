@@ -62,5 +62,10 @@ public class FoodService {
             return null;
         }
     }
+
+    public boolean update(Food food) {
+        if(food.getId()==null)return false;
+        return foodMapper.updateByPrimaryKeySelective(food)==1;
+    }
 }
 

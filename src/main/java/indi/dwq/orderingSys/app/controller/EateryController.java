@@ -162,4 +162,11 @@ public class EateryController {
             return new ModelAndView("/error/error");
         }
     }
+
+    @GetMapping("/foodUpdata.html")
+    public ModelAndView foodUpdate(Integer foodid){
+        ModelAndView mv = new ModelAndView("/eatery/foodUpdata");
+        mv.addObject("food",foodService.getFood(foodid));
+        return mv;
+    }
 }

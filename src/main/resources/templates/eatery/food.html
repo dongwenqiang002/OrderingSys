@@ -132,9 +132,8 @@
     }
 
     function onUpdate(id) {
-        $("#food_addmodal_div").load("/eatery/foodAdd.html", function () {
-
-            pageChange(0);
+        $("#food_addmodal_div").load("/eatery/foodUpdata.html?foodid="+id, function () {
+            $("#food_addmodal_div").find("#foodUpdateModal").modal({keyboard: true});
         })
     }
 

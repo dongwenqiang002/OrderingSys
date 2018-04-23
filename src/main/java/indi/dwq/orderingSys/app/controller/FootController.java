@@ -62,22 +62,26 @@ public class FootController {
         return false;
     }
 
-    /* *//**
+    /**
      * 修改
-     *//*
+     */
     @PostMapping("/update")
     @ResponseBody
-    public Boolean updateFood(Food food, HttpSession session) {
+    public Boolean updateFood(Food food, MultipartFile pic, HttpSession session) {
         if (food == null) return false;
+
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
         if (eatery == null) return false;
+        if(pic!=null){
+            food.setImg(fileService.uploadImg(pic));
+        }
         food.setEateryId(eatery.getId());
-        if(foodService.addFood(food)){
+        if ( foodService.update(food)) {
             return true;
         }
         return false;
-    }*/
+    }
 
 
     /**

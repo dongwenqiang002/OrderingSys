@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @Time 2018/3/12 17:11
  */
 @Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter /*WebSecurityConfiguration*/ /*WebSecurityConfigurerAdapter*/ {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
 
     @Autowired
@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter /*WebSecurit
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        LOGGER.info("安全设置");
+        LOGGER.info("登录拦截设置");
         http.authorizeRequests()
                 .antMatchers(
                         /*不拦截的页面*/
