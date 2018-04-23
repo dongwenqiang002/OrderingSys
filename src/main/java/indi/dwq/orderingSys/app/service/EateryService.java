@@ -44,7 +44,7 @@ public class EateryService {
         }
 */
         List<Order> orderList = orderMapper.selectByEateryId(eateryId);
-        LOGGER.info("查询到订单数据 {} 条",orderList.size());
+        LOGGER.info("查询到订单数据 {} 条", orderList.size());
         List<Object> list = new LinkedList<>();
 
         //将各个订单按行加入到list中,使用map进行键值对的存储
@@ -97,42 +97,46 @@ public class EateryService {
         //分行
         return branch(list, 4);
     }
-    public List<Map<String,Object>> getEattery() {
+
+    public List<Map<String, Object>> getEattery() {
         List<Eatery> eateryList = eateryMapper.getAll();
-        List<Map<String,Object>> list = new LinkedList();
-        eateryList.forEach(v->{
+        List<Map<String, Object>> list = new LinkedList();
+        eateryList.forEach(v -> {
             Map map = new HashMap();
             list.add(map);
-            map.put("imgUrl",v.getImgUrl());
-            map.put("id",v.getId());
-            map.put("eaterName",v.getEaterName());
-            map.put("address",v.getAddress());
-            map.put("des",v.getDes());
-            map.put("name","无");
-            map.put("email","无");
-            map.put("iphone","无");
+            map.put("imgUrl", v.getImgUrl());
+            map.put("id", v.getId());
+            map.put("eaterName", v.getEaterName());
+            map.put("address", v.getAddress());
+            map.put("des", v.getDes());
+            map.put("name", "无");
+            map.put("email", "无");
+            map.put("iphone", "无");
             User user = userMapper.selectByPrimaryKey(v.getUserId());
-            if(user ==null) return;
+            if (user == null) return;
             UserDetail userDetail = userDetailMapper.selectByPrimaryKey(user.getDetailId());
-            if(userDetail ==null) return;
-            map.put("name",userDetail.getName());
-            map.put("email",userDetail.getEmail());
-            map.put("iphone",userDetail.getPhone());
+            if (userDetail == null) return;
+            map.put("name", userDetail.getName());
+            map.put("email", userDetail.getEmail());
+            map.put("iphone", userDetail.getPhone());
 
 
         });
         return list;
     }
+
     public Eatery getEatery(Integer userId) {
 
         return eateryMapper.selectByUserId(userId);
     }
-    public Boolean rePic(String name,Integer eateryId) {
+
+    public Boolean rePic(String name, Integer eateryId) {
         Eatery eatery = new Eatery();
         eatery.setImgUrl(name);
         eatery.setId(eateryId);
-        return eateryMapper.updateByPrimaryKeySelective(eatery)==1;
+        return eateryMapper.updateByPrimaryKeySelective(eatery) == 1;
     }
+
     /**
      * 分行算法
      */
@@ -145,5 +149,37 @@ public class EateryService {
         }
         lists.add(list.subList(i, list.size()));
         return lists;
+    }
+
+    public Object getEateryAllDeatil(Integer eateryid) {
+        Eatery eatery = eateryMapper.selectByPrimaryKey(eateryid);
+        Map map = new HashMap();
+        map.put("imgUrl", eatery.getImgUrl());
+        map.put("id", eatery.getId());
+        map.put("eaterName", eatery.getEaterName());
+        map.put("address", eatery.getAddress());
+        map.put("des", eatery.getDes());
+        map.put("name", "无");
+        map.put("email", "无");
+        map.put("iphone", "无");
+        User user = userMapper.selectByPrimaryKey(eatery.getUserId());
+        if (user == null) return map;
+        UserDetail userDetail = userDetailMapper.selectByPrimaryKey(user.getDetailId());
+        if (userDetail == null) return map;
+        map.put("name", userDetail.getName());
+        map.put("email", userDetail.getEmail());
+        map.put("iphone", userDetail.getPhone());
+
+
+        return map;
+    }
+
+    public boolean addEatery(Eatery eatery) {
+        eateryMapper.insertSelective(eatery);
+        return false;
+    }
+
+    public boolean updateEatery(Eatery eatery) {
+        return eateryMapper.updateByPrimaryKeySelective(eatery)==1;
     }
 }

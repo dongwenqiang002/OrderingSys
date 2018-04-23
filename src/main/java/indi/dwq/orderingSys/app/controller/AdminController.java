@@ -36,43 +36,58 @@ public class AdminController {
     @Autowired
     private EateryService eateryService;
 
-
+    /**
+     * 管理员基本界面
+     */
     @GetMapping("/index.html")
-    public ModelAndView index(){
+    public ModelAndView index() {
         ModelAndView mv = new ModelAndView("/admin/index");
         return mv;
     }
+
+    /**
+     * 管理员首页
+     */
     @GetMapping("/home.html")
-    public ModelAndView home(HttpSession session){
-        User user = (User)session.getAttribute("user");
+    public ModelAndView home(HttpSession session) {
+        User user = (User) session.getAttribute("user");
         ModelAndView mv = new ModelAndView("/admin/home");
-        mv.addObject("userLog",userLogService.getLastLogin(user.getId()));
+        mv.addObject("userLog", userLogService.getLastLogin(user.getId()));
         return mv;
     }
 
+    /**
+     * 用户管理页面
+     */
     @RequestMapping("/user.html")
-    public ModelAndView lookUser(String pageNum){
+    public ModelAndView lookUser(String pageNum) {
         ModelAndView mv = new ModelAndView("/admin/user");
-        PageUtil.paging("userList",mv,5,pageNum,()->userService.getAll());
+        PageUtil.paging("userList", mv, 5, pageNum, () -> userService.getAll());
         return mv;
     }
+
+    /**
+     * 商家管理页面
+     */
     @RequestMapping("/eatery.html")
-    public ModelAndView lookEatery(String pageNum){
+    public ModelAndView lookEatery(String pageNum) {
         ModelAndView mv = new ModelAndView("/admin/eatery");
-        LOGGER.info("商铺第{}页",pageNum);
-        PageUtil.paging("eateryList",mv,5,pageNum,()-> eateryService.getEattery());
+        LOGGER.info("商铺第{}页", pageNum);
+        PageUtil.paging("eateryList", mv, 5, pageNum, () -> eateryService.getEattery());
 
         return mv;
     }
 
+    /**
+     * 用户日志页面
+     */
     @RequestMapping("/userlog.html")
-    public ModelAndView userLog(String pageNum){
+    public ModelAndView userLog(String pageNum) {
         ModelAndView mv = new ModelAndView("/admin/userlog");
-        PageUtil.paging("userlogList",mv,13,pageNum ,()->userLogService.getAll());
+        PageUtil.paging("userlogList", mv, 13, pageNum, () -> userLogService.getAll());
         //PageUtil.paging("userList",mv,5,pageNum,()->userService.getAll());
         return mv;
     }
-
 
 
 }

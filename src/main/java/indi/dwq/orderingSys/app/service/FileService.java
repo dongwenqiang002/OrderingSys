@@ -32,8 +32,12 @@ public class FileService {
 
 
     public String uploadImg(MultipartFile file) {
-        String name = System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
+        if (file == null) {
+            return null;
+        }
+        String name;//= System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
         try {
+            name = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
             FileCopyUtils.copy(file.getBytes(), new File(fileDir + "/img/" + name));
         } catch (IOException ioe) {
             LOGGER.error(ioe.getMessage());

@@ -29,6 +29,9 @@
     <select id="getSortFood" parameterType="java.lang.Integer" resultMap="BaseResultMap">
       select * FROM food_view where eatery_id=#{eateryId} and state=1 order by ${sortName}
     </select>
+    <select id="getFoodInfo" parameterType="java.lang.Integer" resultMap="OrderFood">
+        select * FROM food_view where eatery_id=#{eateryId} and state=1 order by ${sortName} desc
+    </select>
     <select id="selectCountByFoodId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select IFNULL(SUM(count),0)
         FROM food_sales
@@ -64,9 +67,9 @@
      </update>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.Food">
     insert into food ( name, price,
-      des, eatery_id)
+      des, eatery_id,img)
     values ( #{name,jdbcType=VARCHAR}, #{price,jdbcType=REAL},
-      #{des,jdbcType=VARCHAR}, #{eateryId,jdbcType=INTEGER})
+      #{des,jdbcType=VARCHAR}, #{eateryId,jdbcType=INTEGER} ,#{img})
   </insert>
     <insert id="insertSelective" parameterType="indi.dwq.orderingSys.data.pojo.Food">
         insert into food

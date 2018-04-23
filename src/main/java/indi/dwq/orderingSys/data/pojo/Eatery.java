@@ -12,6 +12,18 @@ public class Eatery {
     private String imgUrl;
     private Integer userId;
 
+    @Override
+    public String toString() {
+        return "Eatery{" +
+                "id=" + id +
+                ", eaterName='" + eaterName + '\'' +
+                ", address='" + address + '\'' +
+                ", des='" + des + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
+
     public Integer getUserId() {
         return userId;
     }

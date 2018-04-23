@@ -3,6 +3,7 @@ package indi.dwq.orderingSys.app.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import indi.dwq.orderingSys.app.service.EateryService;
+import indi.dwq.orderingSys.app.service.FileService;
 import indi.dwq.orderingSys.app.service.FoodService;
 import indi.dwq.orderingSys.app.service.OrderService;
 import indi.dwq.orderingSys.data.pojo.Eatery;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -33,26 +35,36 @@ public class FootController {
     @Autowired
     private FoodService foodService;
 
+    @Autowired
+    private FileService fileService;
+
     /**
      * 添加商品
      */
     @PostMapping("/addFood")
     @ResponseBody
-    public Boolean addFood(Food food, HttpSession session) {
+    public Boolean addFood(Food food, MultipartFile pic, HttpSession session) {
         if (food == null) return false;
+
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
         if (eatery == null) return false;
         food.setEateryId(eatery.getId());
-        if(foodService.addFood(food)){
+        //上传商品图片
+        String img = fileService.uploadImg(pic);
+        if (img == null) {
+            img = "1213456789aaa.jpg";
+        }
+        food.setImg(img);
+        if (foodService.addFood(food)) {
             return true;
         }
         return false;
     }
 
-    /**
+    /* *//**
      * 修改
-     */
+     *//*
     @PostMapping("/update")
     @ResponseBody
     public Boolean updateFood(Food food, HttpSession session) {
@@ -65,7 +77,7 @@ public class FootController {
             return true;
         }
         return false;
-    }
+    }*/
 
 
     /**
@@ -78,7 +90,7 @@ public class FootController {
         User user = (User) session.getAttribute("user");
         Eatery eatery = eateryService.getEatery(user.getId());
         if (eatery == null) return false;
-        if(foodService.removeFood(foodId,eatery.getId())){
+        if (foodService.removeFood(foodId, eatery.getId())) {
             return true;
         }
         return false;
@@ -146,13 +158,12 @@ public class FootController {
     @GetMapping("/getCount")
     @ResponseBody
     public String getCount(Integer foodId) {
-        if(foodId == null) return "";
+        if (foodId == null) return "";
         LOGGER.info("查看商品 {} 的销量", foodId);
         Integer count = foodService.getCount(foodId);
         if (count == null) count = 0;
         return count + "份";
     }
-
 
 
 }

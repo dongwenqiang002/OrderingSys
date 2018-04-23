@@ -36,8 +36,8 @@
             <tbody>
             <tr th:each="userlog : ${userlogList}">
                 <td th:text="${userlog.userId}">12</td>
-                <td id="user_log_name">王大锤</td>
-                <td id="user_log_userName">wdc0015</td>
+                <td id="user_log_name"></td>
+                <td id="user_log_userName"></td>
                 <td th:text="${#dates.format(userlog.time,'MM月dd日HH时mm分')}">2017/05/03 15:54</td>
                 <td th:text="${userlog.type}">登录</td>
             </tr>
@@ -49,14 +49,14 @@
                     <div class="text-center">
 
                         <ul class="pager " style="text-align: right">
-                            <li><a href="javascript:pageChange(-999);"> <span
+                            <li><a href="javascript:userlog_pageChange(-999);"> <span
                                     class="glyphicon glyphicon-fast-backward"></span></a></li>
-                            <li><a href="javascript:pageChange(-1);"><span
+                            <li><a href="javascript:userlog_pageChange(-1);"><span
                                     class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                             <li>当前第<span id="userlog_span_pageNum" th:text="${pageNum}">3</span>页</li>
-                            <li><a href="javascript:pageChange(1);"><span
+                            <li><a href="javascript:userlog_pageChange(1);"><span
                                     class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                            <li><a href="javascript:pageChange(999);"> <span
+                            <li><a href="javascript:userlog_pageChange(999);"> <span
                                     class="glyphicon glyphicon-fast-forward"></span></a></li>
                         </ul>
                     </div>
@@ -77,7 +77,7 @@
         });
     }
 
-    function pageChange(changePage) {
+    function userlog_pageChange(changePage) {
         var pageNum = parseInt($("#userlog_span_pageNum").text());
         pageNum += changePage;
         $("#用户日志").load("/admin/userlog.html", data = {
@@ -88,9 +88,10 @@
     $(function () {
         $("#userlog_main_context table > tbody >tr").each(function () {
             var id = $(this).children("td:eq(0)").text();
+            var tr = $(this);
             $.get("/admin/user/find?userId=" + id, function (result) {
-                $(this).find("#user_log_name").text(result.name);
-                $(this).find("#user_log_userName").text(result.username);
+                $(tr).find("#user_log_name").html(result.name);
+                $(tr).find("#user_log_userName").html(result.username);
             });
 
             //user_log_name">王大

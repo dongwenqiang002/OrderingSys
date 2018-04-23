@@ -76,7 +76,7 @@ public class EateryController {
         list.forEach(v -> {
             price.updateAndGet(v1 -> v1 + ((Double) v.get("price")));
         });
-
+        mv.addObject("foodList",foodService.getFoodInfo(eatery.getId(), "销量"));
         mv.addObject("priceSum", new java.text.DecimalFormat("#.00").format(price.get()));
         mv.addObject("eatery", eatery);
         return mv;
@@ -145,22 +145,9 @@ public class EateryController {
 
     }
 
-    @RequestMapping("/sale.html")
-    public ModelAndView saleHtml() {
-        ModelAndView mv = new ModelAndView("/eatery/sale");
-
-        // mv.addObject();
-        return mv;
-    }
-
-    @RequestMapping("/saleInfo.html")
-    public ModelAndView saleInfoHtml() {
-        ModelAndView mv = new ModelAndView("/eatery/saleInfo");
-
-        // mv.addObject();
-        return mv;
-    }
-
+    /**
+     * 修改商家的图片
+     * */
     @RequestMapping("/reEateryPic")
     public ModelAndView reEateryPic(MultipartFile pic, HttpSession session) {
         String name = fileService.uploadImg(pic);

@@ -15,11 +15,11 @@
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 20px">
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(0)">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="eatery_onAdd(0)">
                                 <i class="glyphicon glyphicon-plus"></i>增加商户
                             </button>
                         </div>
-                        <div id="user_modal_div"></div>
+                        <div id="eatery_modal_div"></div>
                     </li>
 
                 </ul>
@@ -55,7 +55,7 @@
                 <td th:text="${eatery.email}">826112946@qq.com</td>
                 <td>
                     <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${eatery.id}+')'">删除</button>
-                    <button class="btn btn-xs btn-info" th:onclick="'onAdd('+${eatery.id}+')'">修改</button>
+                    <button class="btn btn-xs btn-info" th:onclick="'eatery_onAdd('+${eatery.id}+')'">修改</button>
                 </td>
             </tr>
 
@@ -64,15 +64,15 @@
                 <td colspan="10">
                     <div class="text-center">
 
-                        <ul class="pager " style="text-align: right">
-                            <li><a href="javascript:pageChange(-999);"> <span
+                        <ul class="pager" style="text-align: right">
+                            <li><a href="javascript:eatery_pageChange(-999);"> <span
                                     class="glyphicon glyphicon-fast-backward"></span></a></li>
-                            <li><a href="javascript:pageChange(-1);"><span
+                            <li><a href="javascript:eatery_pageChange(-1);"><span
                                     class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                             <li>当前第<span id="eatery_span_pageNum" th:text="${pageNum}">3</span>页</li>
-                            <li><a href="javascript:pageChange(1);"><span
+                            <li><a href="javascript:eatery_pageChange(1);"><span
                                     class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                            <li><a href="javascript:pageChange(999);"> <span
+                            <li><a href="javascript:eatery_pageChange(999);"> <span
                                     class="glyphicon glyphicon-fast-forward"></span></a></li>
                         </ul>
                     </div>
@@ -91,7 +91,7 @@
         });
     }
 
-    function pageChange(changePage) {
+    function eatery_pageChange(changePage) {
         var pageNum = parseInt($("#eatery_span_pageNum").text());
         pageNum += changePage;
         $("#商家管理").load("/admin/eatery.html", data = {
@@ -100,9 +100,9 @@
     }
 
 
-    function onAdd(a) {
-        $("#user_modal_div").load("/admin/user/updata?userId=" + a, function () {
-            $("#user_modal_div").find("#addModal").modal({keyboard: true});
+    function eatery_onAdd(a) {
+        $("#eatery_modal_div").load("/admin/eatery/add.html?eateryid="+a, function () {
+            $("#eatery_modal_div").find("#addModal").modal({keyboard: true});
         });
 
     }

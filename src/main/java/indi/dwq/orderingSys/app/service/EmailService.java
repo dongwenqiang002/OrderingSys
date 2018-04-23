@@ -86,8 +86,8 @@ public class EmailService {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(emailUsername);
             message.setTo(mailAddress); //目标地址
-            message.setSubject("重置密码");
-            message.setText("您当前在执行找回操作," +
+            message.setSubject("修改密码验证码");
+            message.setText("您当前在执行修改操作," +
                     "您的验证码是 " + code + "\n" +
                     "请尽快完使用,谢谢!");
             mailSender.send(message);

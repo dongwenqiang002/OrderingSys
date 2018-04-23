@@ -34,7 +34,7 @@
    ON a.user_id=b.user_id AND a.time=b.time AND TYPE=#{type} ORDER BY a.user_id
   </select>
     <select id="getAll"  resultMap="BaseResultMap">
-        SELECT * FROM  user_log_info
+        SELECT * FROM  user_log_info ORDER BY time desc
     </select>
 
 

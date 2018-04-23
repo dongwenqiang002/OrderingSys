@@ -28,19 +28,23 @@ public class MapController {
 
     /**
      * 省市区街道四级联动
+     *
      * @param name 当前地区名， 可以是 省，市，区，县
-     * @return  返回下一级列表
-     * */
+     * @return 返回下一级列表
+     */
     @GetMapping("/sele")
-    public List name(String name , HttpServletResponse response){
+    public List name(String name, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         List list = mapService.name(name);
         return list;
     }
 
+    /**
+     * 地区模糊搜索
+     */
     @GetMapping("/likeName")
-    public List likeName(String name , HttpServletResponse response){
+    public List likeName(String name, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         List list = mapService.likeName(name);
@@ -49,7 +53,7 @@ public class MapController {
     }
 
     @GetMapping("/findName")
-    public List findName(String name){
+    public List findName(String name) {
 
         return mapService.findName(name);
     }
