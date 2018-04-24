@@ -24,7 +24,8 @@
         where user_id = #{userId,jdbcType=INTEGER}
     </select>
     <select id="selectLastTimeByUserId" resultMap="BaseResultMap">
-        SELECT<include refid="Base_Column_List"/>
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM user_log_info WHERE user_id = #{userId} AND TYPE=#{type} ORDER BY TIME DESC LIMIT 1
     </select>
 
@@ -33,10 +34,35 @@
    (SELECT user_id,MAX(TIME) TIME FROM user_log_info WHERE  TYPE=#{type} GROUP BY user_id)b
    ON a.user_id=b.user_id AND a.time=b.time AND TYPE=#{type} ORDER BY a.user_id
   </select>
-    <select id="getAll"  resultMap="BaseResultMap">
+    <select id="getAll" resultMap="BaseResultMap">
         SELECT * FROM  user_log_info ORDER BY time desc
     </select>
-
+    <!--name,  username,  userId,  startTime,endTime-->
+    <select id="getUserLogAll" resultMap="BaseResultMap">
+        SELECT * FROM user_log_info
+        <where>
+            <if test="name != null">
+                and user_id in (select id from user where detail_id in (select id from user_detail where name like
+                CONCAT(#{name}, '%')))
+            </if>
+            <if test="username != null">
+                and user_id in (select id from user where username like CONCAT(#{username}, '%'))
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="userId != null">
+                and user_id like CONCAT(#{userId}, '%')
+            </if>
+            <if test="startTime != null">
+                and time &gt; #{startTime}
+            </if>
+            <if test="endTime != null">
+                and time &lt;= #{endTime}
+            </if>
+        </where>
+        ORDER BY time desc
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_log_info

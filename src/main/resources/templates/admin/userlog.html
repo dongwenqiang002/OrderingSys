@@ -20,18 +20,18 @@
                     </div>
                     <div class="form-group">
                         <span>用户名ID : </span>
-                        <input type="text" name="userId"  class="form-control">
-                        <script> $("input[name='userId']").keyup(function(){
-                            var c=$(this);
-                            if(/[^\d]/.test(c.val())){
-                                var temp_amount=c.val().replace(/[^\d]/g,'');
+                        <input type="text" name="userId" class="form-control">
+                        <script> $("input[name='userId']").keyup(function () {
+                            var c = $(this);
+                            if (/[^\d]/.test(c.val())) {
+                                var temp_amount = c.val().replace(/[^\d]/g, '');
                                 $(this).val(temp_amount);
                             }
                         })  </script>
                     </div>
                     <div class="form-group">
                         <span>操作类型 : </span>
-                        <select  class="form-control" name="type">
+                        <select class="form-control" name="type">
                             <option>所有</option>
                             <option>登录</option>
                             <option>退出</option>
@@ -41,21 +41,21 @@
                     </div>
                     <div class="form-group">
                         <span>时间 : </span>
-                        <input type="datetime-local" name="startTime" class="form-control" >至
-                        <input type="datetime-local" name="endTime"  class="form-control">
+                        <input type="datetime-local" name="startTime" class="form-control">至
+                        <input type="datetime-local" name="endTime" class="form-control">
                         <script>
                             $(function () {
-                                var date  = new Date();
-                                date.setMonth(date.getMonth()-1);
+                                var date = new Date();
+                                date.setMonth(date.getMonth() - 1);
                                 $("input[name='startTime']").val(date.Format("yyyy-MM-ddTHH:mm"));
                                 $("input[name='endTime']").val(new Date().Format("yyyy-MM-ddTHH:mm"));
                             });
-                           </script>
+                        </script>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px">
+                    <button type="button" class="btn  btn-default btn-md" onclick="userlog_pageChange(0)" style="margin-left: 30px">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
-                </form >
+                </form>
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
 
@@ -82,7 +82,7 @@
                 <td th:text="${userlog.userId}">12</td>
                 <td id="user_log_name"></td>
                 <td id="user_log_userName"></td>
-                <td th:text="${#dates.format(userlog.time,'MM月dd日HH时mm分')}">2017/05/03 15:54</td>
+                <td th:text="${#dates.format(userlog.time,'yyyy年 MM月dd日HH时mm分')}">2017/05/03 15:54</td>
                 <td th:text="${userlog.type}">登录</td>
             </tr>
 
@@ -106,42 +106,46 @@
                     </div>
                 </td>
             </tr>
+            <script>$(function () {
+                $("#userlog_main_context table > tbody >tr").each(function () {
+                    var id = $(this).children("td:eq(0)").text();
+                    var tr = $(this);
+                    $.get("/admin/user/find?userId=" + id, function (result) {
+                        $(tr).find("#user_log_name").html(result.name);
+                        $(tr).find("#user_log_userName").html(result.username);
+                    });
+
+                })
+            })</script>
             </tfoot>
         </table>
 
     </div>
 </div>
 <script>
-    function reLoadTable(sele) {
-        var pageNum = parseInt($("#userlog_span_pageNum").text());
-        $("#用户日志").load("/admin/userlog.html", data = {
-            //isSubPage: true,
-            //sortName: sortName,
-            pageNum: pageNum
-        });
-    }
+
 
     function userlog_pageChange(changePage) {
         var pageNum = parseInt($("#userlog_span_pageNum").text());
         pageNum += changePage;
-        $("#用户日志").load("/admin/userlog.html", data = {
-            pageNum: pageNum
-        });
+        var name  = $("form input[name='name']").val();
+        var username  = $("form input[name='username']").val();
+        var userId  = $("form input[name='userId']").val();
+        var startTime  = $("form input[name='startTime']").val();
+        var endTime  = $("form input[name='endTime']").val();
+        var type  = $("form select[name='type']").val();
+            $("#userlog_main_context").load("/admin/userlogSelect.html", data = {
+                name:name,
+                username:username,
+                userId:userId,
+                type:type,
+                startTime:startTime,
+                endTime:endTime,
+                pageNum: pageNum
+            });
     }
 
-    $(function () {
-        $("#userlog_main_context table > tbody >tr").each(function () {
-            var id = $(this).children("td:eq(0)").text();
-            var tr = $(this);
-            $.get("/admin/user/find?userId=" + id, function (result) {
-                $(tr).find("#user_log_name").html(result.name);
-                $(tr).find("#user_log_userName").html(result.username);
-            });
 
-            //user_log_name">王大
-            //user_log_userName
-        })
-    })
 
 
 </script>
