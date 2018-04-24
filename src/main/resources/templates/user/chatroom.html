@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal fade" id="chatRoom_modal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/chatroom.css}"/>
+    <script th:src="@{/js/sockjs.min.js}"></script>
+    <script th:src="@{/js/stomp.min.js}"></script>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">聊天室</h4>
+            </div>
+
+
+            <div id="convo" data-from="Sonu Joshi" style="background: -webkit-linear-gradient(-45deg, #183850 0, #183850 25%, #192c46 50%, #22254c 75%, #22254c 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;">
+                <ul class="chat-thread">
+                    <li class="other"><span>王大锤：</span>你好</li>
+                    <li class="my">我很好<span style="float: right">：胡汉三</span></li>
+                    <li class="my">你是谁ayya啊大大阿斯U盾哈速度阿斯顿还我暗杀骚的骄傲温度计为放假违法方季惟付金额为<span style="float: right">：胡汉三</span></li>
+                    <li class="other"><span>王大锤：</span>我不知道adasdasdasdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</li>
+
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="endMessage()">发送</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var sock = new SockJS('/chatRoom');
+        stompClient = Stomp.over(sock);//使用STMOP子协议的WebSocket客户端
+
+        stompClient.connect({}, function (frame) {//连接WebSocket服务端
+
+            //通过stompClient.subscribe订阅/topic/getResponse 目标(destination)发送的消息,这个是在控制器的@SentTo中定义的
+            stompClient.subscribe('/topic/getResponse', function (response) {
+                console.log(JSON.parse(response.body));
+            });
+        });
+
+        function endMessage() {
+            stompClient.send("/welcome", {}, JSON.stringify({'content': "娃哈哈哈哈"}));
+        }
+
+        /*function showResponse(message){
+            var response = $("#response");
+            response.html(message);
+        }*/
+
+    </script>
+</div>

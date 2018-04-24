@@ -77,6 +77,12 @@
         </dependency>
 
 
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <!--第三方数据源DataSource-->
         <dependency>
             <groupId>com.mchange</groupId>
