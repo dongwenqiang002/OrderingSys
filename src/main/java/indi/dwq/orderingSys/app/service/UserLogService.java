@@ -101,4 +101,11 @@ public class UserLogService {
         List<UserLog> list = userLogMapper.selectByUserId(userId);*/
         return userLogMapper.getAll();
     }
+
+    public List<UserLog> getUserLogList(String name, String username, Integer userId, Date startTime,Date endTime){
+        if()
+
+        return null;
+    }
+
 }

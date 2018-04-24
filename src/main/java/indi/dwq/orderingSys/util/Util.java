@@ -10,7 +10,7 @@ import java.util.Random;
  * @Time 2018/4/23 16:06
  */
 public class Util {
-
+    static Random  random = new Random(System.currentTimeMillis());
     public static String color()
     {
         //红色
@@ -20,7 +20,7 @@ public class Util {
         //蓝色
         String blue;
         //生成随机对象
-        Random random = new Random();
+        //Random random = new Random();
         //生成红色颜色代码
         red = Integer.toHexString(random.nextInt(256)).toUpperCase();
         //生成绿色颜色代码

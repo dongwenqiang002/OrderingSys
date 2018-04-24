@@ -119,7 +119,7 @@ public class EmailService {
 
     }
 
-    public static String randStr(int len) {
+    private static String randStr(int len) {
         int[] radi = {10, 25, 25};
         char[] radc = {'0', 'a', 'A'};
         StringBuilder code = new StringBuilder();

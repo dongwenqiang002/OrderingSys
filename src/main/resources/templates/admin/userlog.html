@@ -10,8 +10,52 @@
         <div class="container-fluid">
             <div>
                 <form class="navbar-form navbar-left" role="search">
-
-                </form>
+                    <div class="form-group">
+                        <span>姓名 : </span>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <span>用户名 : </span>
+                        <input type="text" name="username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <span>用户名ID : </span>
+                        <input type="text" name="userId"  class="form-control">
+                        <script> $("input[name='userId']").keyup(function(){
+                            var c=$(this);
+                            if(/[^\d]/.test(c.val())){
+                                var temp_amount=c.val().replace(/[^\d]/g,'');
+                                $(this).val(temp_amount);
+                            }
+                        })  </script>
+                    </div>
+                    <div class="form-group">
+                        <span>操作类型 : </span>
+                        <select  class="form-control" name="type">
+                            <option>所有</option>
+                            <option>登录</option>
+                            <option>退出</option>
+                            <option>注册</option>
+                            <option>修改密码</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <span>时间 : </span>
+                        <input type="datetime-local" name="startTime" class="form-control" >至
+                        <input type="datetime-local" name="endTime"  class="form-control">
+                        <script>
+                            $(function () {
+                                var date  = new Date();
+                                date.setMonth(date.getMonth()-1);
+                                $("input[name='startTime']").val(date.Format("yyyy-MM-ddTHH:mm"));
+                                $("input[name='endTime']").val(new Date().Format("yyyy-MM-ddTHH:mm"));
+                            });
+                           </script>
+                    </div>
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px">
+                        <i class="glyphicon glyphicon-search"></i>查询
+                    </button>
+                </form >
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
 

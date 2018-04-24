@@ -17,6 +17,7 @@ import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,7 +86,17 @@ public class AdminController {
     public ModelAndView userLog(String pageNum) {
         ModelAndView mv = new ModelAndView("/admin/userlog");
         PageUtil.paging("userlogList", mv, 13, pageNum, () -> userLogService.getAll());
-        //PageUtil.paging("userList",mv,5,pageNum,()->userService.getAll());
+
+        return mv;
+    }
+    /**
+     * 用户日志页面附带查询条件
+     */
+    @RequestMapping("/userlogSelect.html")
+    public ModelAndView userLogSelect(String name, String username, Integer userId, Date startTime,Date endTime ,String pageNum) {
+        ModelAndView mv = new ModelAndView("/admin/userlog ::#userlog_main_context");
+        PageUtil.paging("userlogList", mv, 13, pageNum, () -> userLogService.getAll());
+
         return mv;
     }
 
