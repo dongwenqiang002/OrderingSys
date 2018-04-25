@@ -33,7 +33,7 @@ public class AdminEateryController {
      */
     @GetMapping("/add.html")
     public ModelAndView addorupdateEatery(Integer eateryid) {
-        LOGGER.info("eateryid: {}",eateryid);
+        LOGGER.info("eateryid: {}", eateryid);
 
         ModelAndView mv = new ModelAndView("/admin/eateryAddModal");
         if (eateryid == null || eateryid == 0) {
@@ -46,18 +46,21 @@ public class AdminEateryController {
         return mv;
     }
 
+    /**
+     * 更新商家
+     */
     @PostMapping("/update")
     @ResponseBody
     public boolean updateOrAddEatery(Eatery eatery, MultipartFile pic) {
         LOGGER.info(eatery.toString());
         if (pic != null) {
             String imgUrl = fileService.uploadImg(pic);
-            if(imgUrl!=null)eatery.setImgUrl(imgUrl);
+            if (imgUrl != null) eatery.setImgUrl(imgUrl);
         }
-        if(eatery!=null && eatery.getId()!=0){
-            return  eateryService.updateEatery(eatery);
-        }else{
-            return  eateryService.addEatery(eatery);
+        if (eatery != null && eatery.getId() != 0) {
+            return eateryService.updateEatery(eatery);
+        } else {
+            return eateryService.addEatery(eatery);
         }
     }
 

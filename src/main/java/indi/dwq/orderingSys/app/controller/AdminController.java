@@ -96,13 +96,10 @@ public class AdminController {
     @RequestMapping("/userlogSelect.html")
     public ModelAndView userLogSelect(String name, String username, Integer userId, String type, String startTime, String endTime, String pageNum) {
         ModelAndView mv = new ModelAndView("/admin/userlog ::#main_table");
-        LOGGER.info("name: {}", name);
-        LOGGER.info("username: {}", username);
-        LOGGER.info("type: {}", type);
-        LOGGER.info("userId: {}", userId);
-        LOGGER.info("startTime: {}", startTime);
-        LOGGER.info("endTime: {}", endTime);
-        PageUtil.paging("userlogList", mv, 13, pageNum, () -> userLogService.getUserLogList(name, username, type, userId, startTime, endTime));
+        LOGGER.info("name: {} , username: {} , type: {} , userId: {} , startTime: {} , endTime: {}",
+                name, username, type, userId, startTime, endTime);
+        PageUtil.paging("userlogList", mv, 13, pageNum,
+                () -> userLogService.getUserLogList(name, username, type, userId, startTime, endTime));
 
         return mv;
     }

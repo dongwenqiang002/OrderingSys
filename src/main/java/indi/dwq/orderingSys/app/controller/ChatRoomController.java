@@ -41,7 +41,6 @@ public class ChatRoomController {
         return map;
     }
 
-
     @MessageMapping("/welcome") //当浏览器向服务端发送请求时,通过@MessageMapping映射/welcome这个地址,类似于@ResponseMapping
     @SendTo("/topic/getResponse")//当服务器有消息时,会对订阅了@SendTo中的路径的浏览器发送消息
     public Message say(String content,@Header UsernamePasswordAuthenticationToken simpUser) {
