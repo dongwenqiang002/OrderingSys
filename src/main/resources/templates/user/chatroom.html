@@ -15,41 +15,72 @@
             <div id="convo" data-from="Sonu Joshi" style="background: -webkit-linear-gradient(-45deg, #183850 0, #183850 25%, #192c46 50%, #22254c 75%, #22254c 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;">
-                <ul class="chat-thread">
-                    <li class="other"><span>王大锤：</span>你好</li>
-                    <li class="my">我很好<span style="float: right">：胡汉三</span></li>
-                    <li class="my">你是谁ayya啊大大阿斯U盾哈速度阿斯顿还我暗杀骚的骄傲温度计为放假违法方季惟付金额为<span style="float: right">：胡汉三</span></li>
-                    <li class="other"><span>王大锤：</span>我不知道adasdasdasdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</li>
+                <ul class="chat-thread" id="user_chatRom_ul">
+
 
                 </ul>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="endMessage()">发送</button>
+                <textarea id="chatroom_content" rows="3" class="pull-left" style="width: 75%"></textarea>
+                <button type="button" class="btn btn-lg btn-primary" onclick="endMessage()">发送</button>
             </div>
         </div>
     </div>
     <script>
+        var thisName = "未知";
+        $.get("/chatroom",{dataType: "json"},function (data) {
+            thisName = data.userName;
+            $.each(data.message,function (i) {
+                showMessage(data.message[i]);
+            });
+            $("#user_chatRom_ul").scrollTop($("#user_chatRom_ul")[0].scrollHeight);
+        });
 
         var sock = new SockJS('/chatRoom');
         stompClient = Stomp.over(sock);//使用STMOP子协议的WebSocket客户端
 
         stompClient.connect({}, function (frame) {//连接WebSocket服务端
-
             //通过stompClient.subscribe订阅/topic/getResponse 目标(destination)发送的消息,这个是在控制器的@SentTo中定义的
             stompClient.subscribe('/topic/getResponse', function (response) {
-                console.log(JSON.parse(response.body));
+                showMessage(JSON.parse(response.body));
             });
         });
 
         function endMessage() {
-            stompClient.send("/welcome", {}, JSON.stringify({'content': "娃哈哈哈哈"}));
+            var content = $("#chatroom_content").val();
+            stompClient.send("/welcome", {},  content);
+            $("#chatroom_content").val("");
         }
 
-        /*function showResponse(message){
-            var response = $("#response");
-            response.html(message);
-        }*/
+        function showMessage(message) {
+            console.log(message);
+            var li = $("<li ></li>");
+            $(li).append(message.content);
+            if(thisName === message.userName){
+                $(li).addClass("my");
+                $(li).append("<span class='username' style='float: right'>  :"+message.userName+"</span>");
+            }else {
+                $(li).addClass("other");
+                $(li).prepend("<span class='username' style='float: left'>"+message.userName+":  </span>");
+            }
+            $("#user_chatRom_ul").append(li);
+            $("#user_chatRom_ul").scrollTop($("#user_chatRom_ul")[0].scrollHeight);
+        }
 
+        document.onkeydown = function (e) {
+            var theEvent = window.event || e;
+            var code = theEvent.keyCode || theEvent.which;
+            if (code == 13) {
+                endMessage();
+            }
+        }
+        document.onkeyup = function (e) {
+            var theEvent = window.event || e;
+            var code = theEvent.keyCode || theEvent.which;
+            if (code == 13) {
+                $("#chatroom_content").val("");
+            }
+        }
     </script>
 </div>

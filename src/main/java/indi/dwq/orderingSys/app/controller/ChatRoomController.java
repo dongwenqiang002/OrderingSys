@@ -1,22 +1,23 @@
 package indi.dwq.orderingSys.app.controller;
 
+import indi.dwq.orderingSys.app.service.ChatRoomService;
 import indi.dwq.orderingSys.data.pojo.Message;
 import indi.dwq.orderingSys.data.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +28,18 @@ import java.util.Map;
 public class ChatRoomController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatRoomController.class);
 
+    @Autowired
+    private ChatRoomService chatRoomService;
 
+
+    @RequestMapping("/chatroom")
+    @ResponseBody
+    public Map getTodayMessage(HttpSession session){
+        Map map = new HashMap();
+        map.put("message",chatRoomService.getTodyMessage());
+        map.put("userName",((User)session.getAttribute("user")).getUsername());
+        return map;
+    }
 
 
     @MessageMapping("/welcome") //当浏览器向服务端发送请求时,通过@MessageMapping映射/welcome这个地址,类似于@ResponseMapping
@@ -36,15 +48,12 @@ public class ChatRoomController {
 
         User user = (User)simpUser.getPrincipal();
 
-        LOGGER.info("content: ",content);
-        LOGGER.info("username: ",user.getUsername());
         Message message = new Message();
         message.setContent(content);
-        message.setTime(new Date());
         message.setUserName(user.getUsername());
         LOGGER.info(message.toString());
 
-        return message;
+        return chatRoomService.sendMessage(message);
     }
 
 
