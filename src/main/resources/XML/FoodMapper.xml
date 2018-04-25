@@ -143,7 +143,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateFoodImg" >
+    <update id="updateFoodImg">
         update food
         set img = #{img,jdbcType=VARCHAR}
         where id = #{foodId,jdbcType=INTEGER}

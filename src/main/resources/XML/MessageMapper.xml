@@ -16,6 +16,7 @@
      user_id, send_time, content
   </sql>
     <select id="aaaaa" resultType="string">SELECT username	FROM USER WHERE id = #{user_id}</select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
