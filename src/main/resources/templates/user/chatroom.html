@@ -59,10 +59,10 @@
             $(li).append(message.content);
             if(thisName === message.userName){
                 $(li).addClass("my");
-                $(li).append("<span class='username' style='float: right'>  :"+message.userName+"</span>");
+                $(li).append("<span class='username' style='float: right'>&nbsp;&nbsp;:&nbsp;"+message.userName+"</span>");
             }else {
                 $(li).addClass("other");
-                $(li).prepend("<span class='username' style='float: left'>"+message.userName+":  </span>");
+                $(li).prepend("<span class='username' style='float: left'>"+message.userName+"&nbsp;:&nbsp;&nbsp;</span>");
             }
             $("#user_chatRom_ul").append(li);
             $("#user_chatRom_ul").scrollTop($("#user_chatRom_ul")[0].scrollHeight);
