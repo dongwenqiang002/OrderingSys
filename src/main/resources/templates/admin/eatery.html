@@ -43,7 +43,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="eatery : ${eateryList}">
+            <tr  th:each="eatery : ${eateryList}">
                 <td class="thumbnail"> <img class="img-responsive center-block" width="70px" height="70px" th:src="${'/file/img/'+eatery.imgUrl}"></td>
                 <td th:text="${eatery.id}">12</td>
                 <td th:text="${eatery.eaterName}">海底捞</td>

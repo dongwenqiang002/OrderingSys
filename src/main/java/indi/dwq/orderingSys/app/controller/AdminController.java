@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.DateUtils;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,7 +53,8 @@ public class AdminController {
      * 管理员首页
      */
     @GetMapping("/home.html")
-    public ModelAndView home(HttpSession session) {
+    public ModelAndView home(HttpSession session, HttpServletRequest request) throws ServletException {
+        request.login("aa","aa");
         User user = (User) session.getAttribute("user");
         ModelAndView mv = new ModelAndView("/admin/home");
         mv.addObject("userLog", userLogService.getLastLogin(user.getId()));

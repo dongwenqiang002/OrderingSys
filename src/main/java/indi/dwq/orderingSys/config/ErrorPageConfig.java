@@ -26,9 +26,9 @@ import java.util.TreeSet;
 public class ErrorPageConfig implements ErrorController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ErrorPageConfig.class);
 
-
     private static final String ERROR_PATH = "/error";
     private Set<String> errorName = null;
+
 
     @PostConstruct
     public void initError() {
