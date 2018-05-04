@@ -86,12 +86,39 @@ public class FileService {
             g.setColor(c);
             g.drawLine(r.nextInt(width), r.nextInt(height), r.nextInt(width), r.nextInt(height));
         }
-
         g.dispose();//类似于流中的close()带动flush()---把数据刷到img对象当中
         //ImageIO.write(img, "JPG", new FileOutputStream("img/b.jpg"));
         //return img;
         return code;
     }
 
+    /**
+     * 生成验证码图片文件
+     */
+    public BufferedImage randomImg() {
+        int width = 80;
+        int height = 40;
+        String code = "";
+        BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
+        Graphics g = img.getGraphics();
+
+        //设置背景色
+        g.setColor(Color.white);
+        g.fillRect(0, 0, width, height);//画背景
+        //填充指定的矩形。使用图形上下文的当前颜色填充该矩形
+
+        //设置字体
+        g.setFont(new Font("黑体", Font.BOLD, 18));
+
+        int y = 25; //10~30范围内的一个整数，作为y坐标
+        Color c = new Color(115, 115, 115);
+        g.setColor(c);
+        g.drawString("图片找不到啦", 5 + width, y);
+
+        g.dispose();//类似于流中的close()带动flush()---把数据刷到img对象当中
+        //ImageIO.write(img, "JPG", new FileOutputStream("img/b.jpg"));
+        //return img;
+        return img;
+    }
 }

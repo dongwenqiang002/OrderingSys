@@ -48,7 +48,6 @@ public class FileController {
         response.setContentType("image/" + type);
         OutputStream os = response.getOutputStream();
         ImageIO.write(image, type, os);
-
     }
 
 
