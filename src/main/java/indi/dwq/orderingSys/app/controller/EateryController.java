@@ -48,8 +48,8 @@ public class EateryController {
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("/eatery/index");
-
         // mv.addObject();
+
         return mv;
     }
 

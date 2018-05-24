@@ -12,6 +12,9 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 public class WebApplication {
 
     public static void main(String[] args) {
+
+
+        //org.springframework.util.SocketUtils.findAvailableTcpPort(8888);
         SpringApplication.run(WebApplication.class, args);
     }
 }

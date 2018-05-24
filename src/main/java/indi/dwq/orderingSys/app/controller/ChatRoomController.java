@@ -66,11 +66,6 @@ public class ChatRoomController {
     public Message say(String content, @Header UsernamePasswordAuthenticationToken simpUser) {
 
         User user = (User) simpUser.getPrincipal();
-        WebSocketSession s;
-        //s.getPrincipal().
-//        HttpServletRequest request;request.getUserPrincipal()
-//        s.sendMessage(aa);
-//        s.sendMessage(new TextMessage());
         Message message = new Message();
         message.setContent(content);
         message.setUserName(user.getUsername());

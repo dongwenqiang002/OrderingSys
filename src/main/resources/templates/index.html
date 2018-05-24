@@ -43,7 +43,7 @@
                         </li>
                         <li th:if="${session.user == null}"><a data-toggle="modal" href="#loginModal">登录</a></li>
                         <li th:if="${session.user == null}"><a th:href="@{/register.html}">注册</a></li>
-                        <li th:if="${session.user != null}"><a  data-toggle="modal" href="#chatRoom_modal">聊天室</a>
+                      <!--  <li th:if="${session.user != null}"><a  data-toggle="modal" href="#chatRoom_modal">聊天室</a>-->
 
                         </li>
                     </ul>

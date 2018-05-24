@@ -49,7 +49,7 @@
 
         function endMessage() {
             var content = $("#chatroom_content").val();
-            stompClient.send("/welcome", {},  content);
+            stompClient.send("/topic/welcome", {},  content);
             $("#chatroom_content").val("");
         }
 
