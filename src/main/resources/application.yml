@@ -43,7 +43,7 @@ mydata:
   driver-class-name: com.mysql.jdbc.Driver
   mapper-path: classpath*:/XML/*.xml
 #文件上传下载路径
-file.dir: E:/Desktop/peoject/OrderingSys/file
+file.dir: D:\Desktop\PROJECT\OrderingSys\file
 #SQL执行日志
 logging.level.indi.dwq.orderingSys.data.dao: debug
 
