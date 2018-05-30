@@ -41,7 +41,7 @@ public class AdminFilter implements Filter {
         }catch (Exception e){
             LOGGER.error("管理员验证ERROR!");
             LOGGER.error(e.getMessage());
-            ((HttpServletResponse) response).sendError(403);
+            ((HttpServletResponse) response).sendError(444);
             return;
         }
         LOGGER.error("无权限!");

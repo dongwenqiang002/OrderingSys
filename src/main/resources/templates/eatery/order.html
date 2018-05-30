@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <style>
     .main_table {
@@ -87,20 +87,20 @@
     <div class="text-right">
 
         <ul class="pager " style="text-align: right">
-            <li><a href="javascript:pageChange(-999);"> <span
+            <li><a href="javascript:d_pageChange(-999);"> <span
                     class="glyphicon glyphicon-fast-backward"></span></a></li>
-            <li><a href="javascript:pageChange(-1);"><span
+            <li><a href="javascript:d_pageChange(-1);"><span
                     class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
             <li>当前第<span id="span_pageNum" th:text="${pageNum}">1</span>页</li>
-            <li><a href="javascript:pageChange(1);"><span
+            <li><a href="javascript:d_pageChange(1);"><span
                     class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-            <li><a href="javascript:pageChange(999);"> <span
+            <li><a href="javascript:d_pageChange(999);"> <span
                     class="glyphicon glyphicon-fast-forward"></span></a></li>
         </ul>
     </div>
 </div>
 <script>
-    function pageChange(changePage) {
+    function d_pageChange(changePage) {
         var pageNum = parseInt($("#span_pageNum").text());
         pageNum += changePage;
         $("#订单管理").load("/eatery/order.html", data = {

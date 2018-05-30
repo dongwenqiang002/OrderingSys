@@ -8,6 +8,7 @@ import indi.dwq.orderingSys.util.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,7 +40,6 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在");
         }
         return user;
-
     }
 
     public List<Map<String, Object>> getAll() {
@@ -85,6 +85,7 @@ public class UserService implements UserDetailsService {
     public User register(User user, UserDetail detail) throws Exception {
 
         if (user.getPassword() == null || user.getPassword().isEmpty()) throw new Exception("密码为!");
+        user.setPassword(MD5Util.MD5(user.getPassword()));
         if (user.getUsername() == null || user.getUsername().isEmpty()) throw new Exception("用户名为空!");
 
         if (detail.getAddress() == null || user.getPassword().isEmpty()) throw new Exception("地址为空!");

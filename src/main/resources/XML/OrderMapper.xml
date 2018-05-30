@@ -4,15 +4,14 @@
     <resultMap id="BaseResultMap" type="indi.dwq.orderingSys.data.pojo.Order">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="to_time"  property="time"/>
+        <result column="to_time" property="time"/>
         <result column="ps" jdbcType="VARCHAR" property="ps"/>
         <result column="price" jdbcType="DOUBLE" property="price"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
-        <collection property="foods" column="id"  ofType="list"
-                     select="indi.dwq.orderingSys.data.dao.FoodMapper.selectFoodSalesByOrderID" />
+        <collection property="foods" column="id" ofType="list"
+                    select="indi.dwq.orderingSys.data.dao.FoodMapper.selectFoodSalesByOrderID"/>
 
     </resultMap>
-
 
 
     <sql id="Base_Column_List">
@@ -56,19 +55,24 @@
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{time},
       #{ps,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},1)
   </insert>
-    <insert id="insertOrderFood" parameterType="java.util.Map" >
+    <insert id="insertOrderFood" parameterType="java.util.Map">
         insert into food_sales(food_id,count,price,order_id) VALUES
         (#{orderFood.foodid},#{orderFood.count},#{price},#{orderId})
     </insert>
-    <insert id="insertOrder" keyProperty="id" useGeneratedKeys="true"  parameterType="indi.dwq.orderingSys.data.pojo.Order">
+    <insert id="insertOrder" keyProperty="id" useGeneratedKeys="true"
+            parameterType="indi.dwq.orderingSys.data.pojo.Order">
         insert into food_order (user_id,to_time,
-        <trim ><if test="ps != null"> ps,</if></trim>
+        <trim>
+            <if test="ps != null">ps,</if>
+        </trim>
         price) values (#{userId,jdbcType=INTEGER},
         #{time},
-        <trim ><if test="ps != null">#{ps,jdbcType=VARCHAR},</if></trim>
+        <trim>
+            <if test="ps != null">#{ps,jdbcType=VARCHAR},</if>
+        </trim>
         #{price,jdbcType=DOUBLE})
     </insert>
-    <update id="setOrderPrice" >
+    <update id="setOrderPrice">
         update food_order  set price = #{price}  where id = #{id}
     </update>
 

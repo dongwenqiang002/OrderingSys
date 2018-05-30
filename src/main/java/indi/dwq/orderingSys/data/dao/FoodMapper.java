@@ -36,4 +36,6 @@ public interface FoodMapper {
     Integer selectCountByFoodId(Integer foodId);
 
     Order selectonOKWayByUserid(Integer userId);
+
+    List<Order.OrderFood> getFoodInfo(@Param("eateryId") Integer eateryId, @Param("sortName") String sortName);
 }

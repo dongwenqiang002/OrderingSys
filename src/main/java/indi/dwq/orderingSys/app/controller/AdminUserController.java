@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 /**
  * @author 董文强
  * @Time 2018/4/17 13:59
@@ -28,6 +30,13 @@ public class AdminUserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/find")
+    @ResponseBody
+    public Map findUser(Integer userId) {
+        LOGGER.info("用户ID:{}", userId);
+        Map user = userService.getUser(userId);
+        return user;
+    }
 
     @GetMapping("/updata")
     public ModelAndView updataUser(Integer userId) {

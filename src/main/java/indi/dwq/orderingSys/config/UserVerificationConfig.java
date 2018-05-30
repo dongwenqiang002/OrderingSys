@@ -3,10 +3,12 @@ package indi.dwq.orderingSys.config;
 
 import indi.dwq.orderingSys.app.service.UserService;
 import indi.dwq.orderingSys.util.MD5Util;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -35,9 +37,11 @@ public class UserVerificationConfig implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        LOGGER.info("MD5登录");
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
         UserDetails userDetials;
+
         try {
             userDetials = userService.loadUserByUsername(username);
         }catch (UsernameNotFoundException e){
@@ -59,6 +63,7 @@ public class UserVerificationConfig implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> arg0) {
+        LOGGER.error(arg0.getName());
         return true;
     }
 

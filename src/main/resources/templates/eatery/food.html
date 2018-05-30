@@ -56,17 +56,17 @@
             </thead>
             <tbody>
             <tr th:each="food : ${foodList}">
-                <td class="thumbnail"><img th:src="${'/file/img/'+food.img}"
-                                           alt="通用的占位符缩略图"></td>
+                <td class="thumbnail"><img class="img-responsive center-block" width="70px" height="70px" th:src="${'/file/img/'+food.img}"></td>
                 <td th:text="${food.id}">00001111</td>
                 <td th:text="${food.name}">米饭</td>
                 <td th:text="${food.price}+'元'">一元</td>
                 <td></td>
-                <td th:text="${food.des}">巨难吃</td>
+
                 <td>
                     <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
                     <button class="btn btn-xs btn-waring" th:onclick="'onUpdate('+${food.id}+')'">修改</button>
                 </td>
+                <td th:text="${food.des}">巨难吃</td>
             </tr>
 
             </tbody>
@@ -79,7 +79,7 @@
                 });
             }); </script>
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <div class="text-center">
 
                         <ul class="pager " style="text-align: right">
@@ -132,9 +132,8 @@
     }
 
     function onUpdate(id) {
-        $("#food_addmodal_div").load("/eatery/foodAdd.html", function () {
-
-            pageChange(0);
+        $("#food_addmodal_div").load("/eatery/foodUpdata.html?foodid="+id, function () {
+            $("#food_addmodal_div").find("#foodUpdateModal").modal({keyboard: true});
         })
     }
 

@@ -3,6 +3,7 @@ package indi.dwq.orderingSys.app.service;
 
 import indi.dwq.orderingSys.data.dao.FoodMapper;
 import indi.dwq.orderingSys.data.pojo.Food;
+import indi.dwq.orderingSys.data.pojo.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,19 @@ public class FoodService {
                 return true;
         }
         return false;
+    }
+
+    public List<Order.OrderFood> getFoodInfo(Integer eateryId,String sortName){
+        if (sortName.equals("count") || sortName.equals("销量")) {
+            return foodMapper.getFoodInfo(eateryId, "count");
+        }else {
+            return null;
+        }
+    }
+
+    public boolean update(Food food) {
+        if(food.getId()==null)return false;
+        return foodMapper.updateByPrimaryKeySelective(food)==1;
     }
 }
 

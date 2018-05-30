@@ -11,32 +11,42 @@
 
     <sql id="Base_Column_List">
     <![CDATA[
+
          id, detail_id,username, password ,role
+
         ]]>
   </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
        <![CDATA[
+
          select *  from user where id = #{id,jdbcType=INTEGER}
+
         ]]>
     </select>
     <select id="findByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
         <![CDATA[
+
          SELECT *
         FROM USER  WHERE username = #{username} and state=1
+
         ]]>
     </select>
 
     <select id="All" resultMap="BaseResultMap">
         <![CDATA[
+
          SELECT *
         FROM user WHERE state=1
+
         ]]>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <![CDATA[
+
          delete from user
         where id = #{id,jdbcType=INTEGER}
+
         ]]>
   </delete>
     <insert id="insert" parameterType="indi.dwq.orderingSys.data.pojo.User">
@@ -93,7 +103,7 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <update id="updateStateByUserId" >
+    <update id="updateStateByUserId">
         update user
         set state = #{state}
         where id = #{id,jdbcType=INTEGER}

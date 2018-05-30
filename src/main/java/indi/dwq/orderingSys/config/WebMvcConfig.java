@@ -24,6 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer /*WebMvcConfigurerAdapter*
         {
             put("/login.html", "/user/login");
             put("/", "/index");
+            put("/index", "/index");
             put("/index.html", "/index");
             put("/register.html", "/user/register");
             put("/user/regPassword.html", "/user/regPassword");
@@ -34,7 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer /*WebMvcConfigurerAdapter*
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/userHome.html","/food/lookOrder");
+        registry.addRedirectViewController("/userHome.html","/user/home.html");
         map.forEach((k, v) -> registry.addViewController(k).setViewName(v));
     }
 

@@ -11,6 +11,7 @@ import indi.dwq.orderingSys.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,7 +51,6 @@ public class UserController {
         } catch (Exception e) {
             return "false";
         }
-
         return "true";
 
     }
@@ -63,6 +63,9 @@ public class UserController {
     public String register(User user, UserDetail detail) {
 
         try {
+            LOGGER.info(user.toString());
+            LOGGER.info(detail.toString());
+            user.setRole("普通用户");
             userService.register(user, detail);
         } catch (Exception e) {
             return "注册失败";
@@ -78,6 +81,7 @@ public class UserController {
     @GetMapping("/regCode")
     public boolean regCide(String emailAddress, HttpSession session) {
         String code = emailService.regCode(emailAddress);
+        LOGGER.info("注册验证码: {}",code);
         if (code != null && !code.isEmpty()) {
             session.setAttribute("regcode", code);
             return true;

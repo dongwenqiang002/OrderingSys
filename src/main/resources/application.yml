@@ -5,7 +5,7 @@ server:
     uri-encoding: UTF-8
   servlet:
     session:
-      timeout: 200 #用户回话session过期时间，以秒为单位
+      timeout: 6000 #用户回话session过期时间，以秒为单位
 spring:
   application:
     name: eureka-ording

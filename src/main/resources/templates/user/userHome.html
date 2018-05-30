@@ -34,11 +34,11 @@
                                     <a data-toggle="collapse" data-parent="#onwayOrder"
                                        href="#collapseccc" th:href="${'#collapseO'+i.count}" th:inline="text">
                                         下单时间 [[${#dates.format(order.time, 'yyyy1年MM月dd日
-                                        hh点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
+                                        HH点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseccc" th:id="${'collapseO'+i.count}" class="panel-collapse collapse ">
+                            <div id="collapseyyy" th:id="${'collapseO'+i.count}" class="panel-collapse collapse ">
                                 <div class="panel-body">
                                     <table class="table">
                                         <thead>
@@ -91,7 +91,7 @@
                                         <a data-toggle="collapse" data-parent="#onwayOrder"
                                            href="#collapseABC" th:href="${'#collapse'+i.count}" th:inline="text">
                                             下单时间 [[${#dates.format(order.time, 'yyyy1年MM月dd日
-                                            hh点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
+                                            HH点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
                                         </a>
                                     </h4>
                                 </div>
@@ -134,14 +134,14 @@
             <div class="panel-heading">
                 <h4 class="panel-title ">
                     <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseTwo">
+                       href="#collapseOKOrder">
                         已完成的订单
                     </a>
                 </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
+            <div id="collapseOKOrder" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <div id="Order" class="panel-group " th:if="${OrderList != null}"
+                    <div id="OkOrder" class="panel-group " th:if="${OrderList != null}"
                          th:each="order,i :${OrderList}">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -149,7 +149,7 @@
                                     <a data-toggle="collapse" data-parent="#onwayOrder"
                                        href="#collapseccc" th:href="${'#collapseO'+i.count}" th:inline="text">
                                         下单时间 [[${#dates.format(order.time, 'yyyy1年MM月dd日
-                                        hh点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
+                                        HH点mm分')}]],共[[${order.price}]]元(送餐费3元). (点击查看详细内容)
                                     </a>
                                 </h4>
                             </div>

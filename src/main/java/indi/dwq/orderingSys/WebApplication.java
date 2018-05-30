@@ -6,14 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 @SpringBootApplication
-
 public class WebApplication {
 
     public static void main(String[] args) {
+
+
+        //org.springframework.util.SocketUtils.findAvailableTcpPort(8888);
         SpringApplication.run(WebApplication.class, args);
     }
-
-
 }

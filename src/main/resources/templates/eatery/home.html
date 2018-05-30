@@ -1,23 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
+
 <style>
     .main_table {
         background: whitesmoke;
     }
 </style>
-<div class="main_table">
+<script type="text/javascript" src="/js/pie/pieChart.js"></script>
+<div class="main_table container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <h3 th:inline="text">店铺名称:[[${eatery.eaterName}]]
 
-    <h3 th:inline="text">店铺名称:[[${eatery.eaterName}]]
+            </h3>
+            <h3 th:inline="text">店铺图片<img src="/img/u.png" th:src="'/file/img/'+${eatery.imgUrl}"
+                                          style="width: 100px;height: 100px">
+                <form id="eatery_repic" method="post" enctype="multipart/form-data" action="/eatery/reEateryPic">
+                    <input onchange="reEateryPic()" name="pic" type="file" placeholder="更换店铺图片"/></form>
+            </h3>
+            <h3 th:inline="text">月销量 [[${number}]]单</h3>
+            <h3 th:inline="text">销售额:[[${priceSum}]]元</h3>
 
-    </h3>
-    <h3 th:inline="text">店铺图片<img src="/img/u.png" th:src="'/file/img/'+${eatery.imgUrl}"
-                                  style="width: 100px;height: 100px"> <form id="eatery_repic" method="post" enctype="multipart/form-data" action="/eatery/reEateryPic">
-        <input onchange="reEateryPic()" name="pic" type="file" placeholder="更换店铺图片"/></form></h3>
-    <h3 th:inline="text">月销量 [[${number}]]单</h3>
-    <h3 th:inline="text">销售额:[[${priceSum}]]元</h3>
+            <script>function reEateryPic() {
+                $("#eatery_repic").submit();
 
-    <script>function reEateryPic() {
-        $("#eatery_repic").submit();
+            }</script>
+        </div>
+        <div class="col-md-5">
 
-    }</script>
+            <canvas id="chart" width="600" height="500"></canvas>
+        </div>
+        <div class="col-md-4">
+            <table id="chartData">
+                <thead>
+                <tr>
+                    <th>商品名</th>
+                    <th>销量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:style="${'color:'+T(indi.dwq.orderingSys.util.Util).color()}" th:each="food : ${foodList}">
+                    <td th:text="${food.foodName}">jquery图片特效</td>
+                    <td th:text="${food.count}">162.12</td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
 </div>

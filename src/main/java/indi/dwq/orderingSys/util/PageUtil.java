@@ -50,6 +50,7 @@ public class PageUtil {
         }
     }
 
+
     public static Boolean paging(String resultName, ModelAndView mv, Integer pageSize, String pageNum, SelectList selectList) {
         Integer intPageNum;
         try {
@@ -60,7 +61,12 @@ public class PageUtil {
         return paging(resultName, mv, pageSize, intPageNum, selectList);
     }
 
+
+    @FunctionalInterface
     public interface SelectList {
         List run();
     }
+
+
+
 }

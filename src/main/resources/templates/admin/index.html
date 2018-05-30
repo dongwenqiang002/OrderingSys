@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title>管理员页面</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"  />
-    <script th:src="@{/js/jquery.min.js}" > </script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
     <script th:src="@{/js/jquery.form.js}"></script>
-    <style type="text/css">
-
-    </style>
+    <script th:src="@{/js/date.js}"></script>
 </head>
 <body>
 <div th:include="/index ::#header"></div>
@@ -20,7 +18,7 @@
                 <li>
                     <a href="javascript:void(0);" onclick="onloada('home',this)">
                         <i class="glyphicon glyphicon-home"></i>
-                         首页
+                        首页
                     </a>
                 </li>
                 <li>
@@ -35,13 +33,13 @@
                         商家管理
                     </a>
                 </li>
-                <!--<li>
-                    <a href="javascript:void(0);" onclick="onloada('order',this)">
-                        <i class="glyphicon glyphicon-list"></i>
-                        销售管理
+                <li>
+                    <a href="javascript:void(0);" onclick="onloada('userlog',this)">
+                        <i class="glyphicon glyphicon-user"></i>
+                        用户日志
                     </a>
                 </li>
--->
+
             </ul>
         </div>
         <div class="col-md-10  col-sm-10 col-xs-10" style="height: 100%;padding: 4px;">
@@ -87,7 +85,7 @@
         //添加主体
         var context = $("<div id='" + name + "'></div>");
         //添加主体内容
-        context.load("/admin/"+t+".html");
+        context.load("/admin/" + t + ".html");
         $("#main_context").append(context);
         showTable(name);
     }
@@ -117,5 +115,5 @@
     }
 </script>
 
-<script> onloada('home',$("<a><i class=\"glyphicon glyphicon-home\"></i>首页</a>"))</script>
+<script> onloada('home', $("<a><i class=\"glyphicon glyphicon-home\"></i>首页</a>"))</script>
 </html>

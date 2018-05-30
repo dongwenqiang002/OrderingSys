@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal fade" id="foodUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-info" id="myModalLabel">商品修改</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add_asset_form" class="form-horizontal" action="/food/update" method="post" role="form" >
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">商品名</label>
+                        <div class="col-sm-8">
+                            <input name="name" th:value="${food.name}" type="text" class="form-control"  placeholder="商品名">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">单价</label>
+                        <div class="col-sm-8">
+                            <input name="price" th:value="${food.price}" class="form-control" type="number" placeholder="单价" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-8">
+                            <div class="textarea">
+                                <textarea name="des" th:inline="text" class="form-control"  placeholder="备注"> [[${food.des}]]</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片</label>
+                        <div class="col-sm-8" ><img th:src="'/file/img/'+${food.img}"></div>
+                        <div class="col-sm-offset-2 col-sm-8" >
+                            <input name="pic"  class="form-control" type="file" >
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="add_submit" type="button" class="btn btn-primary">提交更改</button>
+            </div>
+
+            <script>
+                /**
+                 * 异步提交,不刷新页面
+                 * */
+                $("#add_submit").click(function () {
+
+
+                    $("#add_asset_form").ajaxSubmit(function (d) {
+                        alert("添加成功");
+                        $("#foodUpdateModal").modal('hide');
+                        //$("#main_table tbody").html("");
+                        var pageNum = parseInt($("#span_pageNum").text());
+                        var sortName = $("select[name='sort']").val();
+                        console.log(sortName);
+                        $("#food_main_context").load("/eatery/food.html",data={isSubPage:true,sortName:sortName,pageNum:pageNum});
+                    });
+
+                });</script>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
