@@ -10,6 +10,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
 <body>
+<div id="public_modal_div"></div>
 <header id="header">
     <style>body {
         padding-top: 50px;
@@ -31,7 +32,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown" th:if="${session.user != null}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" th:inline="text">
-                                欢迎您( <span href="#"  th:text="${session.user.role}">a</span>)，
+                                欢迎您( <span href="#" th:text="${session.user.role}">a</span>)，
                                 [[${session.user.username}]]<b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
@@ -43,8 +44,6 @@
                         </li>
                         <li th:if="${session.user == null}"><a data-toggle="modal" href="#loginModal">登录</a></li>
                         <li th:if="${session.user == null}"><a th:href="@{/register.html}">注册</a></li>
-                      <!--  <li th:if="${session.user != null}"><a  data-toggle="modal" href="#chatRoom_modal">聊天室</a>-->
-
                         </li>
                     </ul>
                 </div>
@@ -161,13 +160,13 @@
             <div class="col-md-offset-2 col-md-2 text-center">
                 <!-- style="background-image: url('/img/eatery.ico');background-repeat:no-repeat;background-size:80% 70%;height: 200px"-->
                 <a href="/eatery/index.html">
-                <img src="/img/eatery.ico" style="height: 60%;width: 60%" >
-                 <h2 style="color: whitesmoke ;margin-top: -5%">我是商铺</h2></a>
+                    <img src="/img/eatery.ico" style="height: 60%;width: 60%">
+                    <h2 style="color: whitesmoke ;margin-top: -5%">我是商铺</h2></a>
             </div>
             <div class="col-md-offset-4 col-md-2 text-center">
                 <!-- style="background-image: url('/img/eatery.ico');background-repeat:no-repeat;background-size:80% 70%;height: 200px"-->
                 <a href="/admin/index.html">
-                    <img src="/img/admin.png" style="height: 60%;width: 60%" >
+                    <img src="/img/admin.png" style="height: 60%;width: 60%">
                     <h2 style="color: whitesmoke ;margin-top: -3%">管理员</h2></a>
             </div>
         </div>

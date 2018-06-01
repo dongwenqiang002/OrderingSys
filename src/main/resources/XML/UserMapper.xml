@@ -109,4 +109,10 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
+
+    <select id="selectNotEatery"  resultMap="BaseResultMap">
+       <![CDATA[
+         SELECT *  FROM `user` WHERE id NOT IN(SELECT user_id FROM eatery WHERE user_id IS NOT NULL) AND role != '管理员'
+        ]]>
+    </select>
 </mapper>

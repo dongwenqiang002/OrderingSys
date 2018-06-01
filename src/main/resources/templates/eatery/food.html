@@ -13,7 +13,7 @@
 
                     <div class="form-group">
                         <span>排序 : </span>
-                        <select name="sort" class="form-control" onchange="reLoadTable(this)">
+                        <select name="sort" class="form-control" onchange="food_reLoadTable(this)">
                             <option>编号</option>
                             <option>销量</option>
                             <option>名字</option>
@@ -29,7 +29,7 @@
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 20px">
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="food_onAdd(this)">
                                 <i class="glyphicon glyphicon-plus"></i>商品增加
                             </button>
                         </div>
@@ -63,8 +63,8 @@
                 <td></td>
 
                 <td>
-                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${food.id}+')'">删除</button>
-                    <button class="btn btn-xs btn-waring" th:onclick="'onUpdate('+${food.id}+')'">修改</button>
+                    <button class="btn btn-xs btn-danger" th:onclick="'food_onDelete('+${food.id}+')'">删除</button>
+                    <button class="btn btn-xs btn-waring" th:onclick="'food_onUpdate('+${food.id}+')'">修改</button>
                 </td>
                 <td th:text="${food.des}">巨难吃</td>
             </tr>
@@ -83,14 +83,14 @@
                     <div class="text-center">
 
                         <ul class="pager " style="text-align: right">
-                            <li><a href="javascript:pageChange(-999);"> <span
+                            <li><a href="javascript:food_pageChange(-999);"> <span
                                     class="glyphicon glyphicon-fast-backward"></span></a></li>
-                            <li><a href="javascript:pageChange(-1);"><span
+                            <li><a href="javascript:food_pageChange(-1);"><span
                                     class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                             <li>当前第<span id="span_pageNum" th:text="${pageNum}">1</span>页</li>
-                            <li><a href="javascript:pageChange(1);"><span
+                            <li><a href="javascript:food_pageChange(1);"><span
                                     class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                            <li><a href="javascript:pageChange(999);"> <span
+                            <li><a href="javascript:food_pageChange(999);"> <span
                                     class="glyphicon glyphicon-fast-forward"></span></a></li>
                         </ul>
                     </div>
@@ -102,7 +102,7 @@
     </div>
 </div>
 <script>
-    function reLoadTable(sele) {
+    function food_reLoadTable(sele) {
         var pageNum = parseInt($("#span_pageNum").text());
         var sortName = $(sele).val();
         console.log(sortName);
@@ -113,7 +113,7 @@
         });
     }
 
-    function pageChange(changePage) {
+    function  food_pageChange(changePage) {
         var pageNum = parseInt($("#span_pageNum").text());
         var sortName = $("select[name='sort']").val();
         pageNum += changePage;
@@ -124,22 +124,22 @@
         });
     }
 
-    function onAdd(a) {
+    function food_onAdd(a) {
         $(a).parent().next().load("/eatery/foodAdd.html", function () {
             $(a).parent().next().find("#addModal").modal({keyboard: true});
         });
 
     }
 
-    function onUpdate(id) {
+    function food_onUpdate(id) {
         $("#food_addmodal_div").load("/eatery/foodUpdata.html?foodid="+id, function () {
             $("#food_addmodal_div").find("#foodUpdateModal").modal({keyboard: true});
         })
     }
 
-    function onDelete(id) {
+    function food_onDelete(id) {
         $.get("/food/remove?foodId=" + id, function () {
-            pageChange(0);
+            food_pageChange(0);
         })
     }
 </script>

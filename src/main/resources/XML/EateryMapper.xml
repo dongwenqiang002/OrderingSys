@@ -54,6 +54,9 @@
             <if test="imgUrl != null">
                 img_url,
             </if>
+            <if test="userId != null">
+                user_id ,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -71,6 +74,9 @@
             <if test="imgUrl != null">
                 #{imgUrl,jdbcType=VARCHAR},
             </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="indi.dwq.orderingSys.data.pojo.Eatery">
@@ -87,6 +93,9 @@
             </if>
             <if test="imgUrl != null">
                 img_url = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}

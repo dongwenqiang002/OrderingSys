@@ -32,7 +32,7 @@ public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
     @Value("${file.dir}")
-    private static String fileDir = "D:/Desktop/PROJECT/OrderingSys/file";
+    private static String fileDir = "E:\\Desktop\\project\\OrderingSys\\file";
 
     @Autowired
     private FileService fileService;

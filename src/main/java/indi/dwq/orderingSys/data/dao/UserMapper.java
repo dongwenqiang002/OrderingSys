@@ -27,4 +27,6 @@ public interface UserMapper {
     List<User> All();
 
     boolean updateStateByUserId(@Param("id") Integer userId,@Param("state") Integer state);
+
+    List<User> selectNotEatery();
 }
