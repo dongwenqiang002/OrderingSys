@@ -176,7 +176,7 @@ public class EateryService {
 
     public boolean addEatery(Eatery eatery) {
         eateryMapper.insertSelective(eatery);
-        return false;
+        return true;
     }
 
     public boolean updateEatery(Eatery eatery) {
