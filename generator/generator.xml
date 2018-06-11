@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"
 [<!ENTITY database   "campusnews">
-<!ENTITY Package   "team.agile.campusnews.app">
+<!ENTITY Package   "team.agile.campusnews.data">
 <!--<!ENTITY tabaleName   "Car">
 <!ENTITY className   "Car">-->
 <!ENTITY type   "XMLMAPPER">	<!--注解ANNOTATEDMAPPER   	xml文件XMLMAPPER-->
@@ -38,15 +38,7 @@
         </javaClientGenerator>  
 
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->  
-        <table tableName="news" domainObjectName="News" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="news_detail" domainObjectName="NewsDetail" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="publish_news" domainObjectName="PublishNews" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="schoolos" domainObjectName="Organize" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="user_role" domainObjectName="UserRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="user_schoolos" domainObjectName="UserOrganzie" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
-		<table tableName="user_student" domainObjectName="UserStudent" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
+        <table tableName="publish_news" domainObjectName="PublishNews" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  
 		
 
 		
