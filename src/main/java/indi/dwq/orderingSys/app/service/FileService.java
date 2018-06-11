@@ -27,7 +27,7 @@ public class FileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
     @Value("${file.dir}")
-    private static String fileDir = "E:\\Desktop\\project\\OrderingSys\\file";
+    private static String fileDir = "D:\\Desktop\\PROJECT\\OrderingSys\\file";
     private Random random = new Random(System.currentTimeMillis());
 
 

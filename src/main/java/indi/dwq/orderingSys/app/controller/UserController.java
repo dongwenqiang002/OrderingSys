@@ -75,6 +75,7 @@ public class UserController {
         return "index";
     }
 
+
     /**
      * 获取注册验证码
      */
