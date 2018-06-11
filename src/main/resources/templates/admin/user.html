@@ -15,7 +15,7 @@
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 20px">
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(0)">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="user_onAdd(0)">
                                 <i class="glyphicon glyphicon-plus"></i>增加用户
                             </button>
                         </div>
@@ -57,9 +57,9 @@
                 <td th:text="${user.name}">特朗普</td>
                 <td th:text="${user.phone}">18892061129</td>
                 <td>
-                    <button class="btn btn-xs btn-danger" th:onclick="'onDelete('+${user.id}+')'">删除</button>
+                    <button class="btn btn-xs btn-danger" th:onclick="'user_onDelete('+${user.id}+')'">删除</button>
                     <button class="btn btn-xs btn-waring" th:onclick="'onRepassword('+${user.id}+')'">重置密码</button>
-                    <button class="btn btn-xs btn-info" th:onclick="'onAdd('+${user.id}+')'">修改</button>
+                    <button class="btn btn-xs btn-info" th:onclick="'user_onAdd('+${user.id}+')'">修改</button>
                 </td>
             </tr>
 
@@ -69,14 +69,14 @@
                     <div class="text-center">
 
                         <ul class="pager " style="text-align: right">
-                            <li><a href="javascript:pageChange(-999);"> <span
+                            <li><a href="javascript:user_pageChange(-999);"> <span
                                     class="glyphicon glyphicon-fast-backward"></span></a></li>
-                            <li><a href="javascript:pageChange(-1);"><span
+                            <li><a href="javascript:user_pageChange(-1);"><span
                                     class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                             <li>当前第<span id="span_pageNum" th:text="${pageNum}">3</span>页</li>
-                            <li><a href="javascript:pageChange(1);"><span
+                            <li><a href="javascript:user_pageChange(1);"><span
                                     class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                            <li><a href="javascript:pageChange(999);"> <span
+                            <li><a href="javascript:user_pageChange(999);"> <span
                                     class="glyphicon glyphicon-fast-forward"></span></a></li>
                         </ul>
                     </div>
@@ -97,7 +97,7 @@
         });
     }
 
-    function pageChange(changePage) {
+    function user_pageChange(changePage) {
         var pageNum = parseInt($("#span_pageNum").text());
         pageNum += changePage;
         $("#用户管理").load("/admin/user.html", data = {
@@ -106,14 +106,14 @@
     }
 
 
-    function onAdd(a) {
+    function user_onAdd(a) {
         $("#user_modal_div").load("/admin/user/updata?userId=" + a, function () {
             $("#user_modal_div").find("#addModal").modal({keyboard: true});
         });
 
     }
 
-    function onDelete(id) {
+    function user_onDelete(id) {
         if(confirm("确定要删除该用户吗?")) {
             $.post("/admin/user/delete?userId=" + id, function (msg) {
                 if (msg) {

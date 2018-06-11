@@ -44,7 +44,7 @@
             <td th:text="${order.ps}">无</td>
             <td th:text="${order.state==1?'未接单':'已接单'}">未接单</td>
             <td>
-                <button class="btn btn-xs btn-success" onclick="showModel(this)">查看订单详情</button>
+                <button class="btn btn-xs btn-success" onclick="order_showModel(this)">查看订单详情</button>
                 <div class="modal fade" th:id="${'foodInfo'+order.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content text-center">
@@ -108,7 +108,7 @@
         });
     }
 
-    function showModel(a) {
+    function order_showModel(a) {
             $(a).next().modal({keyboard: true});
 
     }

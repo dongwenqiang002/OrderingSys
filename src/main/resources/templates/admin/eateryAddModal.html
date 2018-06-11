@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商铺图片</label>
                         <div class="col-sm-8">
-                            <img th:if="${eatery.imgUrl !=null}" th:src="'/file/img/'+${eatery.imgUrl}">
+                            <img th:if="${eatery.imgUrl !=null}" th:src="'/file/img/'+${eatery.imgUrl}"  style="width: 100px;height: 100px">
                             <input name="pic" type="file" class="form-control" accept="image/*">
                         </div>
                     </div>
@@ -52,6 +52,14 @@
                                 findCityName($("input[name='address']"));
                             }
                             </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">商铺店主</label>
+                        <div class="col-sm-8">
+                            <select name="userId" class="form-control">
+                                <option th:each="user : ${users}" th:text="${user.username}" th:value="${user.id}"></option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

@@ -2,6 +2,7 @@ package indi.dwq.orderingSys.app.controller;
 
 import indi.dwq.orderingSys.app.service.EateryService;
 import indi.dwq.orderingSys.app.service.FileService;
+import indi.dwq.orderingSys.app.service.UserService;
 import indi.dwq.orderingSys.data.pojo.Eatery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,8 @@ public class AdminEateryController {
     private EateryService eateryService;
     @Autowired
     private FileService fileService;
-
+    @Autowired
+    private UserService userService;
     /**
      * 添加商家
      */
@@ -43,6 +45,7 @@ public class AdminEateryController {
         } else {
             mv.addObject("eatery", eateryService.getEateryAllDeatil(eateryid));
         }
+        mv.addObject("users",userService.getAllNoEaterUser());
         return mv;
     }
 
